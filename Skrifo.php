@@ -43,15 +43,15 @@ $wgSkrifoSettings = array();
 // RESOURCE MODULES
 $wgResourceModules['x.skrifo.styles'] = array(
 	'styles' => array(
-		'skrifo.less' => array( 'media' => 'screen' ),
-		'icons.less' => array( 'media' => 'screen' ),
-		'fonts.less' => array( 'media' => 'screen' )
+		'css/skrifo.less' => array( 'media' => 'screen' ),
+		'css/icons.less' => array( 'media' => 'screen' ),
+		'css/fonts.less' => array( 'media' => 'screen' )
 	),
 	'localBasePath' => __DIR__,
 	'remoteExtPath' => 'Skrifo',
 );
 $wgResourceModules['ext.skrifo.scripts'] = array(
-	'scripts' => array( 'skrifo.js' ),
+	'scripts' => array( '/js/skrifo.js' ),
 	'localBasePath' => __DIR__,
 	'remoteExtPath' => 'Skrifo',
 	'dependencies' => array( 'ext.semanticforms.select2' )
