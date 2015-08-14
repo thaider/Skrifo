@@ -16,28 +16,20 @@
 // LocalSettings.php gesetzt würden
 require_once( "Skrifo.settings.php" );
 
-// SETUP
+
+// EXTENSION SETUP
 $wgExtensionCredits['other'][] = array(
 	'path' => __FILE__,
 	'name' => 'Skrifo',
 	'author' => array( 'Tobias Haider' ),
 	'version' => '0.1.0',
-	'url' => 'https://www.skriptenforum.net/',
+	'url' => 'https://github.com/thaider/Skrifo',
 	'descriptionmsg' => 'skrifo-desc',
 );
 
 $wgAutoloadClasses['SkrifoHooks'] = dirname( __FILE__ ) . '/Skrifo.hooks.php';
 $wgAutoloadClasses['SkrifoNavigation'] = dirname( __FILE__ ) . '/Skrifo.navigation.php';
 $wgMessagesDirs['Skrifo'] = __DIR__ . '/i18n';
-// TODO: obsolete?
-/*$wgExtensionMessagesFiles['SkrifoAlias'] = dirname( __FILE__ ) . '/Skrifo.alias.php';
-
-// SPEZIALSEITE: NEUE LEHRVERANSTALTUNG
-$wgAutoloadClasses['SkrifoNewCourse'] = dirname( __FILE__ ) . '/SpecialSkrifoNewCourse.php';
-$wgSpecialPages['NewCourse'] = 'SkrifoNewCourse';
-*/
-
-$wgSkrifoSettings = array();
 
 
 // RESOURCE MODULES
@@ -75,11 +67,6 @@ $wgResourceModules['ext.Shibboleth.styles'] = array(
 // Resource Modules laden
 $wgHooks['BeforePageDisplay'][] = 'SkrifoHooks::LoadScripts';
 
-// TODO: obsolete?
-$wgHooks['MagicWordwgVariableIDs'][] = 'SkrifoHooks::addMagicWordVariableIDs';
-$wgHooks['LanguageGetMagic'][] = 'SkrifoHooks::addMagicWordLanguage';
-$wgHooks['ParserBeforeTidy'][] = 'SkrifoHooks::handleShowAndHide';
-
 // Link zum VisualEditor nur bei Skripten und Fragenausarbeitungen
 $wgHooks['SkinTemplateNavigation::Universal'][] = 'SkrifoHooks::HideVisualEditorInNavigation';
 
@@ -100,6 +87,9 @@ $wgSkrifoLernunterlagenNS = array(
 	'pruefungsfragen' => 'Prüfungsfragen'
 	);
 
+
+// Anpassungen der TWEEKI skin 
+// siehe http://tweeki.thai-land.at/
 
 // TWEEKI Custom Bootstrap-Dateien
 $wgTweekiSkinCustomizedBootstrap = array(

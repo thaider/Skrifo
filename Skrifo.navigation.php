@@ -10,6 +10,8 @@ class SkrifoNavigation {
 
 	/**
 	 * Studienrichtungen
+	 *
+	 * @param $skin
 	 */
 	static function Studienrichtungen( $skin ) {
 		$mainpage = Title::newMainPage();
@@ -73,15 +75,21 @@ class SkrifoNavigation {
 		echo TweekiHooks::renderButtons( $buttons, $options );
 	}
 
+
 	/**
 	 * Footer
+	 *
+	 * @param $skin
 	 */
 	static function Footer( $skin ) {
 		echo wfMessage( 'Tweeki-footer-custom' )->parse();
 		}
 
+
 	/**
 	 * Download
+	 *
+	 * @param $skin
 	 */
 	static function Download( $skin ) {
 		//Download-Buttons nur bei Skripten und Fragenausarbeitungen! 
@@ -118,8 +126,11 @@ class SkrifoNavigation {
 	*/
 	}
 
+
 	/**
 	 * Watch
+	 *
+	 * @param $skin
 	 */
 	static function Watch( $skin ) {
 		$button = null;
@@ -143,8 +154,11 @@ class SkrifoNavigation {
 		}
 	}
 
+
 	/**
 	 * Edit
+	 *
+	 * @param $skin
 	 */
 	static function Edit( $skin ) {
 		$items = array();
@@ -214,8 +228,11 @@ class SkrifoNavigation {
 		}
 	}
 
+
 	/**
 	 * Lernunterlagen
+	 *
+	 * @param $skin
 	 */
 	static function Lernunterlagen( $skin ) {
 		global $wgSkrifoLernunterlagenNS, $wgServer, $wgArticlePath;
@@ -255,8 +272,11 @@ class SkrifoNavigation {
 		}
 	}
 
+
 	/**
 	 * Dateien
+	 *
+	 * @param $skin
 	 */
 	static function Dateien( $skin ) {
 		global $wgSkrifoLernunterlagenNS, $wgServer, $wgArticlePath;
@@ -281,8 +301,11 @@ class SkrifoNavigation {
 		}
 	}
 
+
 	/**
 	 * Login
+	 *
+	 * @param $skin
 	 */
 	function Login( $skin, $context ) {
 	  	global $wgUser, $wgRequest, $wgScript, $wgTweekiReturnto;
@@ -403,6 +426,5 @@ class SkrifoNavigation {
 				});
 				</script>';
 	}
-	
 	
 }

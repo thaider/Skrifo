@@ -9,18 +9,20 @@
 class SkrifoHooks {
 		
 	/** 
-	 * check whether the current page is in one of the Lernunterlage Namespaces
+	 * Überprüfen, ob aktuelle Seite eine Lernunterlage ist 
 	 *
 	 * @param $skin BaseTemplate
 	 */
 	static function IsLernunterlage( $skin ) {
 		global $wgSkrifoLernunterlagenNS;
 
-		return in_array( $skin->getSkin()->getTitle()->getNsText(), $wgSkrifoLernunterlagenNS );
+		$currentNS = $skin->getSkin()->getTitle()->getNsText();
+		return in_array( $currentNS, $wgSkrifoLernunterlagenNS );
 	}
+
 	
 	/** 
-	 * check whether the current page is a file page and a Lernunterlage
+	 * Überprüfen, ob aktuelle Seite eine Datei-Lernunterlage ist
 	 *
 	 * @param $skin BaseTemplate
 	 */
@@ -34,9 +36,13 @@ class SkrifoHooks {
 			return false;
 		}
 	}
+
 	
 	/**
 	 * BodyClass für Lernunterlagen hinzufügen
+	 *
+	 * @param $skin BaseTemplate
+	 * @param $additionalBodyClasses Array
 	 */
 	static function AdditionalBodyClasses( $skin, &$additionalBodyClasses ) {
 		if( SkrifoHooks::IsLernunterlage( $skin ) ) { 
@@ -45,10 +51,13 @@ class SkrifoHooks {
 		return true;
 	} 
 
+
 	/**
-	 * Add Link to Administration in Toolbox-Dropdown
-	 * @param $sk Skin current skin
-	 * @param &$toolbox Toolbox current contents of toolbox to be modified
+	 * Link zur Administrator*innen-Seite in Toolbox-Dropdown einfügen
+	 *
+	 * @param $personal_urls Array
+	 * @param $title Title
+	 * @param $skin SkinTemplate
 	 */
 	static function AdminLink( &$personal_urls, Title $title, SkinTemplate $skin ) {
 		if( !$skin->getSkin()->getUser()->isAllowed('administrate') )
@@ -62,51 +71,12 @@ class SkrifoHooks {
 		return true;
 		}
 
-	/**
-	 * Register magic-word variable IDs
-	 */
-	static function addMagicWordVariableIDs( &$magicWordVariableIDs ) {
-		$magicWordVariableIDs[] = 'MAG_HIDESIDEBAR';
-		$magicWordVariableIDs[] = 'MAG_HIDELEFTNAVIGATION';
-		$magicWordVariableIDs[] = 'MAG_SEARCHBOX';
-		return true;
-	}
 
 	/**
-	 * Set the actual value of the magic words
-	 */
-	static function addMagicWordLanguage( &$magicWords, $langCode ) {
-		switch( $langCode ) {
-		default:
-			$magicWords['MAG_HIDESIDEBAR'] = array( 0, '__HIDESIDEBAR__' );
-			$magicWords['MAG_HIDELEFTNAVIGATION'] = array( 0, '__HIDELEFTNAVIGATION__' );
-			$magicWords['MAG_SEARCHBOX'] = array( 0, 'SEARCHBOX' );
-		}
-		return true;
-	}
-
-	/**
-	 * Set values in the page_props table based on the presence of the
-	 * 'HIDEFROMDRILLDOWN' and 'SHOWINDRILLDOWN' magic words in a page
-	 */
-	static function handleShowAndHide( &$parser, &$text ) {
-		global $wgOut, $wgAction, $wgSkrifoSettings;
-		$mw_hideside = MagicWord::get( 'MAG_HIDESIDEBAR' );
-		if ( $mw_hideside->matchAndRemove( $text ) ) {
-			$parser->mOutput->setProperty( 'hidesidebar', 'y' );
-			$wgSkrifoSettings['hidesidebar'] = true;
-		}
-		$mw_hideleft = MagicWord::get( 'MAG_HIDELEFTNAVIGATION' );
-		if ( $mw_hideleft->matchAndRemove( $text ) ) {
-			$parser->mOutput->setProperty( 'hideleftnavigation', 'y' );
-			$wgSkrifoSettings['hideleftnavigation'] = true;
-		}
-		return true;
-	}
-
-
-	/**
-	 * add resources for Skrifo extension
+	 * Resource modules für Skrifo hinzufügen
+	 *
+	 * @param $out OutputPage
+	 * @param $skin Skin
 	 */
 	static function LoadScripts( OutputPage &$out, Skin &$skin ) {
 		$out->addModules( array( 'ext.skrifo.scripts' ) );
@@ -114,7 +84,10 @@ class SkrifoHooks {
 
 
 	/**
-	 * add resources for Shibboleth extension
+	 * Resource odules für Shibboleth hinzufügen
+	 *
+	 * @param $out OutputPage
+	 * @param $skin Skin
 	 */
 	static function ShibbolethResources( OutputPage &$out, Skin &$skin ) {
 		$out->addModules( array( 'ext.Shibboleth.scripts', 'ext.Shibboleth.styles' ) );
@@ -122,7 +95,10 @@ class SkrifoHooks {
 
 
 	/**
-	 * hide Visual Editor in Navigation 
+	 * VisualEditor in der Navigation verstecken (außer für Skripten und Fragenausarbeitungen)
+	 *
+	 * @param $sktemplate
+	 * @param $links Array
 	 */
 	static function HideVisualEditorInNavigation( &$sktemplate, &$links ) {
 		$namespace = $sktemplate->getTitle()->getNsText();
@@ -135,8 +111,10 @@ class SkrifoHooks {
 		return true;
 		}
 
+
 	/**
-	 * hide edit button for non-power-users on non-Lernunterlagen-pages
+	 * Bearbeiten-button für Non-Power-Users oder Nicht-Lernunterlagen-Seiten verstecken
+	 *
 	 * @param $item String item to be checked for it's visibility
 	 * @param $qtemplate QuickTemplate template for the current skin
 	 */
@@ -167,8 +145,11 @@ class SkrifoHooks {
 		return false;
 		}
 
+
 	/**
 	 * Page Renderer
+	 *
+	 * @param $skin
 	 */
 	static function PageRenderer( $skin ) {
 		$namespace = $skin->getSkin()->getTitle()->getNamespace();
