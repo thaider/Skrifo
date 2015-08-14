@@ -1,0 +1,1700 @@
+/* colors */
+
+@lightestgrey:#f5f5f5;
+@darkestblue:rgba(20,20,35,1);
+@neongreen:rgba(205,255,110,1);
+@darkgrey:rgba(50,60,65,1);
+@darkgrey90:rgba(50,60,65,.9);
+@blue40:rgba(0,55,85,.4);
+@blue20:rgba(0,55,85,.2);
+@blue10:rgba(0,55,85,.1);
+@blue5:rgba(0,55,85,.05);
+@pink:rgba(255,55,100,1);
+@lightgrey:rgba(11,11,11,1);
+
+@linklight:#666;
+@linkdark:#333;
+
+@breakpoint:768px;
+
+body {
+	background-color: white;
+	font-style:normal;
+
+	/* OpenType features: kerning, ligatures & contextual alternates */
+	font-kerning: normal; /* CSS3 */
+	-webkit-font-feature-settings: "kern" 1, "liga" 1, "calt" 1;
+	-moz-font-feature-settings: "kern=1", "liga=1", "calt=1";	/* Firefox 4.0 to 14.0 */
+	-moz-font-feature-settings: "kern" 1, "liga" 1, "calt" 1;	/* Firefox 15.0 onwards */
+	font-feature-settings: "kern" 1, "liga" 1, "calt" 1;
+
+	/* Make rendering look consistent across platforms */
+	-webkit-font-smoothing: antialiased !important;
+	-moz-osx-font-smoothing: grayscale;
+}
+
+.sk-lernunterlage .mw-content-ltr {
+	font-family:"skolarPEWeb","SkolarSansLatnWeb","Helvetica Neue",Helvetica,Arial,sans-serif;
+}
+
+.sk-lernunterlage .alert {
+	font-family: 'SkolarSansLatnWeb',"Helvetica Neue",Helvetica,Arial,sans-serif;
+}
+.mw-content-ltr a {
+	color:@linklight;
+	border-bottom:dotted 1px @linklight;
+}
+.mw-content-ltr a:hover {
+	color:@linkdark;
+//	border-bottom-style:solid;
+	border:none;
+	text-decoration:none;
+}
+.mw-content-ltr a.btn {
+	border-bottom:solid 1px #ccc;
+}
+.mw-content-ltr {
+	min-height:200px;
+}
+
+/* Hauptseite */
+#mainpage-logos {
+        text-align:center;
+        color:#bbb;
+        font-size:11pt;
+}
+#mainpage-logos a img {
+        opacity:.5;
+}
+#mainpage-logos a img:hover {
+        opacity:1;
+}
+
+body.page-Hauptseite .jumbotron {
+padding:30px 40px;
+}
+
+body.page-Hauptseite .jumbotron h1 {
+margin:10px 0;
+font-size:25px;
+}
+
+body.page-Hauptseite .jumbotron p {
+line-height:24px;
+}
+
+/* kein Symbol für https-Links */
+#content a.external[href ^="https://"],
+.link-https {
+	/* @embed */
+	background: none;
+	padding-right: 0px;
+}
+
+#content .infobox-content ul.dropdown-menu li > a.external[href ^="https://"] {
+	padding: 3px 20px;
+}
+
+/* DRILLDOWN */
+/*
+@media (min-width: 992px) {
+	.drilldown-filters {
+		float:left;
+		border-right:1px #ccc dashed;
+		padding-right:15px;
+		border-bottom:0 !important;
+	}
+}
+@media (max-width: 992px) {
+	.drilldown-filters {
+		border-bottom:1px #ccc dashed !important;
+	}
+}
+.drilldown-filters small {
+	font-size:80%;
+}
+*/
+/* hack it's like it's hot - may 2015 edition */
+.drilldown-filter-values {
+	display:block !important;
+}
+.drilldown-values-toggle {
+	display:none;
+}
+.drilldown-filter-values form > .ui-widget {
+	display:inline-block;
+}
+.drilldown-filter-values form > .ui-widget > button {
+	height:34px;
+}
+.drilldown-categories {
+display:none
+}
+#drilldown-categories-wrapper {
+display:none
+}
+.sk-drilldown .sk-drilldown-details {
+	padding:10px;
+}
+.sk-drilldown {
+	border-radius:5px;
+	border:1px solid transparent;
+}
+.sk-drilldown:hover {
+	border-color:@lightestgrey;
+}
+.sk-drilldown .sk-drilldown-lv {
+	margin-left:15px;
+	color:#666;
+}
+.sk-drilldown:hover .sk-drilldown-lv {
+	color:#333;
+}
+.sk-drilldown .sk-drilldown-info {
+	margin-left:15px;
+}
+.drilldown-description, .drilldown-results p {
+	display:none;
+}
+.drilldown-filter-notes {
+	display:none;
+}
+.sk-drilldown-lastedit,
+.sk-drilldown-semester {
+	white-space:nowrap;
+}
+.sk-drilldown-icon {
+	font-size:25px;
+}
+.sk-drilldown-title {
+	padding-left:3px;
+}	
+.sk-drilldown-title a {
+	color:@darkestblue;
+	font-size:larger;
+}
+
+/* captcha */
+.captcha {
+    border: 1px solid #BBBBBB;
+    margin: 10px 5px;
+    padding: 10px;
+}
+
+/* NEWCOURSE */
+div.newcourse-steps .emph {
+	font-weight:500;
+	}
+div.newcourse-steps+div {
+	margin-bottom:30px;
+	}
+div.newcourse-steps .active span {
+	color:#333;
+	border-radius:3px;
+	box-shadow:0px 0px 5px -2px rgba(0, 0, 0, 0.6);
+	background-color:#fff;
+	border-width:2px;
+	margin-left:-1px;
+	margin-top:-1px;
+	margin-bottom:-1px;
+	}
+#addInput {
+  margin-bottom:10px;
+  margin-left:10px;
+}
+
+/* Dateiseite: Bild bzw. Dateisymbol nicht anzeigen */
+#file {
+  display:none;
+}
+
+/* Infoboxen */
+.infobox {
+	margin-bottom:15px;
+	}
+@media ( min-width: 767px ) { //zweispaltig auf LV-Seiten
+.ns-0 .infobox.col-sm-4 {
+	width:49%;
+	}
+}
+.infobox.col-sm-4 {
+    padding-left: 5px;
+    padding-right: 5px;
+}
+.infoboxen {
+	visibility:auto;
+	}
+.infobox-head {
+font-weight:bold;
+padding:5px 8px;
+text-align:center;
+}
+.infobox-content {
+margin:.5em;
+}
+.infobox th {
+text-align:right;
+font-weight:300;
+font-size:12px;
+letter-spacing:-.01em;
+padding-right:.5em;
+line-height:13px;
+vertical-align:top;
+padding-top:2px;
+}
+.infobox td {
+line-height:1.2em;
+}
+/*
+@media ( min-width: 767px ) { //borders nur bei großen Bildschirmen
+.infoboxen .infobox:first-child + .infobox {
+	border-left:1px #ccc dashed;
+	border-right:1px #ccc dashed;
+}
+.ns-0 .infoboxen .infobox:first-child + .infobox {
+	border-right:none;
+}
+}
+*/
+.infobox small {
+  font-size: 11px;
+  color: #999999;
+}
+.infobox-edit-button {
+	float:right;
+	margin-right:-5px;
+	margin-top:-1px;
+}
+.infobox-content p {
+  margin-bottom:5px;
+  line-height:13px;
+}
+.infobox-content .btn {
+  margin-top:5px;
+}
+/*.infobox-lernunterlagen .infobox-content {
+	width:80%;
+	max-width:200px;
+	margin:10px auto;
+}*/
+.lernunterlagen {
+	text-align:center;
+}
+.lernunterlagen .icon {
+	display:block;
+	font-size:3em;
+}
+.lernunterlagen .erstellen {
+	opacity:.8;
+	margin-top:5px;
+	margin-bottom:5px;
+}
+.sk-erstellen .form-group .lernunterlagen a {
+	border-bottom-width:0;
+	color:@neongreen;
+}
+.sk-lernunterlage-text {
+	margin-top:8px;
+	line-height:1em;
+}
+.direct-download {
+  visibility:hidden;
+}
+li:hover .direct-download {
+  visibility:visible;
+}
+.infobox-table {
+  width:100%;
+}
+div.fileicon {
+	float:left;
+	margin-left:5px;
+}
+div.filename {
+	margin-left:30px;
+	max-width:200px;
+	overflow:hidden;
+	text-overflow:ellipsis;
+	white-space:nowrap;
+}
+.infobox-content ul.dropdown-menu li > a {
+	display:inline;
+	padding: 0 5px;
+}
+.infobox-content ul.dropdown-menu li .filename {
+	padding:2px 0;
+}
+.infobox-content ul.dropdown-menu li a > img {
+	margin-left:5px;
+	margin-top:5px;
+}
+.infobox-content ul.dropdown-menu li:hover {
+	background-color:#eee;
+}
+div.user {
+	white-space:nowrap;
+	display:inline;
+}
+
+/* DATEI HOCHLADEN - überflüssige Optionen (Beschreibung, Lizenz, Optionen) ausblenden */
+.mw-htmlform-field-Licenses {
+ display:none;
+}
+#mw-upload-form fieldset+fieldset+fieldset {
+ display:none;
+}
+
+/* Toc,
+externer Editor-Link,
+Dateiverwendungen,
+ verbergen */
+#filetoc,
+#filelinks, 
+#mw-imagepage-edit-external,
+#mw-imagepage-nolinkstoimage,
+#mw-imagepage-section-linkstoimage {
+  display:none
+}
+/* Dateiversionen verbergen */
+#filehistory,
+#mw-imagepage-section-filehistory,
+#mw-imagepage-reupload-link,
+#metadata,
+.mw-imagepage-section-metadata {
+	display:none;
+}
+
+/* USABILITY 2014 */
+/* SEARCH */
+/* Namespace-Auswahl verstecken */
+.mw-search-formheader {
+	display:none;
+}
+/* Überschriften verkleinern */
+.searchresults h2 {
+	font-size:26px;
+}
+
+/* FORMS */
+/* schoener formatieren */
+.formlabel {
+	font-weight:bold;
+	margin-top:10px;
+	margin-bottom:5px;
+}
+.formfield {
+}
+.formfield textarea, .formfield input {
+	margin-bottom:0;
+}
+.formDesc {
+	color:#666;
+}
+.formlegend {
+    -moz-border-bottom-colors: none;
+    -moz-border-left-colors: none;
+    -moz-border-right-colors: none;
+    -moz-border-top-colors: none;
+    border-bottom-color: #E5E5E5;
+    border-bottom-style: solid;
+    border-bottom-width: 1px;
+    border-image-outset: 0 0 0 0;
+    border-image-repeat: stretch stretch;
+    border-image-slice: 100% 100% 100% 100%;
+    border-image-source: none;
+    border-image-width: 1 1 1 1;
+    border-left-color-ltr-source: physical;
+    border-left-color-rtl-source: physical;
+    border-left-color-value: -moz-use-text-color;
+    border-left-style-ltr-source: physical;
+    border-left-style-rtl-source: physical;
+    border-left-style-value: none;
+    border-left-width-ltr-source: physical;
+    border-left-width-rtl-source: physical;
+    border-left-width-value: 0;
+    border-right-color-ltr-source: physical;
+    border-right-color-rtl-source: physical;
+    border-right-color-value: -moz-use-text-color;
+    border-right-style-ltr-source: physical;
+    border-right-style-rtl-source: physical;
+    border-right-style-value: none;
+    border-right-width-ltr-source: physical;
+    border-right-width-rtl-source: physical;
+    border-right-width-value: 0;
+    border-top-color: -moz-use-text-color;
+    border-top-style: none;
+    border-top-width: 0;
+    color: #333333;
+    display: block;
+    font-size: 21px;
+    line-height: 40px;
+    margin-bottom: 20px;
+    padding-bottom: 0;
+    padding-left: 0;
+    padding-right: 0;
+    padding-top: 0;
+    width: 100%;
+}
+
+/* Search field */
+        div#simpleSearch {
+                display: block;
+                width: 14em;
+                height: 1.6em;
+                margin-top: 0.65em;
+                position: relative;
+                min-height: 1px; /* Gotta trigger hasLayout for IE7 */
+                border: solid 1px #AAAAAA;
+                color: black;
+                background-color: white;
+                /* @embed */
+                background-image: url(images/search-fade.png);
+                background-position: top left;
+                background-repeat: repeat-x;
+        }
+        div#simpleSearch label {
+                /*
+                 * DON'T PANIC! Browsers that won't scale this properly are the same browsers that have JS issues that prevent
+                 * this from ever being shown anyways.
+                */
+                font-size: 13px;
+                top: 0.25em;
+                direction: ltr;
+        }
+        div#simpleSearch input {
+                color: black;
+                direction: ltr;
+        }
+        div#simpleSearch input:focus {
+                outline: none;
+                color: #999999;
+        }
+        div#simpleSearch input::-webkit-input-placeholder {
+                color: #999999;
+        }
+        div#simpleSearch input#searchInput {
+                position: absolute;
+                top: 0;
+                left: 0;
+                width: 90%;
+                margin: 0;
+                padding: 0;
+                padding-left: 0.2em;
+                padding-top: 0.2em;
+                padding-bottom: 0.2em;
+                outline: none;
+                border: none;
+                /*
+                 * DON'T PANIC! Browsers that won't scale this properly are the same browsers that have JS issues that prevent
+                 * this from ever being shown anyways.
+                */
+                font-size: 13px;
+                background-color: transparent;
+                direction: ltr;
+        }
+        div#simpleSearch button#searchButton {
+                position: absolute;
+                width: 10%;
+                right: 0;
+                top: 0;
+                padding: 0;
+                padding-top: 0.3em;
+                padding-bottom: 0.2em;
+                padding-right: 0.4em;
+                margin: 0;
+                border: none;
+                cursor: pointer;
+                background-color: transparent;
+                background-image: url("images/search-ltr.png");
+                background-position: center center;
+                background-repeat: no-repeat;
+        }
+        /* OVERRIDDEN BY COMPLIANT BROWSERS */
+        div#simpleSearch button#searchButton img {
+                border: none;
+                margin: 0;
+                margin-top: -3px;
+                padding: 0;
+        }
+        /* IGNORED BY IE6 */
+        div#simpleSearch button#searchButton > img {
+                margin: 0;
+        }
+
+        #p-search h5 {
+                display: none;
+        }
+
+/* categorytree */
+span.dynatree-icon {
+display:none;
+}
+
+/* corrections for manually built buttons (links in spans) */
+.btn a:hover {
+    text-decoration: none;
+}
+
+.btn a {
+    color: #333333;
+    display: block;
+}
+
+/* NAVBAR */
+
+/* fix for headline anchors */
+
+.with-navbar.with-navbar-fixed .mw-headline {
+	padding-top: 40px;
+}
+
+.skrifo-navbar {
+	background-image:none;
+	box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+	background-color: @darkestblue;
+	border-color: white;
+	border-width:0;
+	border-bottom-width:1px;
+}
+
+// make it, so that links are over the whole width
+.skrifo-navbar .navbar-nav > li.nav-block {
+	float:none;
+}
+
+// buttons for desktops
+@media ( min-width:@breakpoint ) {
+	.navbar-nav > li > a {
+		background-color:@darkgrey90;
+		margin:15px 2px 15px 2px;
+		padding-top:0;
+		padding-bottom:0;
+		line-height:30px;
+		border-radius:2px;
+		font-weight:bold;
+		text-shadow:none;
+	}
+
+	// hack: there is some mysterious spacing
+	.navbar-nav > li.hinzufugen {
+		//height:30px;
+	}
+	.navbar-nav > li.hinzufugen > a {
+		font-size:30px;
+		line-height:20px;
+		background-color:@neongreen;
+		padding-right:5px;
+		padding-left:5px;
+	}
+	.scrolled .navbar-nav > li.hinzufugen > a {
+		margin-top:1px;
+	}
+
+	.navbar-nav > li.hilfe {
+		text-align:center;
+	}
+
+	.navbar-default .navbar-nav > li.hilfe > a,
+	.navbar-default .navbar-nav > li.hilfe > a:hover {
+		background-color:transparent;
+	}
+
+	.sk-hilfe-text {
+		font-size:10px;
+		line-height:1em;
+		margin-top:1px;
+	}
+
+	.sk-hilfe-icon {
+		font-size:17px;
+		line-height:1em;
+		background-color:@darkgrey90;
+		border-radius:20px;
+	}
+	a:hover .sk-hilfe-icon {
+		backgroundcolor:@darkgrey90;
+	}
+
+	.skrifo-navbar-form .form-control {
+		height:30px;
+	}
+	
+	// HACK: caret rechtsbündig
+	.skrifo-navbar .caret {
+		float:right;
+		margin-top:13px;
+	}
+
+	// SCROLLED
+	.scrolled .navbar-nav > li > a {
+		margin:2px;
+	}
+
+	.scrolled .navbar-fixed-top .skrifo-navbar-collapse.skrifo-navbar-form, 
+	.scrolled .navbar-static-top .skrifo-navbar-collapse.skrifo-navbar-form, 
+	.scrolled .navbar-fixed-bottom .skrifo-navbar-collapse.skrifo-navbar-form {
+		margin:2px 0;
+	}
+
+	.scrolled .navbar {
+		min-height:34px;
+	}
+
+	.scrolled .navbar-brand {
+		height:34px;
+	}
+
+	.scrolled .navbar-brand img {
+		height:29px;
+		margin-top:-12px;
+	}
+
+	.scrolled .navbar-nav > li.hilfe > a {
+		padding-right:12px;
+	}
+
+	.scrolled .sk-hilfe-text {
+		display:none;
+	}
+
+	.scrolled .sk-hilfe-icon {
+		font-size:25px;
+		padding-top:2px;
+		padding-left:8px;
+		padding-right:8px;
+	}
+
+}
+
+
+
+// make skrifo-navbar-collapse work properly (copied over from bootstrap.css)
+// had problems with the width
+.skrifo-navbar-collapse {
+  padding-right: 15px;
+  padding-left: 15px;
+  overflow-x: visible;
+  -webkit-overflow-scrolling: touch;
+  border-top: 1px solid transparent;
+  -webkit-box-shadow: inset 0 1px 0 rgba(255, 255, 255, .1);
+          box-shadow: inset 0 1px 0 rgba(255, 255, 255, .1);
+}
+.skrifo-navbar-collapse.in {
+  overflow-y: auto;
+}
+@media (min-width: 768px) {
+  .skrifo-navbar-collapse {
+//    width: auto;
+    border-top: 0;
+    -webkit-box-shadow: none;
+            box-shadow: none;
+  }
+  .skrifo-navbar-collapse.collapse {
+    display: block !important;
+    height: auto !important;
+    padding-bottom: 0;
+    overflow: visible !important;
+    visibility: visible !important;
+  }
+  .skrifo-navbar-collapse.in {
+    overflow-y: visible;
+  }
+  .navbar-fixed-top .skrifo-navbar-collapse,
+  .navbar-static-top .skrifo-navbar-collapse,
+  .navbar-fixed-bottom .skrifo-navbar-collapse {
+    padding-right: 0;
+    padding-left: 0;
+  }
+}
+.navbar-fixed-top .skrifo-navbar-collapse,
+.navbar-fixed-bottom .skrifo-navbar-collapse {
+  max-height: 340px;
+}
+@media (max-device-width: 480px) and (orientation: landscape) {
+  .navbar-fixed-top .skrifo-navbar-collapse,
+  .navbar-fixed-bottom .skrifo-navbar-collapse {
+    max-height: 200px;
+  }
+}
+.container > .skrifo-navbar-collapse,
+.container-fluid > .skrifo-navbar-collapse {
+  margin-right: -15px;
+  margin-left: -15px;
+}
+@media (min-width: 768px) {
+  .container > .skrifo-navbar-collapse,
+  .container-fluid > .skrifo-navbar-collapse {
+    margin-right: 0;
+    margin-left: 0;
+  }
+}
+.skrifo-navbar-collapse:before,
+.skrifo-navbar-collapse:after {
+  display: table;
+  content: " ";
+}
+.skrifo-navbar-collapse:after {
+  clear: both;
+}
+
+// use skrifo-navbar-form instead of navbar-form
+// again problems with the width
+.skrifo-navbar-form {
+  padding: 10px 15px;
+  margin-top: 8px;
+  margin-right: -15px;
+  margin-bottom: 8px;
+  margin-left: -15px;
+  border-top: 1px solid transparent;
+  border-bottom: 1px solid transparent;
+  -webkit-box-shadow: inset 0 1px 0 rgba(255, 255, 255, .1), 0 1px 0 rgba(255, 255, 255, .1);
+          box-shadow: inset 0 1px 0 rgba(255, 255, 255, .1), 0 1px 0 rgba(255, 255, 255, .1);
+}
+@media (min-width: 768px) {
+  .skrifo-navbar-form .form-group {
+//    display: inline-block;
+    margin-bottom: 0;
+    vertical-align: middle;
+  }
+  .skrifo-navbar-form .form-control {
+//    display: inline-block;
+//    width: auto;
+    vertical-align: middle;
+  }
+  .skrifo-navbar-form .form-control-static {
+    display: inline-block;
+  }
+  .skrifo-navbar-form .input-group {
+    display: inline-table;
+    vertical-align: middle;
+  }
+  .skrifo-navbar-form .input-group .input-group-addon,
+  .skrifo-navbar-form .input-group .input-group-btn,
+  .skrifo-navbar-form .input-group .form-control {
+//    width: auto;
+  }
+  .skrifo-navbar-form .input-group > .form-control {
+    width: 100%;
+  }
+  .skrifo-navbar-form .control-label {
+    margin-bottom: 0;
+    vertical-align: middle;
+  }
+  .skrifo-navbar-form .radio,
+  .skrifo-navbar-form .checkbox {
+    display: inline-block;
+    margin-top: 0;
+    margin-bottom: 0;
+    vertical-align: middle;
+  }
+  .skrifo-navbar-form .radio label,
+  .skrifo-navbar-form .checkbox label {
+    padding-left: 0;
+  }
+  .skrifo-navbar-form .radio input[type="radio"],
+  .skrifo-navbar-form .checkbox input[type="checkbox"] {
+    position: relative;
+    margin-left: 0;
+  }
+  .skrifo-navbar-form .has-feedback .form-control-feedback {
+    top: 0;
+  }
+}
+@media (max-width: 767px) {
+  .skrifo-navbar-form .form-group {
+    margin-bottom: 5px;
+  }
+  .skrifo-navbar-form .form-group:last-child {
+    margin-bottom: 0;
+  }
+}
+@media (min-width: 768px) {
+	.navbar-fixed-top .skrifo-navbar-collapse.skrifo-navbar-form, 
+	.navbar-static-top .skrifo-navbar-collapse.skrifo-navbar-form, 
+	.navbar-fixed-bottom .skrifo-navbar-collapse.skrifo-navbar-form {
+		padding: 0 2px;
+		margin:15px 0;
+		border: 0;
+		-webkit-box-shadow: none;
+		box-shadow: none;
+	}
+}
+.navbar-default .skrifo-navbar-form {
+  border-color: #e7e7e7;
+}
+.navbar-inverse .skrifo-navbar-form {
+  border-color: #101010;
+}
+
+.navbar-default .navbar-nav > li > a {
+    color: #fff;
+    text-shadow: 0 1px 0 rgba(0, 0, 0, 0.25);
+}
+.navbar-default .navbar-nav > li > a:hover,
+.navbar-default .navbar-nav > li > a:focus,
+.navbar-default .navbar-nav > .active > a, 
+.navbar-default .navbar-nav > .active > a:hover, 
+.navbar-default .navbar-nav > .active > a:focus {
+    color: #fff;
+    text-shadow: 0 1px 0 rgba(0, 0, 0, 0.25);
+    background-color: #0e3d65;
+}
+.navbar-default .navbar-nav > .open > a, 
+.navbar-default .navbar-nav > .open > a:hover, 
+.navbar-default .navbar-nav > .open > a:focus {
+    background-image: -webkit-linear-gradient(top, #06233f 0%, #0e3d65 100%);
+    background-image:      -o-linear-gradient(top, #06233f 0%, #0e3d65 100%);
+    background-image: -webkit-gradient(linear, left top, left bottom, from(#06233f), to(#0e3d65));
+    background-image:         linear-gradient(to bottom, #06233f 0%, #0e3d65 100%);
+    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#06233f', endColorstr='#0e3d65', GradientType=0);
+    filter: progid:DXImageTransform.Microsoft.gradient(enabled = false);
+    background-color: #06233f;
+    color: #fff;
+}
+.navbar-default .navbar-toggle .icon-bar {
+    background-color: #fff;
+}
+.navbar-default .navbar-toggle:hover, .navbar-default .navbar-toggle:focus {
+    background-color: #0e3d65;
+}
+.navbar-default .navbar-toggle {
+    border-color: #fff;
+}
+
+@media (max-width: 768px) {
+.navbar-default .navbar-nav .open .dropdown-menu > li > a,
+.navbar-default .navbar-nav .open .dropdown-menu > li > a:hover,
+.navbar-default .navbar-nav .open .dropdown-menu > li > a:focus {
+    color: #fff;
+}
+.dropdown-menu .divider {
+    background-color: #124d80;
+}
+.navbar-default .btn-link {
+color: #fff;
+}
+}
+
+// remove borders
+@media (min-width: 768px) {
+.navbar-nav > li + li {
+    border-left: none;
+}
+.navbar-nav > li {
+//    border-left: 1px solid #124d80;
+//    border-right: 1px solid #124d80;
+	border:none;
+}
+}
+
+.navbar-default .navbar-collapse, 
+.navbar-default .navbar-form {
+    border-color: #124d80;
+}
+
+/* LOGO */
+
+.navbar-brand img {
+    height: 29px;
+    margin-top:0;
+}
+
+/* DOWNLOAD */
+
+#DownloadEdit {
+   margin-bottom: 3px;
+}
+
+/* UGLY HACK */
+/* SMW is showing ugly tags in Drilldown - hide them */
+.drilldown-results .new {
+    display: none;
+}
+
+/* UGLY HACK */
+/* Bootstrap changed styling of .paging */
+.pagination ul {
+    border-radius: 4px;
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
+    display: inline-block;
+    margin-bottom: 0;
+    margin-left: 0;
+    padding:0;
+}
+.pagination ul > li {
+    display: inline;
+}
+.pagination ul > li > a, .pagination ul > li > span {
+    -moz-border-bottom-colors: none;
+    -moz-border-left-colors: none;
+    -moz-border-right-colors: none;
+    -moz-border-top-colors: none;
+    background-color: #ffffff;
+    border-color: #dddddd;
+    border-image: none;
+    border-style: solid;
+    border-width: 1px 1px 1px 0;
+    float: left;
+    line-height: 20px;
+    padding: 4px 12px;
+    text-decoration: none;
+}
+.pagination ul > li > a:hover, .pagination ul > .active > a, .pagination ul > .active > span {
+    background-color: #f5f5f5;
+}
+.pagination ul > .active > a, .pagination ul > .active > span {
+    color: #999999;
+    cursor: default;
+}
+.pagination ul > .disabled > span, .pagination ul > .disabled > a, .pagination ul > .disabled > a:hover {
+    background-color: transparent;
+    color: #999999;
+    cursor: default;
+}
+.pagination ul > li:first-child > a, .pagination ul > li:first-child > span {
+    border-bottom-left-radius: 4px;
+    border-left-width: 1px;
+    border-top-left-radius: 4px;
+}
+.pagination ul > li:last-child > a, .pagination ul > li:last-child > span {
+    border-bottom-right-radius: 4px;
+    border-top-right-radius: 4px;
+}
+.pagination-centered {
+    text-align: center;
+}
+.pagination-right {
+    text-align: right;
+}
+.pagination-large ul > li > a, .pagination-large ul > li > span {
+    font-size: 17.5px;
+    padding: 11px 19px;
+}
+.pagination-large ul > li:first-child > a, .pagination-large ul > li:first-child > span {
+    border-bottom-left-radius: 6px;
+    border-top-left-radius: 6px;
+}
+.pagination-large ul > li:last-child > a, .pagination-large ul > li:last-child > span {
+    border-bottom-right-radius: 6px;
+    border-top-right-radius: 6px;
+}
+.pagination-mini ul > li:first-child > a, .pagination-small ul > li:first-child > a, .pagination-mini ul > li:first-child > span, .pagination-small ul > li:first-child > span {
+    border-bottom-left-radius: 3px;
+    border-top-left-radius: 3px;
+}
+.pagination-mini ul > li:last-child > a, .pagination-small ul > li:last-child > a, .pagination-mini ul > li:last-child > span, .pagination-small ul > li:last-child > span {
+    border-bottom-right-radius: 3px;
+    border-top-right-radius: 3px;
+}
+.pagination-small ul > li > a, .pagination-small ul > li > span {
+    font-size: 11.9px;
+    padding: 2px 10px;
+}
+.pagination-mini ul > li > a, .pagination-mini ul > li > span {
+    font-size: 10.5px;
+    padding: 0 6px;
+}
+
+/* Abschnitt bearbeiten-Optionen ausblenden */
+.mw-editsection-divider, .mw-editsection-divider + a {
+	display:none;
+}
+
+/* Fächer */
+.fach {
+    	line-height: 1.2em;
+	white-space: nowrap;
+	max-width:140px;
+	overflow:hidden;
+	text-overflow:ellipsis;
+	display:inline-block;
+	border-radius:6px;
+	background:#eee;
+	margin-bottom:-3px;
+	margin-top:1px;
+	padding:0 10px;
+}
+.fach a:hover {
+	text-decoration:none;
+}
+
+/* Visual Editor */
+/* UGLY HACKING */
+.scrolled .oo-ui-toolbar-bar {
+	z-index:100;
+}
+.scrolled .mw-body > .oo-ui-toolbar {
+	position:fixed;
+	top:35px;
+}
+.oo-ui-windowManager-modal > .oo-ui-dialog.oo-ui-window-setup {
+	top:60px !important;
+}
+.ve-ui-overlay {
+	z-index:101 !important;
+}
+@media (min-width: 992px) {
+	.scrolled .mw-body > .oo-ui-toolbar {
+		width:555px;
+	}
+}
+/* TODO: add values for the other breakpoints */
+
+/* UGLY HACKING */
+/* Anmeldeformular */
+label[for="wpPassword1"] {
+	width:100%;
+}
+
+/* überflüssige Einstellungen verstecken */
+#preftoc a#preftab-smw,
+#mw-prefsection-personal-signature,
+#mw-prefsection-rendering-skin,
+#mw-prefsection-rendering-timeoffset,
+#mw-prefsection-editing-labs {
+    display: none;
+}
+
+/* überflüssige Menüpunkte verstecken */
+#pt-mytalk,
+#pt-mycontris {
+	display:none;
+}
+#pt-personaltools + ul > .divider {
+	display:none;
+}
+
+/* FOOTER */
+#footer {
+    margin-top: 10px;
+    text-align: left;
+}
+#footer .totop {
+    margin-top: -15px;
+    text-align: center;
+}
+#footer .totop .btn.btn-link {
+    border-radius: 15px;
+    color: #666;
+    padding: 0 5px 2px;
+    background-color: white;
+}
+#footer .container a {
+    color: #555;
+    border-bottom: 1px dotted black;
+}
+#footer .container a:hover {
+    text-decoration: none;
+    color:black;
+}
+
+// position relative in order to have z-indexes right
+#footer.footer-sticky {
+	position:relative;
+}
+
+/* LAYOUT */
+/* linke Spalte */
+#sidebar a:hover {
+	text-decoration:none;
+}
+#sidebar .sk-sidebar-lernunterlage {
+	border-left:2px solid transparent;
+	padding-left:2px;
+	clear:both;
+	height:21px;
+	margin-top:5px;
+}
+.sk-sidebar-lernunterlage a.lernunterlage {
+	color:@darkestblue;
+	opacity:.8;
+}
+.sk-sidebar-lernunterlage a.lernunterlage:hover .lernunterlage-text {
+	opacity:1;
+	background-color:#eee;
+}
+.sk-sidebar-lernunterlage a.lernunterlage.lernunterlage-erstellen {
+	color:#aaa;
+}
+.sk-sidebar-lernunterlage a.lernunterlage.lernunterlage-erstellen:hover .lernunterlage-text {
+	color:#666;
+}
+.lernunterlage-icon {
+	display:block;
+	float:left;
+	font-size:20px;
+}	
+.lernunterlage-text .lernunterlage-erstellen-icon {
+	float:right;
+	line-height:20px;
+}
+.lernunterlage-text .caret {
+	float:right;
+	margin-top:8px;
+	margin-right:3px;
+}
+.lernunterlage-text {
+	font-size:smaller;
+	line-height:.6em;
+	background-color:@lightestgrey;
+	border-radius:2px;
+	display:block;
+	font-size:13px;
+	line-height:21px;
+	margin-left:23px;
+	padding:0 5px;
+}
+
+#sidebar .active.sk-sidebar-lernunterlage {
+	border-left-color:red;
+}
+.sk-sidebar-lernunterlage.active .lernunterlage-text {
+	font-weight:bold;
+}
+
+/* rechte Spalte */
+#page-header { // is this the right id?
+	position: fixed;
+	top: 90px;
+	left: 83.33%;
+	width: 8.33%;
+}
+
+.skrifo-sidebar-right {
+	text-align:center;
+	font-size:smaller;
+}
+.skrifo-sidebar-right a {
+	color:@darkestblue;
+	opacity:.8;
+}
+
+.skrifo-sidebar-right a:hover {
+	text-decoration:none;
+	opacity:1;
+}
+
+/* WATCH */
+#ca-unwatch a:before,
+#ca-watch a:before {
+	font-size:3em;
+	display: block;
+	margin-bottom: -5px;
+	font-family: 'icomoon';
+	speak: none;
+	font-style: normal;
+	font-weight: normal;
+	font-variant: normal;
+	text-transform: none;
+
+	/* Better Font Rendering =========== */
+	-webkit-font-smoothing: antialiased;
+	-moz-osx-font-smoothing: grayscale;
+}
+#ca-watch a, #ca-unwatch a {
+	padding-top:0;
+}
+#ca-watch a:before {
+	content: "\e603";
+}
+#ca-unwatch a:before {
+	content: "\e604";
+}
+
+/* NOTIFICATIONS */
+.mw-notification-area {
+	padding: 1em 2em !important;
+	width: 100% !important;
+}
+
+/* STUDIENRICHTUNGS-DROPDOWN */
+.studienrichtung-selects,
+.divider-selects {
+	display:none;
+}
+.studienrichtung-selects {
+	padding-left:5px;
+	padding-right:5px;
+}
+.studienrichtung-expand .studienrichtung-top {
+	display:none;
+}
+.studienrichtung-expand .studienrichtung-selects,
+.studienrichtung-expand .divider-selects {
+	display:block;
+}
+#uni-select + div {
+	margin-top:3px;
+}
+#studienrichtung-select {
+	display:none;
+}
+.studienrichtung-toggle {
+	cursor:pointer;
+}
+
+@media ( min-width:@breakpoint ) {
+	.skrifo-navbar .navbar-nav > li > .dropdown-menu {
+		margin-top:-13px;
+		padding:7px 0;
+		border:none;
+		box-shadow:none;
+		min-width:100%;
+		background-color:@darkgrey90;
+		width:100%;
+		border-radius:3px;
+	}
+
+	.skrifo-navbar .navbar-nav > li > .dropdown-menu.sk-studienrichtung-dropdown,
+	.skrifo-navbar .navbar-nav > li > .dropdown-menu#loginext {
+		padding:0;
+		background-color:transparent;
+		border-radius:0;
+	}
+
+	.scrolled .skrifo-navbar .navbar-nav > li > .dropdown-menu {
+		margin-top:0;
+	}
+
+	.sk-studienrichtung-dropdown .divider:first-child,
+	#loginext .divider.sk-dropdown-top {
+		background-color:@darkgrey90;
+		height:7px;
+		border-top-left-radius:3px;
+		border-top-right-radius:3px;
+		margin:0;
+		margin-top:3px;
+	}
+
+	.sk-studienrichtung-dropdown .studienrichtung-top + .divider,
+	#loginext .divider.sk-dropdown-bottom {
+		background-color:@darkgrey90;
+		height:8px;
+		border-bottom-left-radius:3px;
+		border-bottom-right-radius:3px;
+		margin:0;
+	}
+
+	.skrifo-navbar .dropdown-menu > li > a {
+		color:white;
+		background-color:transparent;
+		overflow:hidden;
+		text-overflow:ellipsis;
+		line-height:1.3;
+		font-size:13px;
+		padding:2px 10px;
+	}
+
+	.skrifo-navbar .dropdown-menu > li {
+		color:white;
+	}
+
+	.skrifo-navbar .dropdown-menu.sk-studienrichtung-dropdown > li > a,
+	#loginext.dropdown-menu > li {
+		background-color:@darkgrey90;
+	}
+
+	.skrifo-navbar .dropdown-menu > li > a:hover,
+	.skrifo-navbar .dropdown-menu > li > a:active,
+	.skrifo-navbar .dropdown-menu > li > a:focus {
+		background-image:none;
+		background-color:@darkestblue;
+	}
+
+	#loginext.dropdown-menu > li.sk-dropdown-section {
+		background-color:transparent;
+	}
+
+	#loginext .col-md-12 {
+		padding-left:10px;
+		padding-right:10px;
+	}
+	#loginext.skrifo-loginext .col-md-10 {
+		padding-left:10px;
+	}
+	#loginext.skrifo-loginext .col-md-2 {
+		padding-right:10px;
+		padding-left:0;
+	}
+
+	.dropdown-menu .sk-link-sm {
+		font-size:10px;
+		color:white;
+		border-bottom:dotted white 1px;
+	}
+	.dropdown-menu .sk-link-sm:hover {
+		text-decoration:none;
+		border-bottom:solid white 1px;
+	}
+
+	.sk-link-primary {
+		color:@neongreen;
+	}
+	.navbar-default .btn-link.sk-link-primary {
+		color:@neongreen;
+	}
+
+	.dropdown-menu > li.sk-dropdown-section > a {
+		padding:5px 10px;
+		border-radius:3px;
+		margin-top:3px;
+		background-color:@darkgrey;
+		font-size:14px;
+		text-overflow:clip;
+		font-weight:bold;
+	}
+
+	.studienrichtung-selects {
+		background-color:@darkgrey90;
+		margin-top:3px;
+		border-radius:3px;
+		padding:5px;
+	}
+
+	#loginext.skrifo-loginext .dropdown-header {
+		font-weight: 700;
+		padding:0 10px 5px;
+	}
+	#loginext.skrifo-loginext {
+		padding:0;
+		width:100%;
+	}
+	#loginext.skrifo-loginext .divider {
+	}
+	#loginext.skrifo-loginext .btn.btn-link.center-block {
+		margin-bottom: 5px;
+		margin-top: -5px;
+	}
+	#loginext.skrifo-loginext #wpLoginAttempt2 {
+		margin:0;
+	}
+	#loginext.skrifo-loginext .row {
+		margin-top: 0;
+	}
+	#loginext .col-md-2, #loginext .col-md-4, #loginext .col-md-5, #loginext .col-md-6, #loginext .col-md-10 {
+		padding-left:5px;
+		padding-right:5px;
+	}
+
+}
+
+/* VERSIONSGESCHICHTE */
+.mw-history-histlinks, .history-size, .history-user .mw-usertoollinks, 
+#mw-history-searchform label, #mw-history-searchform input, #mw-history-searchform select, .mw-tag-markers, #mw-history-search {
+	display:none;
+}
+..mw-changeslist-separator {
+	color:#999;
+}
+.mw-changeslist-date {
+	font-weight:bold;
+}
+#pagehistory {
+	padding-left:0;
+	padding-top:5px;
+	padding-bottom:5px;
+	margin-bottom:0;
+}
+#pagehistory li {
+	list-style-type:none;
+}
+.mw-plusminus-neg, .mw-plusminus-pos {
+	font-size:smaller;
+}
+
+/* PREFERENCES */
+.mw-htmlform-field-HTMLCheckField input, .mw-htmlform-field-HTMLCheckField label {
+	display:inline;
+	height:auto;
+	font-weight:normal;
+}
+
+/* LV ERSTELLEN */
+.sk-erstellen-vortragende-weiter,
+.sk-erstellen-titel, 
+.sk-erstellen-studienrichtung, 
+.sk-erstellen-abschliessen {
+	display:none;
+}
+.sk-erstellen .form-group {
+	background-color: @darkgrey;
+	border-radius: 3px;
+	color: white;
+	padding: 5px 15px;
+	margin-bottom:5px;
+}
+.sk-erstellen label {
+	font-size:larger;
+}
+.sk-erstellen h3 {
+	margin-top:10px;
+}
+.sk-erstellen .sk-erstellen-weiter {
+	font-size:large;
+	color:@neongreen;
+	text-align:right;
+}
+.sk-erstellen .sk-erstellen-weiter .icon-weiter_rund, 
+.sk-erstellen .sk-erstellen-weiter .icon-weiter_eckig {
+	cursor:pointer;
+}
+.sk-erstellen-abschliessen-weiter {
+	cursor:pointer;
+	font-size:15px;
+}
+.sk-erstellen-abschliessen-weiter .icon-weiter_eckig {
+	vertical-align:middle;
+	font-size:20px;
+}
+.sk-erstellen .form-group a {
+	color:@lightestgrey;
+}
+.sk-erstellen .form-group a:hover {
+	color:white;
+}
+.sk-erstellen-bestehende-spinner {
+	display:none;
+}
+.sk-erstellen-bestehende-titel {
+	font-size:small;
+	margin-left:10px;
+	line-height:1.1;
+	margin-bottom:5px;
+}
+input.select2-input {
+	height:auto;
+}
+.sk-erstellen-abschliessen-btn {
+	visibility:hidden;
+}
+
+/* ICONS */
+
+.tool-icon {
+	font-size:3em;
+}
+
+.studienrichtung-toggle .icon-weiter_studienrichtungen,
+#loginext .icon-aufmachen {
+	color:@neongreen;
+	vertical-align:middle;
+	font-size:1.2em;
+}
+
+.studienrichtung-expand .studienrichtung-toggle .icon-weiter_studienrichtungen:before {
+	content: "\e612";
+	color: #ccc;
+}
+
+/* REINTEXT-SEITEN */
+
+.page-header {
+	border-bottom:none;
+}
+.ns-4 .firstHeading .namespace {
+	display:none;
+}
+.firstHeading,
+.tweekiFirstHeading {
+	text-align:left;
+	background:white;
+	padding-right:10px;
+}
+.sk-reintext .firstHeading {
+	font-size:20px;
+	float:left;
+}
+/* TODO: wofür war das? */
+.sk-reintext #content {
+//	padding-top:3em;
+}
+.sk-head-icon {
+	text-align: right;
+	border-bottom: 1px solid #e5e5e5;
+	margin-right:20px;
+	height:20px;
+	margin-top:2.5em;
+}
+.sk-head-icon span {
+	border:1px solid #e5e5e5;
+	border-radius:50px;
+	background:white;
+	margin-top:-8px;
+	font-size:1.8em;
+	width:50px;
+	height:50px;
+	line-height:45px;
+	text-align:center;
+	padding-left:2px;
+	display:inline-block;
+}
+.sk-sidebar-wrapper {
+	width:100%;
+	height:0;
+	top:90px;
+}
+.sk-sidebar-container,
+.sk-sidebar-container .row {
+	height:0;
+}
+#sidebar {
+	padding:0;
+	width:16.6667%;
+	position:inherit;
+	top:auto;
+	left:auto;
+	overflow:visible;
+}
+@media (min-width: 992px) {
+	#sidebar {
+		top:80px;
+	}
+	.sk-sidebar-wrapper {
+		position:fixed;
+	}
+}
+
+/* TOC */
+#toc .toclevel-2 {
+	display:none;
+}
+#toctitle {
+	margin-top:50px;
+}
+#toctitle h2 {
+	text-transform:uppercase;
+	font-weight:bold;
+	text-align:left;
+	font-size:13px;
+	color:black;
+}
+#toc a {
+	color:black;
+	font-size:13px;
+	line-height:1em;
+	border-left:2px solid transparent;
+}
+#toc li.active {
+	background-color:transparent;
+}
+#toc li.active > a {
+	border-left:2px solid red;
+	border-right:none;
+	font-style:normal;
+	font-weight:bold;
+}
+#toc .nav > li.toclevel-1 > a {
+	padding: 5px 5px 4px;
+}
+
+/* HILFE */
+.sk-hilfe li {
+	list-style-type:none;
+}
+
+/* LERNUNTERLAGEN */
+.sk-lernunterlage .mw-content-ltr .sk-lernunterlage-infos {
+	font-family: 'SkolarSansLatnWeb',"Helvetica Neue",Helvetica,Arial,sans-serif;
+}
+.sk-lernunterlage .mw-content-ltr .sk-lernunterlage-infos a {
+	color:@darkestblue;
+}
+.sk-lernunterlage .mw-content-ltr .sk-lernunterlage-infos a:hover {
+	color:black;
+}
+.sk-lernunterlage-fortschritt {
+	background-color:@blue40;
+	border-radius:2px;
+}
+.sk-lernunterlage-fortschritt-prozent {
+	background-color:@neongreen;
+	height:5px;
+	border-radius:2px;
+}
+.sk-lernunterlage-titel {
+	padding:7px 15px;
+	background-color:@blue20;
+	border-radius:2px;
+}	
+.sk-lernunterlage-titel h3 {
+	font-weight:bold;
+	margin:0;
+	line-height:1;
+	font-size:20px;
+}
+.sk-lernunterlage-infos p {
+	margin:0;
+}
+.sk-lernunterlage-dateiinfos,
+.sk-lernunterlage-meta-infos,
+.sk-lernunterlage-lv-infos {
+	padding:5px 15px;
+	background-color:@blue10;
+	border-radius:2px;
+}
+.sk-link-noline a,
+.sk-metainfo-edit-button a {
+	border:none;
+}
+.sk-link-noline a:hover,
+.sk-metainfo-edit-button a:hover {
+	border:none;
+}
+.sk-metainfo-missing a {
+	opacity:.4;
+}
+.sk-metainfo-missing a:hover {
+	opacity:.8;
+}
+.sk-seperator {
+	font-weight:bold;
+	color:white;
+}
+.sk-lernunterlage-autorinnen, .sk-lernunterlage-history {
+	background-color:@blue5;
+	border-radius:2px;
+	padding:5px 15px;
+}
+.sk-lernunterlage-infos .col-md-12,
+.sk-lernunterlage-infos .col-md-6 {
+	padding:2px;
+}
+.sk-lernunterlage-infos {
+	margin-bottom:30px;
+}
+
+
+/* OVERRIDES */
+#content {
+	padding:0;
+}
+.mw-editsection-bracket {
+	display:inline;
+}
+.ve-not-available .mw-editsection-bracket {
+	display:none;
+}
+.mw-editsection {
+	line-height:2em;
+}
+
+/* WEIRD STUFF, UGLY HACKING */
+/* modals are mysteriously shown behind the backdrop */
+.modal-dialog {
+	z-index:1041;
+}
+.fullMedia {
+	display:none;
+}
+
+/* TIM */
+.dropdown-menu {
+	border:none;
+	font-size:13px;
+}
+.dropdown-menu > li > a {
+	padding:1px 15px;
+}
+.dropdown-menu .divider {
+	margin:5px 0;
+}

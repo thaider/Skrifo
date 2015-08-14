@@ -1,0 +1,13 @@
+{
+	"@metadata": {
+		"authors": [
+			"Tobias Haider"
+		]
+	},
+	"skrifo": "Verbesserungen für die Skrifo-Benutzeroberfläche",
+	"skrifo-desc": "Stellt Verbesserungen für die Benutzeroberfläche „Skrifo“ zur Verfügung",
+	"skrifo-poweruser-preference": "Poweruser-Features einschalten",
+	"prefs-skrifo": "Skriptenforum",
+	"prefs-poweruser": "Poweruser-Features",
+	"newcourse": "Neue Lernunterlage"
+}

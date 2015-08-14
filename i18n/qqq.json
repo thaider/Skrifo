@@ -1,0 +1,12 @@
+{
+	"@metadata": {
+		"authors": [
+			"Tobias Haider"
+		]
+	},
+	"skrifo": "UI means User Interface. Skrifo is the name of an interface skin.",
+	"skrifo-desc": "{{desc}}",
+	"skrifo-poweruser-preference": "An option in [[Special:Preferences]]",
+	"prefs-skrifo": "Special preferences for the Skrifo skin",
+	"prefs-poweruser": "Poweruser features"
+}

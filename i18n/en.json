@@ -1,0 +1,21 @@
+{
+	"@metadata": {
+		"authors": [
+			"Tobias Haider"
+		]
+	},
+	"skrifo": "UI improvements for Skrifo",
+	"skrifo-desc": "Improves on the user interface elements of the Skrifo skin.",
+	"skrifo-poweruser-preference": "Activate Poweruser features",
+	"prefs-skrifo": "Skriptenforum",
+	"prefs-poweruser": "Poweruser features",
+	"skrifo-left-navigation": "<div>test</div>",
+	"newcourse": "New Course",
+	"newcourse-teacher-title": "Neue Lernunterlage",
+	"newcourse-teacher-steps": "Schritt 1/4: Leitung der Lehrveranstaltung",
+	"newcourse-teacher-intro": "Wer leitet(e) die Lehrveranstaltung?",
+	"newcourse-title-title": "Neue Lernunterlage",
+	"newcourse-title-steps": "Schritt 2/4: Titel der Lehrveranstaltung",
+	"newcourse-title-intro": "Wer lautet der Titel der Lehrveranstaltung?",
+	"newcourse-badaccess-groups": "" 
+}
