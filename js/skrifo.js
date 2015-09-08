@@ -80,8 +80,6 @@ $(document).ready( function() {
 		$( 'input.sk-erstellen-vortragende-input' ).val( $( 'input.sk-erstellen-vortragende-input' ).val().replace( /, $/g, '' ) );
 	});
 	$( '.sk-erstellen-vortragende-input' ).on( "change", function( e ) {
-		console.log( "hinzugefügt: " + e.added );
-		console.log( "entfernt: " + e.removed );
 		if( typeof( e.added ) != 'undefined' ) {
 			if( $( '.sk-erstellen-titel' ).css( 'display' ) == 'none' ) {
 				$( '.sk-erstellen-vortragende-weiter' ).show();
@@ -98,14 +96,15 @@ $(document).ready( function() {
 					lvs = lvs + '<div class="sk-erstellen-bestehende-titel"><a href="' + lv.fullurl + '">' + titel + '</a></div>';
 					counter++;
 				});
-				if( counter > 0 ) {
-					$( '<div data-person="' + person + '" style="display:none">' + lvs + '</div>' ).appendTo( '.sk-erstellen-bestehende' ).slideDown( { progress: function() { $( window ).resize(); } } );
+				if( counter == 0 ) {
+					lvs = 'Bisher keine Lehrveranstaltungen von <b>' + person + '</b> eingetragen.';
 				}
+				$( '<div data-person="' + person + '" style="display:none">' + lvs + '</div>' ).prependTo( '.sk-erstellen-bestehende' ).slideDown( { progress: function() { $( window ).resize(); } } );
 				$( '.sk-erstellen-bestehende-spinner' ).hide();
 			});
 		}
 		if( typeof( e.removed ) != 'undefined' ) {
-			$( '.leiter-lvs > div' ).each( function() {
+			$( '.sk-erstellen-bestehende > div' ).each( function() {
 				person = e.removed.text;
 				if( $(this).data( "person" ) == person ) {
 					$(this).remove();
@@ -117,17 +116,41 @@ $(document).ready( function() {
 });
 
 
-// SCROLLING - Klasse hinzufügen
+// SCROLLING - Klasse hinzufügen und Handling für Inhaltsverzeichnis/ToTop
 function checkScrolled() {
-	if ( $( document ).scrollTop() > 30 ) { 
+	var tocposition,
+		docposition;
+
+	docposition = $( document ).scrollTop(); 
+	if ( docposition > 30 ) { 
 		$( 'body' ).addClass( 'scrolled' );
 	} else { 
 		$( 'body' ).removeClass( 'scrolled' );
 	} 
+
+	// ToTop-Link
+	if( docposition > 100 ) {
+		$( '.sk-totop' ).show();
+	} else {
+		$( '.sk-totop' ).hide();
+	}
+
+	// Inhaltsverzeichnis auf Lernunterlagenseiten
+	tocposition = $( '#toctitle' ).position();
+	if( typeof tocposition !== 'undefined' ) {
+		if ( docposition > tocposition.top + 80 ) {
+			$( '.sk-sidebar-wrapper' ).css( 'position', 'fixed' ).css( 'top', ( - tocposition.top ) + 'px' );
+		}
+		else {
+			$( '.sk-sidebar-wrapper' ).css( 'position', 'absolute' ).css( 'top', '80px' );
+		} 
+	}
 }
 
 $( document ).scroll( function() { 
 	checkScrolled();
 });
-checkScrolled();
+$( document ).ready( function() {
+	checkScrolled();
+});
 

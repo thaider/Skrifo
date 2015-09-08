@@ -156,6 +156,24 @@ class SkrifoNavigation {
 
 
 	/**
+	 * ToTop
+	 *
+	 * @param $skin
+	 */
+	static function ToTop( $skin ) {
+		$button = array(
+			'href' => '#top',
+			'html' => '<span class="fa fa-arrow-up"></span>'
+			);
+		$options = array(
+			'wrapper' => 'li',
+			'wrapperclass' => 'dropdown sk-totop'
+			);
+		echo TweekiHooks::renderButtons( array( $button ), $options );
+	}
+
+
+	/**
 	 * Edit
 	 *
 	 * @param $skin
@@ -291,7 +309,7 @@ class SkrifoNavigation {
 			if( $countfiles > 0 ) {
 				echo '<div class="sk-sidebar-lernunterlage dropdown ' . ( SkrifoHooks::IsLernunterlageFile( $skin ) ? ' active' : '' ) . '">
 					<a data-toggle="dropdown" class="lernunterlage" href="#">
-						<span class="lernunterlage-icon icon-skriptum"></span> 
+						<span class="lernunterlage-icon icon-datei"></span> 
 						<span class="lernunterlage-text"><span class="caret"></span>' . $countfiles . ' Datei' . ( $countfiles > 1 ? 'en' : '' ) . '</span> 
 					</a>
 					<ul class="dropdown-menu" id="file-dropdown-menu">';

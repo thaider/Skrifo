@@ -27,10 +27,14 @@ $wgExtensionCredits['other'][] = array(
 	'descriptionmsg' => 'skrifo-desc',
 );
 
-$wgAutoloadClasses['SkrifoHooks'] = dirname( __FILE__ ) . '/Skrifo.hooks.php';
-$wgAutoloadClasses['SkrifoNavigation'] = dirname( __FILE__ ) . '/Skrifo.navigation.php';
+$wgAutoloadClasses['SkrifoHooks'] = __DIR__ . '/Skrifo.hooks.php';
+$wgAutoloadClasses['SkrifoNavigation'] = __DIR__ . '/Skrifo.navigation.php';
+$wgAutoloadClasses['SpecialLernunterlageErstellen'] = __DIR__ . '/Skrifo.special.erstellen.php';
 $wgMessagesDirs['Skrifo'] = __DIR__ . '/i18n';
+$wgExtensionMessagesFiles['SkrifoAlias'] = __DIR__ . '/Skrifo.alias.php';
 
+// SPECIAL PAGES
+$wgSpecialPages['LernunterlageErstellen'] = 'SpecialLernunterlageErstellen';
 
 // RESOURCE MODULES
 $wgResourceModules['x.skrifo.styles'] = array(
@@ -108,6 +112,7 @@ $wgTweekiSkinSpecialElements['STUDIENRICHTUNGEN'] = 'SkrifoNavigation::Studienri
 $wgTweekiSkinSpecialElements['FOOTER'] = 'SkrifoNavigation::Footer';
 $wgTweekiSkinSpecialElements['SKRIFO-DOWNLOAD'] = 'SkrifoNavigation::Download';
 $wgTweekiSkinSpecialElements['SKRIFO-WATCH'] = 'SkrifoNavigation::Watch';
+$wgTweekiSkinSpecialElements['SKRIFO-TOTOP'] = 'SkrifoNavigation::ToTop';
 $wgTweekiSkinNavigationalElements['SKRIFO-EDIT'] = 'SkrifoNavigation::Edit';
 $wgTweekiSkinNavigationalElements['SKRIFO-LERNUNTERLAGEN'] = 'SkrifoNavigation::Lernunterlagen';
 $wgTweekiSkinSpecialElements['SKRIFO-DATEIEN'] = 'SkrifoNavigation::Dateien';

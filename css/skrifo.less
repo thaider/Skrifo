@@ -1,17 +1,22 @@
 /* colors */
 
-@lightestgrey:#f5f5f5;
-@darkestblue:rgba(20,20,35,1);
-@neongreen:rgba(205,255,110,1);
+@darkestblue:rgba(20,20,35,1); // navi-dunkel
+@neongreen:rgba(144,255,48,1);
 @darkgrey:rgba(50,60,65,1);
 @darkgrey90:rgba(50,60,65,.9);
-@blue40:rgba(0,55,85,.4);
-@blue20:rgba(0,55,85,.2);
-@blue10:rgba(0,55,85,.1);
-@blue5:rgba(0,55,85,.05);
+@navbtngrey:rgb(88,99,103);
+@navbtngrey90:rgba(88,99,103,.9);
+@navdrpdwndark:rgb(26,26,26);
+@blue40:rgba(0,55,85,.4); // lernunterlagen - fortschritt
+@blue20:rgba(0,55,85,.2); // lernunterlagen - titel
+@blue10:rgba(0,55,85,.1); // lernunterlagen - info1
+@blue5:rgba(0,55,85,.05); // lernunterlagen - info2
 @pink:rgba(255,55,100,1);
-@lightgrey:rgba(11,11,11,1);
+@lightgrey:rgba(245,245,245,1);
+@buttons:rgba(90,100,105,1);
+@buttons-hover:rgba(65,80,85,1);
 
+@lightestgrey:#f5f5f5;
 @linklight:#666;
 @linkdark:#333;
 
@@ -40,6 +45,13 @@ body {
 .sk-lernunterlage .alert {
 	font-family: 'SkolarSansLatnWeb',"Helvetica Neue",Helvetica,Arial,sans-serif;
 }
+
+// contentSub auf Lernunterlagen-Seiten verstecken
+.sk-lernunterlage #contentSub,
+.sk-lernunterlage #contentSub2 {
+	display:none;
+}
+
 .mw-content-ltr a {
 	color:@linklight;
 	border-bottom:dotted 1px @linklight;
@@ -96,13 +108,20 @@ line-height:24px;
 }
 
 /* DRILLDOWN */
-/*
 @media (min-width: 992px) {
-	.drilldown-filters {
+	.drilldown-header-wrapper {
 		float:left;
-		border-right:1px #ccc dashed;
-		padding-right:15px;
+		border:1px #ccc solid;
+		padding:5px;
+		width:180px;
+		position:fixed;
+		border-radius:5px;
+	}
+	.drilldown-filters {
 		border-bottom:0 !important;
+	}
+	.drilldown-header-line {
+		
 	}
 }
 @media (max-width: 992px) {
@@ -110,10 +129,23 @@ line-height:24px;
 		border-bottom:1px #ccc dashed !important;
 	}
 }
+div#drilldown-header {
+	font-size:normal !important;
+}
+.drilldown-filters .ui-autocomplete-input.ui-widget.ui-widget-content.ui-corner-left {
+	width:130px;
+	padding:0 3px;
+	height:25px;
+}
+.drilldown-filters .ui-button.ui-widget.ui-state-default.ui-button-icon-only.ui-corner-right.ui-button-icon {
+	height:25px;
+}
 .drilldown-filters small {
 	font-size:80%;
 }
-*/
+.drilldown-header-line a:hover {
+	text-decoration:none;
+}
 /* hack it's like it's hot - may 2015 edition */
 .drilldown-filter-values {
 	display:block !important;
@@ -137,6 +169,7 @@ display:none
 	padding:10px;
 }
 .sk-drilldown {
+	margin-left:200px;
 	border-radius:5px;
 	border:1px solid transparent;
 }
@@ -293,7 +326,7 @@ line-height:1.2em;
 	border-bottom-width:0;
 	color:@neongreen;
 }
-.sk-lernunterlage-text {
+.sk-lu-text {
 	margin-top:8px;
 	line-height:1em;
 }
@@ -311,11 +344,22 @@ div.fileicon {
 	margin-left:5px;
 }
 div.filename {
-	margin-left:30px;
+	margin-left:25px;
 	max-width:200px;
 	overflow:hidden;
 	text-overflow:ellipsis;
 	white-space:nowrap;
+	padding-right:5px;
+}
+div.filename a {
+	color:#333;
+}
+div.filename a:hover {
+	color:#333;
+}
+#file-dropdown-menu li:hover,
+#file-dropdown-menu li:focus {
+	background-color:#f5f5f5;
 }
 .infobox-content ul.dropdown-menu li > a {
 	display:inline;
@@ -545,7 +589,7 @@ display:none;
 /* fix for headline anchors */
 
 .with-navbar.with-navbar-fixed .mw-headline {
-	padding-top: 40px;
+	padding-top: 120px;
 }
 
 .skrifo-navbar {
@@ -565,7 +609,7 @@ display:none;
 // buttons for desktops
 @media ( min-width:@breakpoint ) {
 	.navbar-nav > li > a {
-		background-color:@darkgrey90;
+		background-color:@navbtngrey;
 		margin:15px 2px 15px 2px;
 		padding-top:0;
 		padding-bottom:0;
@@ -579,15 +623,23 @@ display:none;
 	.navbar-nav > li.hinzufugen {
 		//height:30px;
 	}
-	.navbar-nav > li.hinzufugen > a {
-		font-size:30px;
-		line-height:20px;
+	.navbar-default .navbar-nav > li.hinzufugen > a {
+		font-size:25px;
+		line-height:22px;
 		background-color:@neongreen;
-		padding-right:5px;
-		padding-left:5px;
+		padding-right:4px;
+		padding-left:4px;
+		padding-top:3px;
+		text-shadow:none;
 	}
 	.scrolled .navbar-nav > li.hinzufugen > a {
 		margin-top:1px;
+	}
+	.navbar-default .navbar-nav > li.hinzufugen > a:hover,
+	.navbar-default .navbar-nav > li.hinzufugen > a:active,
+	.navbar-default .navbar-nav > li.hinzufugen > a:focus {
+		background-color:@neongreen;
+		color:@darkgrey;
 	}
 
 	.navbar-nav > li.hilfe {
@@ -602,17 +654,22 @@ display:none;
 	.sk-hilfe-text {
 		font-size:10px;
 		line-height:1em;
-		margin-top:1px;
+		margin-top:2px;
 	}
 
 	.sk-hilfe-icon {
-		font-size:17px;
+		font-size:13px;
 		line-height:1em;
-		background-color:@darkgrey90;
+		background-color:@navbtngrey;
 		border-radius:20px;
 	}
+	.sk-hilfe-icon .icon-hilfe-inv {
+		padding:3px;
+		padding-top:2px;
+		display:block;
+	}
 	a:hover .sk-hilfe-icon {
-		backgroundcolor:@darkgrey90;
+		backgroundcolor:@navbtngrey;
 	}
 
 	.skrifo-navbar-form .form-control {
@@ -658,7 +715,7 @@ display:none;
 	}
 
 	.scrolled .sk-hilfe-icon {
-		font-size:25px;
+		font-size:22px;
 		padding-top:2px;
 		padding-left:8px;
 		padding-right:8px;
@@ -837,18 +894,18 @@ display:none;
 .navbar-default .navbar-nav > .active > a:focus {
     color: #fff;
     text-shadow: 0 1px 0 rgba(0, 0, 0, 0.25);
-    background-color: #0e3d65;
+    background-color:@navbtngrey90;
 }
 .navbar-default .navbar-nav > .open > a, 
 .navbar-default .navbar-nav > .open > a:hover, 
 .navbar-default .navbar-nav > .open > a:focus {
-    background-image: -webkit-linear-gradient(top, #06233f 0%, #0e3d65 100%);
-    background-image:      -o-linear-gradient(top, #06233f 0%, #0e3d65 100%);
-    background-image: -webkit-gradient(linear, left top, left bottom, from(#06233f), to(#0e3d65));
-    background-image:         linear-gradient(to bottom, #06233f 0%, #0e3d65 100%);
-    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#06233f', endColorstr='#0e3d65', GradientType=0);
+    background-image: -webkit-linear-gradient(top, @navbtngrey90 0%, @navbtngrey90 100%);
+    background-image:      -o-linear-gradient(top, @navbtngrey90 0%, @navbtngrey90 100%);
+    background-image: -webkit-gradient(linear, left top, left bottom, from(@navbtngrey90), to(@navbtngrey90));
+    background-image:         linear-gradient(to bottom, @navbtngrey90 0%, @navbtngrey90 100%);
+    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='@navbtngrey90', endColorstr='@navbtngrey90', GradientType=0);
     filter: progid:DXImageTransform.Microsoft.gradient(enabled = false);
-    background-color: #06233f;
+    background-color: @navbtngrey90;
     color: #fff;
 }
 .navbar-default .navbar-toggle .icon-bar {
@@ -1158,6 +1215,28 @@ label[for="wpPassword1"] {
 	top: 90px;
 	left: 83.33%;
 	width: 8.33%;
+	bottom:30px;
+}
+
+#page-header > div,
+#page-header .skrifo-sidebar-right {
+	height:100%;
+}
+
+.nav > li.sk-totop {
+	position:absolute;
+	bottom:0;
+	width:100%;
+	display:none;
+}
+
+.nav > li.sk-totop a {
+	background-color:#eee;
+	border-radius:3px;
+	color:white;
+	font-size:25px;
+	margin:30px;
+	padding:2px;
 }
 
 .skrifo-sidebar-right {
@@ -1169,10 +1248,14 @@ label[for="wpPassword1"] {
 	opacity:.8;
 }
 
-.skrifo-sidebar-right a:hover {
+.skrifo-sidebar-right.nav > li > a:hover, 
+.skrifo-sidebar-right.nav > li > a:focus {
+	background-color:#fff;
+	color:#000;
 	text-decoration:none;
 	opacity:1;
 }
+
 
 /* WATCH */
 #ca-unwatch a:before,
@@ -1180,7 +1263,7 @@ label[for="wpPassword1"] {
 	font-size:3em;
 	display: block;
 	margin-bottom: -5px;
-	font-family: 'icomoon';
+	font-family: 'skrifoicons';
 	speak: none;
 	font-style: normal;
 	font-weight: normal;
@@ -1334,11 +1417,12 @@ label[for="wpPassword1"] {
 		color:@neongreen;
 	}
 
+	.skrifo-navbar .dropdown-menu.sk-studienrichtung-dropdown > li.sk-dropdown-section > a,
 	.dropdown-menu > li.sk-dropdown-section > a {
 		padding:5px 10px;
 		border-radius:3px;
 		margin-top:3px;
-		background-color:@darkgrey;
+		background-color:@navdrpdwndark;
 		font-size:14px;
 		text-overflow:clip;
 		font-weight:bold;
@@ -1550,11 +1634,14 @@ input.select2-input {
 		top:80px;
 	}
 	.sk-sidebar-wrapper {
-		position:fixed;
+		position:absolute;
 	}
 }
 
 /* TOC */
+#sidebar #tweekiTOC {
+	width:100%;
+}
 #toc .toclevel-2 {
 	display:none;
 }
@@ -1568,23 +1655,36 @@ input.select2-input {
 	font-size:13px;
 	color:black;
 }
+#toc .nav {
+	list-style:disc outside none;
+	padding-left:15px;
+	color:transparent;
+}
+#toc .nav li.toclevel-1 {
+	display:list-item;
+}
 #toc a {
 	color:black;
 	font-size:13px;
 	line-height:1em;
 	border-left:2px solid transparent;
 }
+#toc a:hover,
+#toc a:focus {
+	background-color:transparent;
+	font-style:italic;
+	}
 #toc li.active {
 	background-color:transparent;
+	color:red;
 }
 #toc li.active > a {
-	border-left:2px solid red;
 	border-right:none;
 	font-style:normal;
 	font-weight:bold;
 }
 #toc .nav > li.toclevel-1 > a {
-	padding: 5px 5px 4px;
+	padding: 5px 0 4px;
 }
 
 /* HILFE */
@@ -1593,44 +1693,74 @@ input.select2-input {
 }
 
 /* LERNUNTERLAGEN */
-.sk-lernunterlage .mw-content-ltr .sk-lernunterlage-infos {
+.sk-lernunterlage .mw-content-ltr .sk-lu-infos {
 	font-family: 'SkolarSansLatnWeb',"Helvetica Neue",Helvetica,Arial,sans-serif;
 }
-.sk-lernunterlage .mw-content-ltr .sk-lernunterlage-infos a {
+.sk-lernunterlage .mw-content-ltr .sk-lu-infos a {
 	color:@darkestblue;
 }
-.sk-lernunterlage .mw-content-ltr .sk-lernunterlage-infos a:hover {
+.sk-lernunterlage .mw-content-ltr .sk-lu-infos a:hover {
 	color:black;
 }
-.sk-lernunterlage-fortschritt {
+.sk-lu-fortschritt {
 	background-color:@blue40;
 	border-radius:2px;
 }
-.sk-lernunterlage-fortschritt-prozent {
+.sk-lu-fortschritt-prozent {
 	background-color:@neongreen;
-	height:5px;
+	min-height:5px;
 	border-radius:2px;
 }
-.sk-lernunterlage-titel {
+.sk-lu-titel {
 	padding:7px 15px;
 	background-color:@blue20;
 	border-radius:2px;
-}	
-.sk-lernunterlage-titel h3 {
 	font-weight:bold;
-	margin:0;
 	line-height:1;
 	font-size:20px;
-}
-.sk-lernunterlage-infos p {
+}	
+.sk-lu-infos p {
 	margin:0;
 }
-.sk-lernunterlage-dateiinfos,
-.sk-lernunterlage-meta-infos,
-.sk-lernunterlage-lv-infos {
+.sk-lu-infos-fixed {
+	top:0;
+	background-color:white;
+	display:none;
+	position:fixed;
+}
+.sk-lu-infos-fixed .sk-lu-infos {
+	width:50%;
+	padding-top:50px;
+	margin-left:-15px;
+	padding-right:15px;
+	margin-bottom:0;
+	box-shadow:-7.5px 20px 10px white;
+}
+.scrolled .sk-lu-infos-fixed {
+	display:block;
+}
+.sk-lu-infos > div {
+	margin-bottom:4px;
+}
+.sk-lu-dateiinfos,
+.sk-lu-meta-infos,
+.sk-lu-lv-infos {
 	padding:5px 15px;
 	background-color:@blue10;
 	border-radius:2px;
+}
+.sk-metainfo-edit-button {
+	display:none;
+}
+.sk-lu-meta-infos:hover .sk-metainfo-edit-button,
+.sk-lu-lv-infos:hover .sk-metainfo-edit-button {
+	display:block;
+}
+.sk-metainfo-edit-button a {
+	opacity:.6;
+}
+.sk-metainfo-edit-button a:hover {
+	opacity:1;
 }
 .sk-link-noline a,
 .sk-metainfo-edit-button a {
@@ -1641,28 +1771,42 @@ input.select2-input {
 	border:none;
 }
 .sk-metainfo-missing a {
-	opacity:.4;
+//	opacity:.4;
+// TODO: absolute farbwerte verwenden!
 }
 .sk-metainfo-missing a:hover {
-	opacity:.8;
+//	opacity:.8;
+// TODO: absolute farbwerte verwenden!
 }
-.sk-seperator {
+.sk-separator {
 	font-weight:bold;
 	color:white;
 }
-.sk-lernunterlage-autorinnen, .sk-lernunterlage-history {
+.sk-lu-autorinnen, .sk-lu-history {
 	background-color:@blue5;
 	border-radius:2px;
 	padding:5px 15px;
+	float:left;
+	width:50%;
 }
-.sk-lernunterlage-infos .col-md-12,
-.sk-lernunterlage-infos .col-md-6 {
+.sk-lu-history {
+	border-left:4px solid white;
+}
+.sk-lu-infos .col-md-12,
+.sk-lu-infos .col-md-6 {
 	padding:2px;
 }
-.sk-lernunterlage-infos {
+.sk-lu-infos {
 	margin-bottom:30px;
 }
-
+.sk-lu-pruefungsfragen {
+	margin-top:15px;
+}
+.sk-pruefungsfragen-termin h3 {
+	margin:5px 0 0;
+	font-size:18px;
+	font-weight:bold;
+}
 
 /* OVERRIDES */
 #content {
@@ -1687,6 +1831,12 @@ input.select2-input {
 	display:none;
 }
 
+/* Modals */
+.modal-title {
+	font-size:18px;
+	font-weight:500;
+}
+
 /* TIM */
 .dropdown-menu {
 	border:none;
@@ -1697,4 +1847,44 @@ input.select2-input {
 }
 .dropdown-menu .divider {
 	margin:5px 0;
+}
+
+// studienrichtungs-dropdown 'alle studienrichtungen'
+.select2-results li {
+	font-size:13px;
+	line-height:1;
+}
+
+.sk-studienrichtung-dropdown .select2-container .select2-choice .select2-arrow b {
+	background-position:0 -3px;
+}
+
+.sk-studienrichtung-dropdown .select2-container .select2-choice {
+	height:auto;
+}
+
+.sk-studienrichtung-dropdown .form-control .select2-choice {
+	font-size:13px;
+	line-height:1.4;
+	border-radius:0;
+}
+.sk-studienrichtung-dropdown .form-control {
+	height:auto;
+	border-radius:0;
+}
+.sk-studienrichtung-dropdown .select2-dropdown-open .select2-choice .select2-arrow b {
+	background-position: -18px -3px;
+}
+.sk-studienrichtung-dropdown .form-control.select2-container.select2-dropdown-open,
+.sk-studienrichtung-dropdown .select2-container .select2-choice .select2-arrow,
+.sk-studienrichtung-dropdown .form-control .select2-choice .select2-arrow {
+	border-radius:0;
+}
+
+// TODO: for tweeki?
+.with-navbar.with-navbar-fixed {
+	padding-top:80px;
+}
+#siteNotice {
+	display:none;
 }

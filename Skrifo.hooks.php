@@ -37,7 +37,7 @@ class SkrifoHooks {
 		}
 	}
 
-	
+
 	/**
 	 * BodyClass für Lernunterlagen hinzufügen
 	 *
@@ -161,7 +161,11 @@ class SkrifoHooks {
 			$sidebar = false;
 			$headicon = 'zahnrad';
 		}
-		if( $namespace == 10) { /* Vorlagen */
+		if( $namespace == 0 ) { /* LVs */
+			$contentclass = "col-md-offset-3 col-md-7";
+			$sidebar = false;
+		}
+		if( $namespace == 10 ) { /* Vorlagen */
 			$contentclass = "col-md-offset-3 col-md-7";
 			$sidebar = false;
 		}	
@@ -174,7 +178,7 @@ class SkrifoHooks {
 			$headicon = 'zahnrad';
 		}
 		if( $namespace == 12 || $namespace == 13 ) { /* Hilfe */
-			$headicon = 'hilfe';
+			$headicon = 'hilfe-inv';
 			$sidebar = false;
 			$contentclass = "col-md-offset-3 col-md-7 sk-reintext sk-hilfe";
 		}
@@ -223,7 +227,7 @@ class SkrifoHooks {
 
 							<ul class="col-md-1 nav navbar-nav skrifo-navbar-collapse collapse">
 								<li class="nav pull-right hinzufugen">
-									<?php echo $skin->buildItems( 'Special:FormEdit/Neue_LV|<span class="fa fa-plus"></span>', $plusoptions, 'costum' ); ?>
+									<?php echo $skin->buildItems( 'Special:FormEdit/Neue_LV|<span class="icon-hinzufugen-inv"></span>', $plusoptions, 'costum' ); ?>
 								</li>
 							</ul>
 							<ul class="col-md-3 nav navbar-nav skrifo-navbar-collapse collapse skrifo-navbar-form">
@@ -236,7 +240,7 @@ class SkrifoHooks {
 								<?php echo $skin->buildItems( 'PERSONAL-EXT', $personaloptions, 'custom' ); ?>
 							</ul>
 							<ul class="col-md-1 nav navbar-nav skrifo-navbar-collapse collapse">
-								<?php echo $skin->buildItems( 'Hilfe:Inhaltsverzeichnis|<div class="sk-hilfe-icon"><span class="fa fa-question"></span></div><div class="sk-hilfe-text">Hilfe</div>', $rightoptions, 'custom' ); ?>
+								<?php echo $skin->buildItems( 'Hilfe:Inhaltsverzeichnis|<div class="sk-hilfe-icon"><span class="icon-hilfe-inv"></span></div><div class="sk-hilfe-text">Hilfe</div>', $rightoptions, 'custom' ); ?>
 							</ul>
 					</div>
 					</div>

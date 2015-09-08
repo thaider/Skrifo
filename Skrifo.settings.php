@@ -303,6 +303,9 @@ $wgGroupPermissions['Lehrende']['validate']    = true;
 require_once( "$IP/extensions/UserMerge/UserMerge.php" );
 $wgGroupPermissions['bureaucrat']['usermerge'] = true;
 
+## ReplaceText
+require_once( "$IP/extensions/ReplaceText/ReplaceText.php" );
+
 ## Captcha
 require_once( "$IP/extensions/ConfirmEdit/ConfirmEdit.php" );
 require_once( "$IP/extensions/ConfirmEdit/QuestyCaptcha.php");
