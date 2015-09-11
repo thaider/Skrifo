@@ -45,7 +45,7 @@ class SkrifoHooks {
 	 * @param $additionalBodyClasses Array
 	 */
 	static function AdditionalBodyClasses( $skin, &$additionalBodyClasses ) {
-		if( SkrifoHooks::IsLernunterlage( $skin ) ) { 
+		if( SkrifoHooks::IsLernunterlage( $skin ) || SkrifoHooks::IsLernunterlageFile( $skin ) ) { 
 			$additionalBodyClasses[] = 'sk-lernunterlage';
 		}
 		return true;

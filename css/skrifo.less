@@ -38,12 +38,59 @@ body {
 	-moz-osx-font-smoothing: grayscale;
 }
 
-.sk-lernunterlage .mw-content-ltr {
-	font-family:"skolarPEWeb","SkolarSansLatnWeb","Helvetica Neue",Helvetica,Arial,sans-serif;
+blockquote {
+	font-size:16px;
+	font-style:italic;
 }
 
+blockquote i,
+blockquote emph {
+	font-style:normal;
+}
+
+.sk-lernunterlage .mw-content-ltr {
+	font-family:"skolarPEWeb","SkolarSansLatnWeb","Helvetica Neue",Helvetica,Arial,sans-serif;
+	font-size:16px;
+	line-height:1.47;
+	padding-right:15px;
+	padding-left:15px;
+}
+
+.sk-lernunterlage .mw-content-ltr b,
+.sk-lernunterlage .mw-content-ltr h1,
+.sk-lernunterlage .mw-content-ltr h2,
+.sk-lernunterlage .mw-content-ltr h3,
+.sk-lernunterlage .mw-content-ltr h4,
+.sk-lernunterlage .mw-content-ltr h5,
+.sk-lernunterlage .mw-content-ltr h6,
 .sk-lernunterlage .alert {
 	font-family: 'SkolarSansLatnWeb',"Helvetica Neue",Helvetica,Arial,sans-serif;
+}
+
+.sk-lernunterlage .mw-content-ltr h1,
+.sk-lernunterlage .mw-content-ltr h2 {
+	background-color:@blue5;
+	border-radius:2px;
+	padding:5px 15px;
+	font-size:19px;
+	margin-left:-15px;
+	margin-right:-15px;
+}
+
+
+.sk-lernunterlage .mw-content-ltr h3 {
+	font-size:18px;
+}
+
+.sk-lernunterlage .mw-content-ltr h4,
+.sk-lernunterlage .mw-content-ltr h5,
+.sk-lernunterlage .mw-content-ltr h6 {
+	font-size:18px;
+	font-weight:normal;
+}
+
+h1, h2, h3, h4, h5, h6 {
+	font-weight:bold;
 }
 
 // contentSub auf Lernunterlagen-Seiten verstecken
@@ -241,75 +288,33 @@ div.newcourse-steps .active span {
   display:none;
 }
 
-/* Infoboxen */
 .infobox {
-	margin-bottom:15px;
-	}
-@media ( min-width: 767px ) { //zweispaltig auf LV-Seiten
-.ns-0 .infobox.col-sm-4 {
-	width:49%;
-	}
-}
-.infobox.col-sm-4 {
-    padding-left: 5px;
-    padding-right: 5px;
-}
-.infoboxen {
-	visibility:auto;
-	}
-.infobox-head {
-font-weight:bold;
-padding:5px 8px;
-text-align:center;
-}
-.infobox-content {
-margin:.5em;
-}
-.infobox th {
-text-align:right;
-font-weight:300;
-font-size:12px;
-letter-spacing:-.01em;
-padding-right:.5em;
-line-height:13px;
-vertical-align:top;
-padding-top:2px;
-}
-.infobox td {
-line-height:1.2em;
-}
-/*
-@media ( min-width: 767px ) { //borders nur bei großen Bildschirmen
-.infoboxen .infobox:first-child + .infobox {
-	border-left:1px #ccc dashed;
-	border-right:1px #ccc dashed;
-}
-.ns-0 .infoboxen .infobox:first-child + .infobox {
-	border-right:none;
-}
-}
-*/
-.infobox small {
-  font-size: 11px;
-  color: #999999;
-}
-.infobox-edit-button {
+	border-bottom-left-radius:3px;
+	border-bottom-right-radius:3px;
+	border-color:@pink @lightestgrey @lightestgrey;
+	border-style:solid;
+	border-width:2px 1px 1px;
+	box-sizing:content-box;
 	float:right;
-	margin-right:-5px;
-	margin-top:-1px;
+	font-size:13px;
+	padding:0 15px 50px;
+	width:25%;
 }
-.infobox-content p {
-  margin-bottom:5px;
-  line-height:13px;
+.infobox:before {
+	background-color:white;
+	border:2px solid @pink;
+	border-radius:15px;
+	color:@pink;
+	content:"\e609";
+	display:block;
+	font-family:"Skrifoicons";
+	font-size:16px;
+	height:30px;
+	line-height:25px;
+	margin:-15px auto 25px;
+	text-align:center;
+	width:30px;
 }
-.infobox-content .btn {
-  margin-top:5px;
-}
-/*.infobox-lernunterlagen .infobox-content {
-	width:80%;
-	max-width:200px;
-	margin:10px auto;
-}*/
 .lernunterlagen {
 	text-align:center;
 }
@@ -396,6 +401,7 @@ Dateiverwendungen,
 #filelinks, 
 #mw-imagepage-edit-external,
 #mw-imagepage-nolinkstoimage,
+#mw-imagepage-upload-disallowed,
 #mw-imagepage-section-linkstoimage {
   display:none
 }
@@ -480,94 +486,31 @@ Dateiverwendungen,
     width: 100%;
 }
 
-/* Search field */
-        div#simpleSearch {
-                display: block;
-                width: 14em;
-                height: 1.6em;
-                margin-top: 0.65em;
-                position: relative;
-                min-height: 1px; /* Gotta trigger hasLayout for IE7 */
-                border: solid 1px #AAAAAA;
-                color: black;
-                background-color: white;
-                /* @embed */
-                background-image: url(images/search-fade.png);
-                background-position: top left;
-                background-repeat: repeat-x;
-        }
-        div#simpleSearch label {
-                /*
-                 * DON'T PANIC! Browsers that won't scale this properly are the same browsers that have JS issues that prevent
-                 * this from ever being shown anyways.
-                */
-                font-size: 13px;
-                top: 0.25em;
-                direction: ltr;
-        }
-        div#simpleSearch input {
-                color: black;
-                direction: ltr;
-        }
-        div#simpleSearch input:focus {
-                outline: none;
-                color: #999999;
-        }
-        div#simpleSearch input::-webkit-input-placeholder {
-                color: #999999;
-        }
-        div#simpleSearch input#searchInput {
-                position: absolute;
-                top: 0;
-                left: 0;
-                width: 90%;
-                margin: 0;
-                padding: 0;
-                padding-left: 0.2em;
-                padding-top: 0.2em;
-                padding-bottom: 0.2em;
-                outline: none;
-                border: none;
-                /*
-                 * DON'T PANIC! Browsers that won't scale this properly are the same browsers that have JS issues that prevent
-                 * this from ever being shown anyways.
-                */
-                font-size: 13px;
-                background-color: transparent;
-                direction: ltr;
-        }
-        div#simpleSearch button#searchButton {
-                position: absolute;
-                width: 10%;
-                right: 0;
-                top: 0;
-                padding: 0;
-                padding-top: 0.3em;
-                padding-bottom: 0.2em;
-                padding-right: 0.4em;
-                margin: 0;
-                border: none;
-                cursor: pointer;
-                background-color: transparent;
-                background-image: url("images/search-ltr.png");
-                background-position: center center;
-                background-repeat: no-repeat;
-        }
-        /* OVERRIDDEN BY COMPLIANT BROWSERS */
-        div#simpleSearch button#searchButton img {
-                border: none;
-                margin: 0;
-                margin-top: -3px;
-                padding: 0;
-        }
-        /* IGNORED BY IE6 */
-        div#simpleSearch button#searchButton > img {
-                margin: 0;
-        }
+/* search */
 
-        #p-search h5 {
-                display: none;
-        }
+#mw-searchButton {
+	position:absolute;
+	top:-2px;
+	right:5px;
+	text-indent:-9999px;
+	line-height:1;
+	direction:ltr;
+	white-space:nowrap;
+	overflow:hidden;
+	background-image:url('images/lupe.png');
+	background-position:center center;
+	background-repeat:no-repeat;
+	border:none;
+	background-color:transparent;
+	box-shadow:none;
+	display:block !important;
+	opacity:.4;
+	background-size:60%;
+}
+
+#p-search h5 {
+	display: none;
+}
 
 /* categorytree */
 span.dynatree-icon {
@@ -624,16 +567,13 @@ display:none;
 		//height:30px;
 	}
 	.navbar-default .navbar-nav > li.hinzufugen > a {
-		font-size:25px;
-		line-height:22px;
+		font-size:22px;
+		line-height:23px;
 		background-color:@neongreen;
 		padding-right:4px;
 		padding-left:4px;
 		padding-top:3px;
 		text-shadow:none;
-	}
-	.scrolled .navbar-nav > li.hinzufugen > a {
-		margin-top:1px;
 	}
 	.navbar-default .navbar-nav > li.hinzufugen > a:hover,
 	.navbar-default .navbar-nav > li.hinzufugen > a:active,
@@ -1184,6 +1124,8 @@ label[for="wpPassword1"] {
 .lernunterlage-text .lernunterlage-erstellen-icon {
 	float:right;
 	line-height:20px;
+	color:#141423;
+	font-size:15px;
 }
 .lernunterlage-text .caret {
 	float:right;
@@ -1191,7 +1133,7 @@ label[for="wpPassword1"] {
 	margin-right:3px;
 }
 .lernunterlage-text {
-	font-size:smaller;
+	font-size:12px;
 	line-height:.6em;
 	background-color:@lightestgrey;
 	border-radius:2px;
@@ -1212,7 +1154,7 @@ label[for="wpPassword1"] {
 /* rechte Spalte */
 #page-header { // is this the right id?
 	position: fixed;
-	top: 90px;
+	top: 69px;
 	left: 83.33%;
 	width: 8.33%;
 	bottom:30px;
@@ -1231,17 +1173,13 @@ label[for="wpPassword1"] {
 }
 
 .nav > li.sk-totop a {
-	background-color:#eee;
-	border-radius:3px;
-	color:white;
+	color:@linklight;
 	font-size:25px;
-	margin:30px;
-	padding:2px;
 }
 
 .skrifo-sidebar-right {
 	text-align:center;
-	font-size:smaller;
+	font-size:12px;
 }
 .skrifo-sidebar-right a {
 	color:@darkestblue;
@@ -1278,10 +1216,10 @@ label[for="wpPassword1"] {
 	padding-top:0;
 }
 #ca-watch a:before {
-	content: "\e603";
+	content: "\e602";
 }
 #ca-unwatch a:before {
-	content: "\e604";
+	content: "\e603";
 }
 
 /* NOTIFICATIONS */
@@ -1566,7 +1504,7 @@ input.select2-input {
 }
 
 .studienrichtung-expand .studienrichtung-toggle .icon-weiter_studienrichtungen:before {
-	content: "\e612";
+	content: "\e618";
 	color: #ccc;
 }
 
@@ -1615,7 +1553,7 @@ input.select2-input {
 .sk-sidebar-wrapper {
 	width:100%;
 	height:0;
-	top:90px;
+	top:83px;
 }
 .sk-sidebar-container,
 .sk-sidebar-container .row {
@@ -1646,7 +1584,7 @@ input.select2-input {
 	display:none;
 }
 #toctitle {
-	margin-top:50px;
+	margin-top:60px;
 }
 #toctitle h2 {
 	text-transform:uppercase;
@@ -1695,6 +1633,7 @@ input.select2-input {
 /* LERNUNTERLAGEN */
 .sk-lernunterlage .mw-content-ltr .sk-lu-infos {
 	font-family: 'SkolarSansLatnWeb',"Helvetica Neue",Helvetica,Arial,sans-serif;
+	font-size:13px;
 }
 .sk-lernunterlage .mw-content-ltr .sk-lu-infos a {
 	color:@darkestblue;
@@ -1727,6 +1666,7 @@ input.select2-input {
 	background-color:white;
 	display:none;
 	position:fixed;
+	margin-left:-15px;
 }
 .sk-lu-infos-fixed .sk-lu-infos {
 	width:50%;
@@ -1770,13 +1710,13 @@ input.select2-input {
 .sk-metainfo-edit-button a:hover {
 	border:none;
 }
-.sk-metainfo-missing a {
-//	opacity:.4;
-// TODO: absolute farbwerte verwenden!
+.sk-lernunterlage .mw-content-ltr .sk-lu-infos .sk-metainfo-missing a {
+	color:@linklight;
 }
-.sk-metainfo-missing a:hover {
-//	opacity:.8;
-// TODO: absolute farbwerte verwenden!
+.sk-lernunterlage .mw-content-ltr .sk-lu-infos .sk-metainfo-missing a:hover,
+.sk-lernunterlage .mw-content-ltr .sk-lu-infos .sk-metainfo-missing a:focus,
+.sk-lernunterlage .mw-content-ltr .sk-lu-infos .sk-metainfo-missing a:active {
+	color:@linkdark;
 }
 .sk-separator {
 	font-weight:bold;
@@ -1798,6 +1738,8 @@ input.select2-input {
 }
 .sk-lu-infos {
 	margin-bottom:30px;
+	margin-left:-15px;
+	margin-right:-15px;
 }
 .sk-lu-pruefungsfragen {
 	margin-top:15px;
@@ -1888,3 +1830,11 @@ input.select2-input {
 #siteNotice {
 	display:none;
 }
+
+
+// HACKING 8.9.
+.skrifo-navbar .glyphicon-user,
+.skrifo-navbar .caret {
+	display:none;
+}
+

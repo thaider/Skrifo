@@ -109,21 +109,22 @@ class SkrifoNavigation {
 				</ul>
 			</li>
 		<?php endif;
-	/*
-		// etwas komplizierter bei Dateien
-		if ( $skin->data['namespace'] == "Datei" ):
-			$mainpage = Title::newMainPage();
-			$parseroptions = new ParserOptions();
-			$localParser = new Parser();
-			$localParser->Title ( $mainpage );
-			$localParser->Options( $parseroptions );
-			$localParser->clearState();
 
-			$user = $skin->getSkin()->getUser()->getName();
-			$customizedUserPage = $localParser->recursiveTagParse( "{{#ask:[[Benutzer:" . $user . "]][[Studienrichtung::+]]|format=count}}" );
-		?>
-		<?php endif;
-	*/
+		// für Datei-Lernunterlagen
+		$href = $skin->getSkin()->getWikiPage()->getFile()->getFullUrl();
+		if ( $skin->data['namespace'] == "Datei" ) {
+			$button = array(
+				'href' => $href,
+				'html' => '<span class="tool-icon icon-download"></span><br>download',
+				'title' => 'Datei herunterladen'
+				);
+			$options = array(
+				'wrapper' => 'li',
+				'wrapperclass' => 'nav btn-group'
+				);
+		
+			echo TweekiHooks::renderButtons( array( $button ), $options );
+		}
 	}
 
 
@@ -163,7 +164,7 @@ class SkrifoNavigation {
 	static function ToTop( $skin ) {
 		$button = array(
 			'href' => '#top',
-			'html' => '<span class="fa fa-arrow-up"></span>'
+			'html' => '<span class="icon-nachoben"></span>'
 			);
 		$options = array(
 			'wrapper' => 'li',

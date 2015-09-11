@@ -47,10 +47,8 @@ $(document).ready( function() {
 	if($( '#wayf_div' ).length == 1 ) $( '#content .breit' ).addClass( 'anmeldung' );
 
 
-	// DATEI-DOWNLOAD in die Seitenleiste verschieben
+	// DATEI-Infos in die Infobox verschieben
 	if( $( '.fullMedia' ).length == 1 ) {
-		$(".fullMedia a").html('<span class="icon-download tool-icon"></span><br>download').wrap( '<li></li>' ).parent().prependTo(".skrifo-sidebar-right").addClass("btn-group btn-block");
-		// Datei-Infos in die Infobox verschieben
 		fileSize = $( '.fullMedia span.fileInfo' ).text();
 		fileSize = fileSize.substring( fileSize.indexOf( 'Dateigröße:' ) + 11 );
 		fileSize = fileSize.substring( 0, fileSize.indexOf( ',' ) );
@@ -142,7 +140,7 @@ function checkScrolled() {
 			$( '.sk-sidebar-wrapper' ).css( 'position', 'fixed' ).css( 'top', ( - tocposition.top ) + 'px' );
 		}
 		else {
-			$( '.sk-sidebar-wrapper' ).css( 'position', 'absolute' ).css( 'top', '80px' );
+			$( '.sk-sidebar-wrapper' ).css( 'position', 'absolute' ).css( 'top', '83px' );
 		} 
 	}
 }
