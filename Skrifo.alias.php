@@ -13,6 +13,8 @@ $specialPageAliases = array();
  */
 $specialPageAliases['en'] = array(
 	'LernunterlageErstellen' => array( 'LernunterlageErstellen' ),
+	'Vortragende' => array( 'Vortragende' ),
+	'Studienrichtungen' => array( 'Studienrichtungen' )
 );
 
 /** Deutsch
@@ -20,4 +22,6 @@ $specialPageAliases['en'] = array(
  */
 $specialPageAliases['de'] = array(
 	'LernunterlageErstellen' => array( 'LernunterlageErstellen', 'Lernunterlage erstellen', 'Lernunterlageerstellen' ),
+	'Vortragende' => array( 'Vortragende' ),
+	'Studienrichtungen' => array( 'Studienrichtungen' )
 );

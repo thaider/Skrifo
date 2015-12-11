@@ -30,11 +30,16 @@ $wgExtensionCredits['other'][] = array(
 $wgAutoloadClasses['SkrifoHooks'] = __DIR__ . '/Skrifo.hooks.php';
 $wgAutoloadClasses['SkrifoNavigation'] = __DIR__ . '/Skrifo.navigation.php';
 $wgAutoloadClasses['SpecialLernunterlageErstellen'] = __DIR__ . '/Skrifo.special.erstellen.php';
+$wgAutoloadClasses['SpecialVortragende'] = __DIR__ . '/Skrifo.special.vortragende.php'; // TODO: temp
+$wgAutoloadClasses['SpecialStudienrichtungen'] = __DIR__ . '/Skrifo.special.studienrichtungen.php'; // TODO: temp
 $wgMessagesDirs['Skrifo'] = __DIR__ . '/i18n';
 $wgExtensionMessagesFiles['SkrifoAlias'] = __DIR__ . '/Skrifo.alias.php';
+$wgExtensionMessagesFiles['SkrifoMagic'] = __DIR__ . '/Skrifo.i18n.magic.php';
 
 // SPECIAL PAGES
 $wgSpecialPages['LernunterlageErstellen'] = 'SpecialLernunterlageErstellen';
+$wgSpecialPages['Vortragende'] = 'SpecialVortragende';
+$wgSpecialPages['Studienrichtungen'] = 'SpecialStudienrichtungen';
 
 // RESOURCE MODULES
 $wgResourceModules['x.skrifo.styles'] = array(
@@ -82,6 +87,12 @@ $wgHooks['TweekiSkinHidden'][] = 'SkrifoHooks::HideEditButton';
 
 // BodyClass für Lernunterlagen hinzufügen
 $wgHooks['SkinTweekiAdditionalBodyClasses'][] = 'SkrifoHooks::AdditionalBodyClasses';
+
+//
+$wgHooks['PersonalUrls'][] = 'SkrifoHooks::ChangeLinkUserpage';
+
+// Login-Dropdown, Studienrichtungen
+$wgHooks['ParserFirstCallInit'][] = 'SkrifoHooks::onParserSetup';
 
 
 // GLOBALE VARIABLEN

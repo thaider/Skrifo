@@ -1,7 +1,7 @@
 /* colors */
 
-@darkestblue:rgba(20,20,35,1); // navi-dunkel
-@neongreen:rgba(144,255,48,1);
+@darkestblue:rgba(0,15,35,1);
+@neongreen:rgba(164,217,70,1);
 @darkgrey:rgba(50,60,65,1);
 @darkgrey90:rgba(50,60,65,.9);
 @navbtngrey:rgb(88,99,103);
@@ -16,16 +16,23 @@
 @buttons:rgba(90,100,105,1);
 @buttons-hover:rgba(65,80,85,1);
 
+@skyblue:rgb(58, 120, 146);
+@subsky:rgb(238,242,243);
+@adminblue:rgb(34,48,55);
+
+@greyarea:#7d8893;
+
 @lightestgrey:#f5f5f5;
 @linklight:#666;
 @linkdark:#333;
 
 @breakpoint:768px;
 
-body {
-	background-color: white;
-	font-style:normal;
+/**
+ * Body 
+ */
 
+body {
 	/* OpenType features: kerning, ligatures & contextual alternates */
 	font-kerning: normal; /* CSS3 */
 	-webkit-font-feature-settings: "kern" 1, "liga" 1, "calt" 1;
@@ -36,10 +43,17 @@ body {
 	/* Make rendering look consistent across platforms */
 	-webkit-font-smoothing: antialiased !important;
 	-moz-osx-font-smoothing: grayscale;
+
+	// TODO: Startseite sauberer programmieren
+	overflow-x:hidden; // ugly hack für die breite Darstellung auf der Startseite
 }
 
+
+/**
+ * Zitate 
+ */
+
 blockquote {
-	font-size:16px;
 	font-style:italic;
 }
 
@@ -48,6 +62,11 @@ blockquote emph {
 	font-style:normal;
 }
 
+
+/**
+ * Schriftarten für Lernunterlagen-Content, Überschriften
+ */
+
 .sk-lernunterlage .mw-content-ltr {
 	font-family:"skolarPEWeb","SkolarSansLatnWeb","Helvetica Neue",Helvetica,Arial,sans-serif;
 	font-size:16px;
@@ -55,42 +74,22 @@ blockquote emph {
 	padding-right:15px;
 	padding-left:15px;
 }
-
 .sk-lernunterlage .mw-content-ltr b,
-.sk-lernunterlage .mw-content-ltr h1,
-.sk-lernunterlage .mw-content-ltr h2,
-.sk-lernunterlage .mw-content-ltr h3,
-.sk-lernunterlage .mw-content-ltr h4,
-.sk-lernunterlage .mw-content-ltr h5,
-.sk-lernunterlage .mw-content-ltr h6,
 .sk-lernunterlage .alert {
-	font-family: 'SkolarSansLatnWeb',"Helvetica Neue",Helvetica,Arial,sans-serif;
+	font-family: "SkolarSansLatnWeb","Helvetica Neue",Helvetica,Arial,sans-serif;
 }
-
 .sk-lernunterlage .mw-content-ltr h1,
 .sk-lernunterlage .mw-content-ltr h2 {
 	background-color:@blue5;
 	border-radius:2px;
 	padding:5px 15px;
-	font-size:19px;
 	margin-left:-15px;
 	margin-right:-15px;
 }
-
-
-.sk-lernunterlage .mw-content-ltr h3 {
-	font-size:18px;
-}
-
 .sk-lernunterlage .mw-content-ltr h4,
 .sk-lernunterlage .mw-content-ltr h5,
 .sk-lernunterlage .mw-content-ltr h6 {
-	font-size:18px;
 	font-weight:normal;
-}
-
-h1, h2, h3, h4, h5, h6 {
-	font-weight:bold;
 }
 
 // contentSub auf Lernunterlagen-Seiten verstecken
@@ -99,11 +98,16 @@ h1, h2, h3, h4, h5, h6 {
 	display:none;
 }
 
-.mw-content-ltr a {
+//TODO: ugly hack - anderen selector verwenden, weil .mw-content-ltr nicht auf allen seiten funktioniert!
+.mw-content-ltr a,
+.sk-welcome-studienrichtungen a {
 	color:@linklight;
 	border-bottom:dotted 1px @linklight;
+	display:inline-block;
+	line-height:1em;
 }
-.mw-content-ltr a:hover {
+.mw-content-ltr a:hover,
+.sk-welcome-studienrichtungen a:hover {
 	color:@linkdark;
 //	border-bottom-style:solid;
 	border:none;
@@ -177,7 +181,7 @@ line-height:24px;
 	}
 }
 div#drilldown-header {
-	font-size:normal !important;
+	font-size:1em !important;
 }
 .drilldown-filters .ui-autocomplete-input.ui-widget.ui-widget-content.ui-corner-left {
 	width:130px;
@@ -490,8 +494,8 @@ Dateiverwendungen,
 
 #mw-searchButton {
 	position:absolute;
-	top:-2px;
-	right:5px;
+	top:13px;
+	right:-2px;
 	text-indent:-9999px;
 	line-height:1;
 	direction:ltr;
@@ -504,7 +508,6 @@ Dateiverwendungen,
 	background-color:transparent;
 	box-shadow:none;
 	display:block !important;
-	opacity:.4;
 	background-size:60%;
 }
 
@@ -539,9 +542,7 @@ display:none;
 	background-image:none;
 	box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
 	background-color: @darkestblue;
-	border-color: white;
-	border-width:0;
-	border-bottom-width:1px;
+	border:none;
 }
 
 // make it, so that links are over the whole width
@@ -558,15 +559,30 @@ display:none;
 		padding-bottom:0;
 		line-height:30px;
 		border-radius:2px;
-		font-weight:bold;
 		text-shadow:none;
+		font-size:16px;
+	}
+	// TODO use generic class in PageRenderer
+	.navbar-nav > li > a#n-login,
+	.navbar-nav > li > a#pt-personaltools,
+	.navbar-nav > li > a#n-Studienrichtungen {
+		background-color:transparent;
+		padding-left:30px;
+		background-size:contain;
+		background-repeat:no-repeat;
+		border-radius:0;
+	}
+	.navbar-nav > li > a#n-login,
+	.navbar-nav > li > a#pt-personaltools {
+		background-image:url(data:image/svg+xml;base64,PHN2ZwogICB4bWxuczpkYz0iaHR0cDovL3B1cmwub3JnL2RjL2VsZW1lbnRzLzEuMS8iCiAgIHhtbG5zOmNjPSJodHRwOi8vY3JlYXRpdmVjb21tb25zLm9yZy9ucyMiCiAgIHhtbG5zOnJkZj0iaHR0cDovL3d3dy53My5vcmcvMTk5OS8wMi8yMi1yZGYtc3ludGF4LW5zIyIKICAgeG1sbnM6c3ZnPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyIKICAgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIgogICB4bWxuczpzb2RpcG9kaT0iaHR0cDovL3NvZGlwb2RpLnNvdXJjZWZvcmdlLm5ldC9EVEQvc29kaXBvZGktMC5kdGQiCiAgIHhtbG5zOmlua3NjYXBlPSJodHRwOi8vd3d3Lmlua3NjYXBlLm9yZy9uYW1lc3BhY2VzL2lua3NjYXBlIgogICB3aWR0aD0iNTMuNzU4NTQxbW0iCiAgIGhlaWdodD0iOC40NjY2NjYybW0iCiAgIHZpZXdCb3g9IjAgMCAxOTAuNDgzMDIgMjkuOTk5OTk5IgogICBpZD0ic3ZnMzkwMyIKICAgdmVyc2lvbj0iMS4xIgogICBpbmtzY2FwZTp2ZXJzaW9uPSIwLjkxIHIiCiAgIHNvZGlwb2RpOmRvY25hbWU9ImJ1dHRvbl9sb2dpbi5zdmciPgogIDxkZWZzCiAgICAgaWQ9ImRlZnMzOTA1IiAvPgogIDxzb2RpcG9kaTpuYW1lZHZpZXcKICAgICBpZD0iYmFzZSIKICAgICBwYWdlY29sb3I9IiNmZmZmZmYiCiAgICAgYm9yZGVyY29sb3I9IiM2NjY2NjYiCiAgICAgYm9yZGVyb3BhY2l0eT0iMS4wIgogICAgIGlua3NjYXBlOnBhZ2VvcGFjaXR5PSIwLjAiCiAgICAgaW5rc2NhcGU6cGFnZXNoYWRvdz0iMiIKICAgICBpbmtzY2FwZTp6b29tPSIxNS44MzkxOTIiCiAgICAgaW5rc2NhcGU6Y3g9IjgzLjI0NDQ4OSIKICAgICBpbmtzY2FwZTpjeT0iMTIuMTczMTgyIgogICAgIGlua3NjYXBlOmRvY3VtZW50LXVuaXRzPSJweCIKICAgICBpbmtzY2FwZTpjdXJyZW50LWxheWVyPSJsYXllcjEiCiAgICAgc2hvd2dyaWQ9ImZhbHNlIgogICAgIGZpdC1tYXJnaW4tdG9wPSIwIgogICAgIGZpdC1tYXJnaW4tbGVmdD0iMCIKICAgICBmaXQtbWFyZ2luLXJpZ2h0PSIwIgogICAgIGZpdC1tYXJnaW4tYm90dG9tPSIwIgogICAgIGlua3NjYXBlOndpbmRvdy13aWR0aD0iMTkyMCIKICAgICBpbmtzY2FwZTp3aW5kb3ctaGVpZ2h0PSIxMDIzIgogICAgIGlua3NjYXBlOndpbmRvdy14PSIwIgogICAgIGlua3NjYXBlOndpbmRvdy15PSIwIgogICAgIGlua3NjYXBlOndpbmRvdy1tYXhpbWl6ZWQ9IjEiIC8+CiAgPG1ldGFkYXRhCiAgICAgaWQ9Im1ldGFkYXRhMzkwOCI+CiAgICA8cmRmOlJERj4KICAgICAgPGNjOldvcmsKICAgICAgICAgcmRmOmFib3V0PSIiPgogICAgICAgIDxkYzpmb3JtYXQ+aW1hZ2Uvc3ZnK3htbDwvZGM6Zm9ybWF0PgogICAgICAgIDxkYzp0eXBlCiAgICAgICAgICAgcmRmOnJlc291cmNlPSJodHRwOi8vcHVybC5vcmcvZGMvZGNtaXR5cGUvU3RpbGxJbWFnZSIgLz4KICAgICAgICA8ZGM6dGl0bGU+PC9kYzp0aXRsZT4KICAgICAgPC9jYzpXb3JrPgogICAgPC9yZGY6UkRGPgogIDwvbWV0YWRhdGE+CiAgPGcKICAgICBpbmtzY2FwZTpsYWJlbD0iRWJlbmUgMSIKICAgICBpbmtzY2FwZTpncm91cG1vZGU9ImxheWVyIgogICAgIGlkPSJsYXllcjEiCiAgICAgdHJhbnNmb3JtPSJ0cmFuc2xhdGUoMjI4LjE1OTAzLC01NjkuNjgzNjMpIj4KICAgIDxnCiAgICAgICBpZD0iZzIxNiIKICAgICAgIHRyYW5zZm9ybT0ibWF0cml4KDEsMCwwLC0xLC0yMTAuNTgxMDEsNTY5LjY4MzYzKSI+CiAgICAgIDxwYXRoCiAgICAgICAgIGQ9Im0gMCwwIGMgMCwwIC0xLDAgLTEuNDkyLC0wLjg3MSBsIC0xNS45NjUsLTI4LjI1OCBjIDAsMCAtMC40OTIsLTAuODcxIDAuNTA4LC0wLjg3MSBsIDE4OC44NTQsMCBjIDAsMCAxLDAgMSwxIGwgMCwyOCBjIDAsMCAwLDEgLTEsMSB6IgogICAgICAgICBzdHlsZT0iZmlsbDojNGE1OTVlO2ZpbGwtb3BhY2l0eToxO2ZpbGwtcnVsZTpub256ZXJvO3N0cm9rZTpub25lIgogICAgICAgICBpZD0icGF0aDIxOCIKICAgICAgICAgaW5rc2NhcGU6Y29ubmVjdG9yLWN1cnZhdHVyZT0iMCIKICAgICAgICAgc29kaXBvZGk6bm9kZXR5cGVzPSJjY2NzY3Njc2MiIC8+CiAgICA8L2c+CiAgPC9nPgo8L3N2Zz4=);
+	}
+	.navbar-nav > li > a#n-Studienrichtungen {
+		background-image:url(data:image/svg+xml;base64,PHN2ZwogICB4bWxuczpkYz0iaHR0cDovL3B1cmwub3JnL2RjL2VsZW1lbnRzLzEuMS8iCiAgIHhtbG5zOmNjPSJodHRwOi8vY3JlYXRpdmVjb21tb25zLm9yZy9ucyMiCiAgIHhtbG5zOnJkZj0iaHR0cDovL3d3dy53My5vcmcvMTk5OS8wMi8yMi1yZGYtc3ludGF4LW5zIyIKICAgeG1sbnM6c3ZnPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyIKICAgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIgogICB4bWxuczpzb2RpcG9kaT0iaHR0cDovL3NvZGlwb2RpLnNvdXJjZWZvcmdlLm5ldC9EVEQvc29kaXBvZGktMC5kdGQiCiAgIHhtbG5zOmlua3NjYXBlPSJodHRwOi8vd3d3Lmlua3NjYXBlLm9yZy9uYW1lc3BhY2VzL2lua3NjYXBlIgogICB3aWR0aD0iNTguNDcyNzltbSIKICAgaGVpZ2h0PSI4LjQ2NjY2NjJtbSIKICAgdmlld0JveD0iMCAwIDIwNy4xODcwNSAyOS45OTk5OTgiCiAgIGlkPSJzdmczOTQ4IgogICB2ZXJzaW9uPSIxLjEiCiAgIGlua3NjYXBlOnZlcnNpb249IjAuOTEgciIKICAgc29kaXBvZGk6ZG9jbmFtZT0iYnV0dG9uX3N0dWRpZW5yaWNodHVuZ2VuLnN2ZyI+CiAgPGRlZnMKICAgICBpZD0iZGVmczM5NTAiIC8+CiAgPHNvZGlwb2RpOm5hbWVkdmlldwogICAgIGlkPSJiYXNlIgogICAgIHBhZ2Vjb2xvcj0iI2ZmZmZmZiIKICAgICBib3JkZXJjb2xvcj0iIzY2NjY2NiIKICAgICBib3JkZXJvcGFjaXR5PSIxLjAiCiAgICAgaW5rc2NhcGU6cGFnZW9wYWNpdHk9IjAuMCIKICAgICBpbmtzY2FwZTpwYWdlc2hhZG93PSIyIgogICAgIGlua3NjYXBlOnpvb209IjEuOTc5ODk5IgogICAgIGlua3NjYXBlOmN4PSIyMjIuNzgwNzciCiAgICAgaW5rc2NhcGU6Y3k9IjY0LjM0NjgiCiAgICAgaW5rc2NhcGU6ZG9jdW1lbnQtdW5pdHM9InB4IgogICAgIGlua3NjYXBlOmN1cnJlbnQtbGF5ZXI9ImcyMjAiCiAgICAgc2hvd2dyaWQ9ImZhbHNlIgogICAgIGZpdC1tYXJnaW4tdG9wPSIwIgogICAgIGZpdC1tYXJnaW4tbGVmdD0iMCIKICAgICBmaXQtbWFyZ2luLXJpZ2h0PSIwIgogICAgIGZpdC1tYXJnaW4tYm90dG9tPSIwIgogICAgIGlua3NjYXBlOndpbmRvdy13aWR0aD0iMTkyMCIKICAgICBpbmtzY2FwZTp3aW5kb3ctaGVpZ2h0PSIxMDIzIgogICAgIGlua3NjYXBlOndpbmRvdy14PSIwIgogICAgIGlua3NjYXBlOndpbmRvdy15PSIwIgogICAgIGlua3NjYXBlOndpbmRvdy1tYXhpbWl6ZWQ9IjEiIC8+CiAgPG1ldGFkYXRhCiAgICAgaWQ9Im1ldGFkYXRhMzk1MyI+CiAgICA8cmRmOlJERj4KICAgICAgPGNjOldvcmsKICAgICAgICAgcmRmOmFib3V0PSIiPgogICAgICAgIDxkYzpmb3JtYXQ+aW1hZ2Uvc3ZnK3htbDwvZGM6Zm9ybWF0PgogICAgICAgIDxkYzp0eXBlCiAgICAgICAgICAgcmRmOnJlc291cmNlPSJodHRwOi8vcHVybC5vcmcvZGMvZGNtaXR5cGUvU3RpbGxJbWFnZSIgLz4KICAgICAgICA8ZGM6dGl0bGU+PC9kYzp0aXRsZT4KICAgICAgPC9jYzpXb3JrPgogICAgPC9yZGY6UkRGPgogIDwvbWV0YWRhdGE+CiAgPGcKICAgICBpbmtzY2FwZTpsYWJlbD0iRWJlbmUgMSIKICAgICBpbmtzY2FwZTpncm91cG1vZGU9ImxheWVyIgogICAgIGlkPSJsYXllcjEiCiAgICAgdHJhbnNmb3JtPSJ0cmFuc2xhdGUoMTM4LjU5OTA1LC01NDYuODI2NDkpIj4KICAgIDxnCiAgICAgICBpZD0iZzIyMCIKICAgICAgIHRyYW5zZm9ybT0ibWF0cml4KDEsMCwwLC0xLC0xMjEuMDE2MDMsNTQ2LjgyNjQ5KSI+CiAgICAgIDxwYXRoCiAgICAgICAgIGQ9Im0gMCwwIGMgMCwwIC0xLDAgLTEuNDkyLC0wLjg3MSBsIC0xNS45NywtMjguMjU4IGMgMCwwIC0wLjQ5MiwtMC44NzEgMC41MDgsLTAuODcxIGwgMTg4Ljk3NSwwIGMgMCwwIDEsMCAxLjQ5MiwwLjg3MSBsIDE1Ljk3LDI4LjI1OCBjIDAsMCAwLjQ5MiwwLjg3MSAtMC41MDgsMC44NzEgeiIKICAgICAgICAgc3R5bGU9ImZpbGw6IzRhNTk1ZTtmaWxsLW9wYWNpdHk6MTtmaWxsLXJ1bGU6bm9uemVybztzdHJva2U6bm9uZSIKICAgICAgICAgaWQ9InBhdGgyMjIiCiAgICAgICAgIGlua3NjYXBlOmNvbm5lY3Rvci1jdXJ2YXR1cmU9IjAiCiAgICAgICAgIHNvZGlwb2RpOm5vZGV0eXBlcz0iY2Njc2NjY3NjIiAvPgogICAgPC9nPgogIDwvZz4KPC9zdmc+);
+		margin-right:-15px;
 	}
 
-	// hack: there is some mysterious spacing
-	.navbar-nav > li.hinzufugen {
-		//height:30px;
-	}
-	.navbar-default .navbar-nav > li.hinzufugen > a {
+	.navbar-default .navbar-nav > li.hinzufugen > a,
+	a.hinzufugen {
 		font-size:22px;
 		line-height:23px;
 		background-color:@neongreen;
@@ -574,6 +590,8 @@ display:none;
 		padding-left:4px;
 		padding-top:3px;
 		text-shadow:none;
+		border:none;
+		color:#fff;
 	}
 	.navbar-default .navbar-nav > li.hinzufugen > a:hover,
 	.navbar-default .navbar-nav > li.hinzufugen > a:active,
@@ -597,11 +615,16 @@ display:none;
 		margin-top:2px;
 	}
 
+	.nav.hilfe {
+		float:right;
+	}
 	.sk-hilfe-icon {
-		font-size:13px;
-		line-height:1em;
 		background-color:@navbtngrey;
 		border-radius:20px;
+		width:18px;
+		height:18px;
+		margin:auto;
+		font-size:12px;
 	}
 	.sk-hilfe-icon .icon-hilfe-inv {
 		padding:3px;
@@ -614,6 +637,7 @@ display:none;
 
 	.skrifo-navbar-form .form-control {
 		height:30px;
+		font-style:italic;
 	}
 	
 	// HACK: caret rechtsbündig
@@ -623,14 +647,22 @@ display:none;
 	}
 
 	// SCROLLED
+	.scrolled #mw-searchButton {
+		top:-2px;
+	}
+	.scrolled .skrifo-navbar-form #searchform {
+		margin-top:2px;
+	}
 	.scrolled .navbar-nav > li > a {
 		margin:2px;
 	}
 
+	// TODO: obsolet?
 	.scrolled .navbar-fixed-top .skrifo-navbar-collapse.skrifo-navbar-form, 
 	.scrolled .navbar-static-top .skrifo-navbar-collapse.skrifo-navbar-form, 
 	.scrolled .navbar-fixed-bottom .skrifo-navbar-collapse.skrifo-navbar-form {
-		margin:2px 0;
+//		margin:2px 0;
+		margin:0;
 	}
 
 	.scrolled .navbar {
@@ -655,10 +687,10 @@ display:none;
 	}
 
 	.scrolled .sk-hilfe-icon {
-		font-size:22px;
-		padding-top:2px;
-		padding-left:8px;
-		padding-right:8px;
+		font-size:18px;
+		padding-top:4px;
+		width:30px;
+		height:30px;
 	}
 
 }
@@ -675,9 +707,6 @@ display:none;
   border-top: 1px solid transparent;
   -webkit-box-shadow: inset 0 1px 0 rgba(255, 255, 255, .1);
           box-shadow: inset 0 1px 0 rgba(255, 255, 255, .1);
-}
-.skrifo-navbar-collapse.in {
-  overflow-y: auto;
 }
 @media (min-width: 768px) {
   .skrifo-navbar-collapse {
@@ -734,14 +763,17 @@ display:none;
   clear: both;
 }
 
+// TODO: aufräumen
 // use skrifo-navbar-form instead of navbar-form
 // again problems with the width
 .skrifo-navbar-form {
-  padding: 10px 15px;
+//  padding: 10px 15px;
+	padding:0;
   margin-top: 8px;
   margin-right: -15px;
   margin-bottom: 8px;
   margin-left: -15px;
+	margin:0;
   border-top: 1px solid transparent;
   border-bottom: 1px solid transparent;
   -webkit-box-shadow: inset 0 1px 0 rgba(255, 255, 255, .1), 0 1px 0 rgba(255, 255, 255, .1);
@@ -749,7 +781,6 @@ display:none;
 }
 @media (min-width: 768px) {
   .skrifo-navbar-form .form-group {
-//    display: inline-block;
     margin-bottom: 0;
     vertical-align: middle;
   }
@@ -798,6 +829,10 @@ display:none;
   }
 }
 @media (max-width: 767px) {
+	.skrifo-navbar-form {
+		clear:both;
+		overflow:hidden;
+	}
   .skrifo-navbar-form .form-group {
     margin-bottom: 5px;
   }
@@ -805,16 +840,40 @@ display:none;
     margin-bottom: 0;
   }
 }
+// TODO: obsolete?
 @media (min-width: 768px) {
 	.navbar-fixed-top .skrifo-navbar-collapse.skrifo-navbar-form, 
 	.navbar-static-top .skrifo-navbar-collapse.skrifo-navbar-form, 
 	.navbar-fixed-bottom .skrifo-navbar-collapse.skrifo-navbar-form {
 		padding: 0 2px;
-		margin:15px 0;
+		margin:0;
 		border: 0;
 		-webkit-box-shadow: none;
 		box-shadow: none;
 	}
+	.skrifo-navbar-form #searchform {
+		margin-top:15px;
+		margin-left:37px;
+	}
+	.skrifo-navbar-form #searchInput {
+		background-color:transparent;
+		font-size:16px;
+	}
+	.skrifo-navbar-form .form-group {
+		background-image:url(data:image/svg+xml;base64,PHN2ZwogICB4bWxuczpkYz0iaHR0cDovL3B1cmwub3JnL2RjL2VsZW1lbnRzLzEuMS8iCiAgIHhtbG5zOmNjPSJodHRwOi8vY3JlYXRpdmVjb21tb25zLm9yZy9ucyMiCiAgIHhtbG5zOnJkZj0iaHR0cDovL3d3dy53My5vcmcvMTk5OS8wMi8yMi1yZGYtc3ludGF4LW5zIyIKICAgeG1sbnM6c3ZnPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyIKICAgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIgogICB4bWxuczpzb2RpcG9kaT0iaHR0cDovL3NvZGlwb2RpLnNvdXJjZWZvcmdlLm5ldC9EVEQvc29kaXBvZGktMC5kdGQiCiAgIHhtbG5zOmlua3NjYXBlPSJodHRwOi8vd3d3Lmlua3NjYXBlLm9yZy9uYW1lc3BhY2VzL2lua3NjYXBlIgogICB3aWR0aD0iNzUuMTI0NzAybW0iCiAgIGhlaWdodD0iOC40NjY2NjYybW0iCiAgIHZpZXdCb3g9IjAgMCAyNjYuMTg5OSAyOS45OTk5OTgiCiAgIGlkPSJzdmc0MDMyIgogICB2ZXJzaW9uPSIxLjEiCiAgIGlua3NjYXBlOnZlcnNpb249IjAuOTEgciIKICAgc29kaXBvZGk6ZG9jbmFtZT0iYnV0dG9uX3NlYXJjaC5zdmciPgogIDxkZWZzCiAgICAgaWQ9ImRlZnM0MDM0IiAvPgogIDxzb2RpcG9kaTpuYW1lZHZpZXcKICAgICBpZD0iYmFzZSIKICAgICBwYWdlY29sb3I9IiNmZmZmZmYiCiAgICAgYm9yZGVyY29sb3I9IiM2NjY2NjYiCiAgICAgYm9yZGVyb3BhY2l0eT0iMS4wIgogICAgIGlua3NjYXBlOnBhZ2VvcGFjaXR5PSIwLjAiCiAgICAgaW5rc2NhcGU6cGFnZXNoYWRvdz0iMiIKICAgICBpbmtzY2FwZTp6b29tPSIxLjQiCiAgICAgaW5rc2NhcGU6Y3g9IjI2MS43NDkwNCIKICAgICBpbmtzY2FwZTpjeT0iMTAxLjc2NzI0IgogICAgIGlua3NjYXBlOmRvY3VtZW50LXVuaXRzPSJweCIKICAgICBpbmtzY2FwZTpjdXJyZW50LWxheWVyPSJsYXllcjEiCiAgICAgc2hvd2dyaWQ9ImZhbHNlIgogICAgIGZpdC1tYXJnaW4tdG9wPSIwIgogICAgIGZpdC1tYXJnaW4tbGVmdD0iMCIKICAgICBmaXQtbWFyZ2luLXJpZ2h0PSIwIgogICAgIGZpdC1tYXJnaW4tYm90dG9tPSIwIgogICAgIGlua3NjYXBlOndpbmRvdy13aWR0aD0iMTkyMCIKICAgICBpbmtzY2FwZTp3aW5kb3ctaGVpZ2h0PSIxMDIzIgogICAgIGlua3NjYXBlOndpbmRvdy14PSIwIgogICAgIGlua3NjYXBlOndpbmRvdy15PSIwIgogICAgIGlua3NjYXBlOndpbmRvdy1tYXhpbWl6ZWQ9IjEiIC8+CiAgPG1ldGFkYXRhCiAgICAgaWQ9Im1ldGFkYXRhNDAzNyI+CiAgICA8cmRmOlJERj4KICAgICAgPGNjOldvcmsKICAgICAgICAgcmRmOmFib3V0PSIiPgogICAgICAgIDxkYzpmb3JtYXQ+aW1hZ2Uvc3ZnK3htbDwvZGM6Zm9ybWF0PgogICAgICAgIDxkYzp0eXBlCiAgICAgICAgICAgcmRmOnJlc291cmNlPSJodHRwOi8vcHVybC5vcmcvZGMvZGNtaXR5cGUvU3RpbGxJbWFnZSIgLz4KICAgICAgICA8ZGM6dGl0bGU+PC9kYzp0aXRsZT4KICAgICAgPC9jYzpXb3JrPgogICAgPC9yZGY6UkRGPgogIDwvbWV0YWRhdGE+CiAgPGcKICAgICBpbmtzY2FwZTpsYWJlbD0iRWJlbmUgMSIKICAgICBpbmtzY2FwZTpncm91cG1vZGU9ImxheWVyIgogICAgIGlkPSJsYXllcjEiCiAgICAgdHJhbnNmb3JtPSJ0cmFuc2xhdGUoMzk2LjM3NjkzLC02MTguMjk4MTkpIj4KICAgIDxnCiAgICAgICBpZD0iZzI0MCIKICAgICAgIHRyYW5zZm9ybT0ibWF0cml4KDAuOTk3NzA1MjgsMCwwLC0wLjk5NzcwNTI4LC0zOTUuMzc5MjIsNjE4LjI5ODE5KSI+CiAgICAgIDxwYXRoCiAgICAgICAgIGQ9Im0gMCwwIGMgMCwwIC0xLDAgLTEsLTEgbCAwLC0yOCBjIDAsMCAwLC0xIDEsLTEgbCAyNDguMjE1NiwtMC4wNjkgYyAwLDAgMSwwIDEuNDkyLDAuODcgbCAxNS45NzMsMjguMjU5IGMgMCwwIDAuNDkzLDAuODcxIC0wLjUwNywwLjg3MSB6IgogICAgICAgICBzdHlsZT0iZmlsbDojZmZmZmZmO2ZpbGwtb3BhY2l0eToxO2ZpbGwtcnVsZTpub256ZXJvO3N0cm9rZTpub25lIgogICAgICAgICBpZD0icGF0aDI0MiIKICAgICAgICAgaW5rc2NhcGU6Y29ubmVjdG9yLWN1cnZhdHVyZT0iMCIKICAgICAgICAgc29kaXBvZGk6bm9kZXR5cGVzPSJjc2NjY2NjY2MiIC8+CiAgICA8L2c+CiAgPC9nPgo8L3N2Zz4=);
+		background-color:transparent;
+		padding-left:5px;
+		margin-right:-16px;
+		background-size:cover;
+		background-repeat:no-repeat;
+	}
+}
+.skrifo-navbar-form #searchInput,
+.skrifo-navbar-form #searchInput:focus {
+	border:none;
+	box-shadow:none;
+	padding-left:10px;
+	padding-right:35px;
 }
 .navbar-default .skrifo-navbar-form {
   border-color: #e7e7e7;
@@ -1020,14 +1079,19 @@ color: #fff;
 .scrolled .oo-ui-toolbar-bar {
 	z-index:100;
 }
+/*
 .scrolled .mw-body > .oo-ui-toolbar {
 	position:fixed;
 	top:35px;
 }
+*/
+.scrolled .ve-ui-toolbar-floating > .oo-ui-toolbar-bar {
+	top:33px;
+}
 .oo-ui-windowManager-modal > .oo-ui-dialog.oo-ui-window-setup {
 	top:60px !important;
 }
-.ve-ui-overlay {
+.ve-ui-overlay-global {
 	z-index:101 !important;
 }
 @media (min-width: 992px) {
@@ -1065,10 +1129,13 @@ label[for="wpPassword1"] {
 #footer {
     margin-top: 10px;
     text-align: left;
+	line-height:1.7;
+	padding-bottom:45px;
 }
 #footer .totop {
     margin-top: -15px;
     text-align: center;
+	margin-bottom:40px;
 }
 #footer .totop .btn.btn-link {
     border-radius: 15px;
@@ -1077,6 +1144,8 @@ label[for="wpPassword1"] {
     background-color: white;
 }
 #footer .container a {
+    display:inline-block;
+    line-height:1em;
     color: #555;
     border-bottom: 1px dotted black;
 }
@@ -1092,10 +1161,10 @@ label[for="wpPassword1"] {
 
 /* LAYOUT */
 /* linke Spalte */
-#sidebar a:hover {
+#sidebar-left a:hover {
 	text-decoration:none;
 }
-#sidebar .sk-sidebar-lernunterlage {
+#sidebar-left .sk-sidebar-lernunterlage {
 	border-left:2px solid transparent;
 	padding-left:2px;
 	clear:both;
@@ -1144,52 +1213,38 @@ label[for="wpPassword1"] {
 	padding:0 5px;
 }
 
-#sidebar .active.sk-sidebar-lernunterlage {
+#sidebar-left .active.sk-sidebar-lernunterlage {
 	border-left-color:red;
 }
 .sk-sidebar-lernunterlage.active .lernunterlage-text {
 	font-weight:bold;
 }
 
-/* rechte Spalte */
-#page-header { // is this the right id?
-	position: fixed;
-	top: 69px;
-	left: 83.33%;
-	width: 8.33%;
-	bottom:30px;
-}
-
-#page-header > div,
-#page-header .skrifo-sidebar-right {
-	height:100%;
-}
-
-.nav > li.sk-totop {
-	position:absolute;
-	bottom:0;
-	width:100%;
+/* sidebar-right */
+.sidebar-right-wrapper .sk-totop {
 	display:none;
+	margin-top:9999px;
 }
 
-.nav > li.sk-totop a {
+.sidebar-right-wrapper .sk-totop a {
 	color:@linklight;
 	font-size:25px;
 }
 
-.skrifo-sidebar-right {
+#sidebar-right {
 	text-align:center;
 	font-size:12px;
 }
-.skrifo-sidebar-right a {
+#sidebar-right > div {
+	margin-bottom:15px;
+}
+#sidebar-right a {
 	color:@darkestblue;
 	opacity:.8;
 }
-
-.skrifo-sidebar-right.nav > li > a:hover, 
-.skrifo-sidebar-right.nav > li > a:focus {
-	background-color:#fff;
-	color:#000;
+#sidebar-right a:hover,
+#sidebar-right a:focus,
+#sidebar-right a:active {
 	text-decoration:none;
 	opacity:1;
 }
@@ -1201,6 +1256,7 @@ label[for="wpPassword1"] {
 	font-size:3em;
 	display: block;
 	margin-bottom: -5px;
+	margin-top:-5px;
 	font-family: 'skrifoicons';
 	speak: none;
 	font-style: normal;
@@ -1286,6 +1342,9 @@ label[for="wpPassword1"] {
 		margin:0;
 		margin-top:3px;
 	}
+	.sk-studienrichtung-dropdown .divider:first-child {
+		height:10px;
+	}
 
 	.sk-studienrichtung-dropdown .studienrichtung-top + .divider,
 	#loginext .divider.sk-dropdown-bottom {
@@ -1295,6 +1354,9 @@ label[for="wpPassword1"] {
 		border-bottom-right-radius:3px;
 		margin:0;
 	}
+	.sk-studienrichtung-dropdown .studienrichtung-top + .divider {
+		height:14px;
+	}
 
 	.skrifo-navbar .dropdown-menu > li > a {
 		color:white;
@@ -1303,7 +1365,7 @@ label[for="wpPassword1"] {
 		text-overflow:ellipsis;
 		line-height:1.3;
 		font-size:13px;
-		padding:2px 10px;
+		padding:3px 12px;
 	}
 
 	.skrifo-navbar .dropdown-menu > li {
@@ -1327,8 +1389,8 @@ label[for="wpPassword1"] {
 	}
 
 	#loginext .col-md-12 {
-		padding-left:10px;
-		padding-right:10px;
+		padding-left:12px;
+		padding-right:12px;
 	}
 	#loginext.skrifo-loginext .col-md-10 {
 		padding-left:10px;
@@ -1357,7 +1419,7 @@ label[for="wpPassword1"] {
 
 	.skrifo-navbar .dropdown-menu.sk-studienrichtung-dropdown > li.sk-dropdown-section > a,
 	.dropdown-menu > li.sk-dropdown-section > a {
-		padding:5px 10px;
+		padding:6px 10px;
 		border-radius:3px;
 		margin-top:3px;
 		background-color:@navdrpdwndark;
@@ -1370,12 +1432,18 @@ label[for="wpPassword1"] {
 		background-color:@darkgrey90;
 		margin-top:3px;
 		border-radius:3px;
-		padding:5px;
+		padding:12px;
+	}
+	.studienrichtung-selects div.select2-container:first {
+		margin-bottom:8px;
+	}
+	#loginext #wpName2 {
+		margin-bottom:8px;
 	}
 
 	#loginext.skrifo-loginext .dropdown-header {
 		font-weight: 700;
-		padding:0 10px 5px;
+		padding:3px 10px 8px;
 	}
 	#loginext.skrifo-loginext {
 		padding:0;
@@ -1499,8 +1567,9 @@ input.select2-input {
 .studienrichtung-toggle .icon-weiter_studienrichtungen,
 #loginext .icon-aufmachen {
 	color:@neongreen;
-	vertical-align:middle;
-	font-size:1.2em;
+	font-size:20px;
+	display:inline-block;
+	margin-top:-2px;
 }
 
 .studienrichtung-expand .studienrichtung-toggle .icon-weiter_studienrichtungen:before {
@@ -1550,16 +1619,7 @@ input.select2-input {
 	padding-left:2px;
 	display:inline-block;
 }
-.sk-sidebar-wrapper {
-	width:100%;
-	height:0;
-	top:83px;
-}
-.sk-sidebar-container,
-.sk-sidebar-container .row {
-	height:0;
-}
-#sidebar {
+#sidebar-left {
 	padding:0;
 	width:16.6667%;
 	position:inherit;
@@ -1568,16 +1628,19 @@ input.select2-input {
 	overflow:visible;
 }
 @media (min-width: 992px) {
-	#sidebar {
+	#sidebar-left {
 		top:80px;
 	}
-	.sk-sidebar-wrapper {
+	.sidebar-wrapper {
 		position:absolute;
+	}
+	.sidebar-right-wrapper {
+		position:fixed;
 	}
 }
 
 /* TOC */
-#sidebar #tweekiTOC {
+#sidebar-left #tweekiTOC {
 	width:100%;
 }
 #toc .toclevel-2 {
@@ -1641,11 +1704,18 @@ input.select2-input {
 .sk-lernunterlage .mw-content-ltr .sk-lu-infos a:hover {
 	color:black;
 }
-.sk-lu-fortschritt {
+.sk-lu-fortschritt, 
+.sk-erstellen-fortschritt {
 	background-color:@blue40;
 	border-radius:2px;
 }
-.sk-lu-fortschritt-prozent {
+.sk-erstellen-fortschritt {
+	background-color:@darkgrey;
+	border-radius:3px;
+	margin-bottom:5px;
+}
+.sk-lu-fortschritt-prozent, 
+.sk-erstellen-fortschritt-prozent {
 	background-color:@neongreen;
 	min-height:5px;
 	border-radius:2px;
@@ -1725,7 +1795,7 @@ input.select2-input {
 .sk-lu-autorinnen, .sk-lu-history {
 	background-color:@blue5;
 	border-radius:2px;
-	padding:5px 15px;
+	padding:2px 15px;
 	float:left;
 	width:50%;
 }
@@ -1803,6 +1873,7 @@ input.select2-input {
 
 .sk-studienrichtung-dropdown .select2-container .select2-choice {
 	height:auto;
+	min-width:auto;
 }
 
 .sk-studienrichtung-dropdown .form-control .select2-choice {
@@ -1825,7 +1896,10 @@ input.select2-input {
 
 // TODO: for tweeki?
 .with-navbar.with-navbar-fixed {
-	padding-top:80px;
+	padding-top:102px;
+}
+.sidebar-wrapper {
+	top:105px;
 }
 #siteNotice {
 	display:none;
@@ -1838,3 +1912,346 @@ input.select2-input {
 	display:none;
 }
 
+// SHIBBOLETH
+.sk-shibboleth-form {
+	border:none;
+	width:100%;
+}
+
+.sk-user-changes .sk-drilldown,
+.sk-user-created .sk-drilldown,
+.sk-user-authored .sk-drilldown {
+	margin-left:0;
+}
+
+// Benutzerseite 
+.ns-2 #mw-content-text,
+.ns-2 .firstHeading .namespace {
+	display:none;
+}
+#content {
+	background-color:transparent;
+}
+.sk-userpage,
+.sk-userpage .firstHeading {
+	background-color:@greyarea;
+}
+.sk-user-details {
+	font-weight:bold;
+}
+.sk-user-value {
+	color:white;
+}
+.sk-userpage-contribs {
+	margin-top:50px;
+}
+.user-contact {
+	margin-top:20px;
+	text-align:center;
+	float:right;
+	margin-bottom:-20px;
+	font-weight:bold;
+	font-size:12px;
+}
+.user-contact .icon-nachricht {
+	font-size:35px;
+	background-color:white;
+	border-radius:20px;
+}
+.user-contact a {
+	color:#000;
+}
+.user-contact a:hover,
+.user-contact a:active,
+.user-contact a:focus {
+	color:#000;
+	text-decoration:none;
+}
+.user-role {
+	color:#fff;
+	float:left;
+	margin-top:25px;
+	height:0;
+	text-shadow:1px 1px 10px @greyarea;
+	font-weight:bold;
+	font-size:35px;
+} 
+.sk-welcome {
+	font-weight:bold;
+	font-size:larger;
+}
+.sk-changes-intro {
+	font-size:larger;
+}
+.sk-welcome-studienrichtungen {
+	margin-top:20px;
+}
+.sk-welcome-subheading {
+	font-size:15px;
+	font-weight:bold;
+	font-style:italic;
+}
+.sk-welcome-end {
+	font-weight:bold;
+	margin-top:10px;
+}
+.sk-startseite-sky {
+	background:url(images/startseite_sky.jpg) no-repeat center 55%;
+	-webkit-background-size:cover;
+	-moz-background-size:cover;
+	-o-background-size:cover;
+	background-size:cover;
+	margin-left:-9999px;
+	margin-right:-9999px;
+	padding-left:9999px;
+	padding-right:9999px;
+	margin-top:-70px;
+	padding-top:180px;
+	padding-bottom:5px;
+}
+.sk-startseite-cloud {
+	background:url(images/startseite_cloud.png) no-repeat center center;
+	width:300px;
+	height:194px;
+	position:absolute;
+	right:-80px;
+	top:-30px;
+}
+.sk-startseite-about a,
+.sk-startseite-about a:hover,
+.sk-startseite-about a:focus,
+.sk-startseite-about a:active {
+	color:white;
+	font-style:italic;
+	font-size:15px;
+	border-bottom:10px solid @skyblue;
+	height:1.1em;
+	padding-right:22px;
+	padding-left:7px;
+	margin-bottom:15px;
+}
+.sk-startseite-info {
+	font-style:normal;
+	border:1px white solid;
+	border-radius:10px;
+	margin-right:10px;
+	font-size:.9em;
+	display:inline-block;
+	text-align:center;
+	width:15px;
+	line-height:15px;
+}
+.sk-startseite-mitmachen,
+.sk-startseite-adminwerden {
+	display:block;
+	padding:11px 15px 7px;
+	font-weight:bold;
+	font-size:1.3em;
+	margin-left:-15px;
+	margin-right:-15px; // TODO: ugly hack!
+}
+.sk-startseite-mitmachen:hover,
+.sk-startseite-adminwerden:hover {
+	cursor:pointer;
+}
+.sk-startseite-mitmachen {
+	background-color:@neongreen;
+	color:@adminblue;
+	margin-right:-10px; // TODO: ugly hack!
+}
+.sk-startseite-mitmachen a:hover,
+.sk-startseite-mitmachen a:focus,
+.sk-startseite-mitmachen a:active {
+}
+.sk-startseite-plus,
+.sk-startseite-plus:hover,
+.sk-startseite-plus:focus,
+.sk-startseite-plus:active {
+	color:white;
+}
+.sk-startseite-adminwerden {
+	background-color:@adminblue;
+	color:white;
+}	
+.sk-startseite-adminwerden a:hover,
+.sk-startseite-adminwerden a:focus,
+.sk-startseite-adminwerden a:active {
+}
+.sk-startseite-users {
+	background:url( 'images/maxerl_klein.png' ) no-repeat;
+	width:50px;
+	height:50px;
+	margin-top:-37px;
+	margin-right:-15px;
+	background-size:contain;
+}
+.sk-startseite-sub {
+	background-color:@subsky;
+	margin-left:-9999px;
+	margin-right:-9999px;
+	padding-left:9999px;
+	padding-right:9999px;
+	padding-top:30px;
+	padding-bottom:30px;
+	margin-bottom:20px;
+	box-shadow:0 0 2px #ccc;
+}
+.sk-startseite-sub-shadow {
+	height:10px;
+	box-shadow:0 4px 4px #ccc;
+	margin-top:-40px;
+	margin-left:-9999px;
+	margin-right:-9999px;
+	margin-bottom:30px;
+}
+.sk-startseite-adminwerden-text, 
+.sk-startseite-mitmachen-text {
+	display:none;
+	position:relative;
+	padding-bottom:80px;
+}
+.sk-startseite-mitmachen-pluse {
+	background-image:url(images/pluse.png);
+	width:300px;
+	height:200px;
+	position:absolute;
+	background-size:contain;
+	background-repeat:no-repeat;
+	left:9599px;
+	bottom:-95px;	
+}
+.sk-startseite-adminwerden-maxerl {
+	background-image:url(images/maxerl.png);
+	width:300px;
+	height:300px;
+	background-size:contain;
+	background-repeat:no-repeat;
+	float:left;
+	margin-left:-260px;
+	margin-right:-40px;
+	margin-top:-20px;
+}
+.sk-startseite-adminwerden-text .icon-nachricht {
+	font-size:30px;
+	vertical-align:middle;
+	display:inline-block;
+	margin-top:-8px;
+	margin-left:5px;
+}
+.sk-startseite-adminwerden-text h4.pull-left {
+	margin-top:0;
+}
+.sk-startseite-adminwerden-text a {
+	color:@adminblue;
+	border:none;
+}
+.sk-startseite-mitmachen-text .sk-startseite-typen {
+	font-size:20px;
+}
+.sk-startseite-mitmachen-icon {
+	margin-top:20px;
+	text-align:center;
+}
+.sk-startseite-typen span {
+	margin:3px;
+	display:block;
+}
+.sk-startseite-counter {
+	font-size:larger;
+	text-align:center;
+}
+.sk-startseite-hinweis {
+	border-right:1px @pink solid;
+	border-left:1px @pink solid;
+	padding:0 15px;
+	margin:40px 0;
+}
+.sk-heading-line-text {
+	float:left;
+	background:#fff;
+	padding-right:10px;	
+	line-height:1em;
+}
+.sk-heading-line-line {
+	border-bottom:2px solid #eee;
+	height:0.5em;
+	margin-bottom:.6em;
+}
+.sk-user-wanted .sk-heading-line-text {
+	text-transform:uppercase;
+	font-weight:bold;
+}
+
+
+// TIM 4.12.2015
+// eckige Inputs bei den Nav-Dropdowns
+.skrifo-navbar .input-sm {
+	border-radius:0;
+	height:20px;
+	padding:1px 8px;
+	border-left:2px solid black;
+}
+#loginext select {
+	margin-bottom:6px;
+}
+#footer .selflink {
+	opacity:.5;
+	font-weight:normal;
+}
+
+// LOGO
+.sk-logo,
+.scrolled .sk-logo {
+	background-size:contain;
+	background-repeat:no-repeat;
+	position:absolute;
+	background-image:url( images/logo_klein.png );
+	width:220px;
+	height:150px;
+}	
+.sk-logo { // mobile
+	top:-12px;
+	left:0;
+}
+@media( min-width:768px ) {
+	.sk-logo {
+		background-image:url( images/logo_gross.png );
+		width:250px;
+		top:-12px;
+		left:-20px;
+	}
+	.scrolled .sk-logo {
+		top:-20px;
+		left:0;
+	}
+}
+
+// TWEEKI?
+#content a.external, #content a.external[href^="gopher://"] {
+	background:none;
+	padding-right:0;
+}
+
+// CHANGES
+.sk-changes-icon-wrapper {
+	float:left;
+}
+
+.sk-changes-icon {
+	font-size:30px;
+}
+.sk-changes-text-wrapper {
+	margin-left:40px;
+}
+.sk-changes {
+	margin-bottom:25px;
+}
+.sk-changes a {
+	border:none;
+	font-weight:normal;
+	color:#000;
+	display:block;
+}
+.sk-changes-lastedit {
+	font-weight:bold;
+}

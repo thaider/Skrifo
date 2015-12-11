@@ -22,10 +22,9 @@ class SkrifoNavigation {
 		$localParser->clearState();
 
 		$user = $skin->getSkin()->getUser()->getName();
-		$customizedUserPage = $localParser->recursiveTagParse( "{{#ask:[[Benutzer:" . $user . "]][[Studienrichtung::+]]|format=count}}" );
+		$customizedUserPage = $localParser->recursiveTagParse( "{{#ask:[[Benutzer:" . $user . "]][[UserInterest::+]]|format=count}}" );
 		if( $customizedUserPage == 1 ) {
-			$result = $localParser->recursiveTagParse( "{{#ask:[[Benutzer:" . $user . "]]|?Studienrichtung=|link=none|format=list|mainlabel=-}}" );
-			$result = str_replace( 'Kategorie:', '', $result );
+			$result = $localParser->recursiveTagParse( "{{#ask:[[Benutzer:" . $user . "]]|?UserInterest=|link=none|format=list|mainlabel=-}}" );
 			}
 		else {
 			$result = $localParser->recursiveTagParse( "{{#ask:[[Hierarchie::Studienrichtung]]|limit=5|format=list|link=none|searchlabel=}}" );
@@ -44,13 +43,16 @@ class SkrifoNavigation {
 			}
 		$result = explode( ", ", $result );
 		foreach( $result as &$entry ) {
-			$entry = "https://skriptenforum.net/t/wiki/index.php?title=Spezial:Daten_durchsuchen/Lernunterlage&_search_Studienrichtung=" . urlencode( trim( $entry ) ) . "|" . $entry . "|studienrichtung-top";
+			$entry = trim( $entry );
+			$entryurl = Title::newFromText( 'Spezial:Daten_durchsuchen/Lernunterlage' )->getFullURL( '_search_Studienrichtung=' . $entry );
+			$entry = $entryurl . "|" . $entry . "|studienrichtung-top";
 			}
-		$result = "Studienrichtungen\n*\n*" . implode( "\n*", $result ) . "\n*\n*Studienrichtungen|<span class='icon-weiter_studienrichtungen pull-right'></span>Alle Studienrichtungen|studienrichtung-toggle sk-dropdown-section";
+		$result = "Studienrichtungen\n*\n*" . implode( "\n*", $result );
 		if( $customizedUserPage == 0 && $skin->getSkin()->getUser()->isLoggedIn() ) {
 			$titleCustomize = Title::newFromText( 'User:' . $user );
-			$result .= "\n*\n*\n*Liste individuell anpassen|".$titleCustomize->getFullURL( array( 'action' => 'formedit' ) );
+			$result .= "\n*".$titleCustomize->getFullURL( array( 'action' => 'formedit' ) )."|<i>Liste individualisieren</i>|studienrichtung-top";
 			}
+		$result .= "\n*\n*Studienrichtungen|<span class='icon-weiter_studienrichtungen pull-right'></span>Alle Studienrichtungen|studienrichtung-toggle sk-dropdown-section";
 		$studienrichtungen = array();
 		$unis = $localParser->recursiveTagParse( "{{#ask:[[Hierarchie::Universität]]|format=list|link=none}}" );
 		$unis = str_replace( 'Kategorie:', '', $unis );
@@ -95,7 +97,7 @@ class SkrifoNavigation {
 		//Download-Buttons nur bei Skripten und Fragenausarbeitungen! 
 		if ( $skin->data['namespace'] == "Skriptum" || $skin->data['namespace'] == "Fragenausarbeitung" ):
  		?>
-			<li id="DownloadEdit" class="dropdown">
+			<div id="DownloadEdit" class="dropdown">
 				<a class="dropdown-toggle btn-link" data-toggle="dropdown" href="#">
 					<span class="tool-icon icon-download"></span><br>
 					download
@@ -107,20 +109,20 @@ class SkrifoNavigation {
 					<li class="divider" />
 					<li><a href="<?php $titleDownloadHelp=Title::newFromText('Hilfe:Download'); echo $titleDownloadHelp->getLinkURL(); ?>"><em>was ist der Unterschied?</em></a></li>
 				</ul>
-			</li>
+			</div>
 		<?php endif;
 
 		// für Datei-Lernunterlagen
-		$href = $skin->getSkin()->getWikiPage()->getFile()->getFullUrl();
 		if ( $skin->data['namespace'] == "Datei" ) {
+			$href = $skin->getSkin()->getWikiPage()->getFile()->getFullUrl();
 			$button = array(
 				'href' => $href,
 				'html' => '<span class="tool-icon icon-download"></span><br>download',
 				'title' => 'Datei herunterladen'
 				);
 			$options = array(
-				'wrapper' => 'li',
-				'wrapperclass' => 'nav btn-group'
+				'wrapper' => 'div',
+				'wrapperclass' => 'dropdown'
 				);
 		
 			echo TweekiHooks::renderButtons( array( $button ), $options );
@@ -136,7 +138,6 @@ class SkrifoNavigation {
 	static function Watch( $skin ) {
 		$button = null;
 		$options = array(
-			'wrapper' => 'li',
 			'wrapperclass' => 'nav btn-group'
 			);
 		$actions = array_reverse( $skin->data['action_urls'] );
@@ -167,7 +168,6 @@ class SkrifoNavigation {
 			'html' => '<span class="icon-nachoben"></span>'
 			);
 		$options = array(
-			'wrapper' => 'li',
 			'wrapperclass' => 'dropdown sk-totop'
 			);
 		echo TweekiHooks::renderButtons( array( $button ), $options );
@@ -188,7 +188,7 @@ class SkrifoNavigation {
 			if( count( $views ) > 2 ) {
 				unset( $views['view'] );
 				foreach( $views as $key => $item )
-					if( $key != 've-edit' && $key != 'edit' ) {
+					if( ( $key != 've-edit' && $key != 'edit' ) && !( $skin->data['namespace'] == "Prüfungsfragen" && $key == 'form_edit' ) ) {
 						unset( $views[$key] );
 					}
 				if( count( $views ) > 0 ) {
@@ -345,13 +345,14 @@ class SkrifoNavigation {
 		}
 		//return to user page if logging in from main page
 		if ( $returnto == Title::newMainPage()->getFullText() ) {
-			$returnto = 'Special:MyPage';	
+//			$returnto = 'Special:MyPage';	
 		}
 	  	$action = $wgScript . '?title=special:userlogin&amp;action=submitlogin&amp;type=login&amp;returnto=' . $returnto;
 	  	
 	  	//create login token if it doesn't exist
 	  	if( !$wgRequest->getSessionData( 'wsLoginToken' ) ) $wgRequest->setSessionData( 'wsLoginToken', MWCryptRand::generateHex( 32 ) );
 	  	$wgUser->setCookies();
+		$target = Title::newFromText( 'Test' )->getFullURL();
 	
 			echo '<li class="nav nav-block">
 			<a href="#" class="dropdown-toggle" type="button" id="n-login" data-toggle="dropdown">
@@ -362,17 +363,20 @@ class SkrifoNavigation {
 				<li class="divider sk-dropdown-top"></li>
 				<li class="dropdown-header">über deine Universität</li>
 				<li>
-					<form action="" method="post" name="userloginshib">
-						<div class="container-fluid"><div class="row"><div class="col-md-10">
-							<select disabled name="university" class="form-control input-sm">
-								<option>Universität Wien</option>
+					<form action="https://skriptenforum.net/Shibboleth.sso/Login" method="get" name="userloginshib">
+						<div class="container-fluid"><div class="row"><div class="col-md-12">
+							<select onchange="if(this.value){submit();}" name="entityID" class="form-control input-sm">
+								<option value="">Universität auswählen</option>
+								<option value="https://weblogin.univie.ac.at/shibboleth">Universität Wien</option>
 							</select>
+							<input type="hidden" name="target" value="' . $target . '" />
+							<input type="hidden" name="SAMLDS" value="1" />
 						</div>
-						<div class="col-md-2">
-							<button class="btn btn-default btn-block btn-sm" disabled type="submit">
+						<!--<div class="col-md-2">
+							<button class="btn btn-default btn-block btn-sm" type="submit">
 								<span class="fa fa-chevron-right"></span>
 							</button>
-						</div></div></div>
+						</div>--></div></div>
 					</form>
 				</li>
 				<li class="divider sk-dropdown-bottom"></li>

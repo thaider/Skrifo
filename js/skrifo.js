@@ -1,4 +1,5 @@
 $(document).ready( function() {
+	if( typeof wgStudienrichtungen !== 'undefined' ) {
 
 	// STUDIENRICHTUNGSAUSWAHL
 	// Universitätsauswahl erstellen und befüllen
@@ -38,8 +39,10 @@ $(document).ready( function() {
 	$( '#studienrichtung-select' ).change( function() {
 		var studienrichtung = $( this ).val();
 		var uni = $( '#uni-select' ).val();
-		window.location.href = wgScript + '?title=Spezial:Daten_durchsuchen/Lernunterlage&_search_Studienrichtung=' + encodeURIComponent( studienrichtung + ' (' + uni + ')' );
+		window.location.href = mw.config.get( 'wgScript' ) + '?title=Spezial:Daten_durchsuchen/Lernunterlage&_search_Studienrichtung=' + encodeURIComponent( studienrichtung + ' (' + uni + ')' );
 	});
+	
+	}
 
 
 	// Fix für SHIBBOLETH
@@ -55,6 +58,11 @@ $(document).ready( function() {
 		$( '#fileSize' ).text( fileSize );
 	}
 
+	function setFortschritt( prozent ) {
+		$( '.sk-erstellen-fortschritt-prozent' ).css( 'width', prozent + '%' );
+	}
+		
+
 
 	// NEUE LEHRVERANSTALTUNG
 	$( '.sk-erstellen-vortragende-weiter' ).click( function( e ) {
@@ -62,6 +70,7 @@ $(document).ready( function() {
 		$( '.sk-erstellen-bestehende' ).slideUp( { progress: function() { $( window ).resize(); } } );
 		$( '.sk-erstellen-titel' ).show();
 		$( this ).hide();
+		setFortschritt( 25 );
 		$( '.sk-erstellen-titel-input' ).focus();
 	});
 	$( '.sk-erstellen-titel-weiter' ).click( function( e ) {
@@ -69,12 +78,18 @@ $(document).ready( function() {
 		$( '.sk-erstellen-studienrichtung' ).show();
 		$( '.sk-erstellen-abschliessen' ).show();
 		$( this ).hide();
+		setFortschritt( 50 );
 		$( '.sk-erstellen-studienrichtung .select2-input' ).focus();
 	});
 	$( '.sk-erstellen-abschliessen-weiter' ).click( function( e ) {
 		$( '.sk-erstellen-abschliessen-btn' ).click();
 	});
 	$( '.sk-erstellen' ).parent( 'form' ).submit( function( e ) {
+		// Formular nicht abschicken, wenn Eingabetaste im Titel-Feld gedrückt wird...
+		if( $( '.sk-erstellen-studienrichtung:visible' ).length == 0 ) {
+			$( '.sk-erstellen-titel-weiter' ).click();
+			e.preventDefault();
+		}
 		$( 'input.sk-erstellen-vortragende-input' ).val( $( 'input.sk-erstellen-vortragende-input' ).val().replace( /, $/g, '' ) );
 	});
 	$( '.sk-erstellen-vortragende-input' ).on( "change", function( e ) {
@@ -84,7 +99,8 @@ $(document).ready( function() {
 				$( '.sk-erstellen-bestehende-spinner' ).show();
 			}
 			person = e.added.text;
-			url = "https://skriptenforum.net/t/wiki/api.php?action=ask&query=[[Leiter::" + person + "]][[Kategorie:LV]]&format=json";
+			var path = mw.config.get( 'wgServer' ) + mw.config.get( 'wgScriptPath' );
+			url = path + "/api.php?action=ask&query=[[Leiter::" + person + "]][[Kategorie:LV]]&format=json";
 			$.getJSON( url )
 			.done( function( data ) {
 				counter = 0;
@@ -117,7 +133,8 @@ $(document).ready( function() {
 // SCROLLING - Klasse hinzufügen und Handling für Inhaltsverzeichnis/ToTop
 function checkScrolled() {
 	var tocposition,
-		docposition;
+		docposition,
+		wrapper;
 
 	docposition = $( document ).scrollTop(); 
 	if ( docposition > 30 ) { 
@@ -128,7 +145,16 @@ function checkScrolled() {
 
 	// ToTop-Link
 	if( docposition > 100 ) {
-		$( '.sk-totop' ).show();
+		if( $( '.sk-totop' ).is(':hidden' ) ) {
+			$( '.sk-totop' ).show();
+			var screenheight = $( window ).height();
+			var wrapperposition = $( '.sidebar-right-wrapper' ).position().top;
+			var totopposition = $( '.sk-totop' ).position().top;
+			var bottom = 100;
+			var newmargin = screenheight - ( wrapperposition + totopposition + bottom );
+			newmargin = Math.max( newmargin, 15 );
+			$( '.sk-totop' ).css( 'margin-top', newmargin + 'px' );
+		}
 	} else {
 		$( '.sk-totop' ).hide();
 	}
@@ -136,11 +162,12 @@ function checkScrolled() {
 	// Inhaltsverzeichnis auf Lernunterlagenseiten
 	tocposition = $( '#toctitle' ).position();
 	if( typeof tocposition !== 'undefined' ) {
+		wrapper = $( '#toctitle' ).parents( '.sidebar-wrapper' );
 		if ( docposition > tocposition.top + 80 ) {
-			$( '.sk-sidebar-wrapper' ).css( 'position', 'fixed' ).css( 'top', ( - tocposition.top ) + 'px' );
+			wrapper.css( 'position', 'fixed' ).css( 'top', ( - tocposition.top ) + 'px' );
 		}
 		else {
-			$( '.sk-sidebar-wrapper' ).css( 'position', 'absolute' ).css( 'top', '83px' );
+			wrapper.css( 'position', 'absolute' ).css( 'top', '105px' );
 		} 
 	}
 }
@@ -152,3 +179,23 @@ $( document ).ready( function() {
 	checkScrolled();
 });
 
+// Startseite: Klick auf 'mitmachen' umleiten
+$( document ).ready( function() {
+	$( '.sk-startseite-mitmachen, .sk-startseite-adminwerden' ).click( function( e ) {
+		$( '.sk-startseite-sub' ).hide();
+		var targetclass = $( this ).data( 'skrifo-target' ); 
+		$( '.' + targetclass ).show();
+	});
+	$( '.sk-startseite-sub .close' ).click( function( e ) {
+		$( '.sk-startseite-sub' ).hide();
+		$( '.sk-startseite-welcome' ).show();
+	});
+});
+
+// Login-Dropdown ausklappen
+$( document ).ready( function() {
+	if( typeof skLogin !== 'undefined' ) {
+		console.log( 'skLogin is set...' );
+		setTimeout( function() { $( '#n-login' ) .click(); }, 2000 );
+	}
+});
