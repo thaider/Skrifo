@@ -16,8 +16,45 @@ class SkrifoHooks {
 		$parser->setHook( 'sklogin', 'SkrifoHooks::login' );
 		$parser->setHook( 'skchanges', 'SkrifoHooks::changes' );
 		$parser->setHook( 'skwelcome', 'SkrifoHooks::welcome' );
+		$parser->setHook( 'timeago', 'SkrifoHooks::timeago' );
 		$parser->setFunctionHook( 'studienrichtungen', 'SkrifoHooks::studienrichtungen' );
 		return true;
+		}
+
+	/**
+	 * Time-ago
+	 */
+	static function timeago( $input, $args, Parser $parser, PPFrame $frame ) {
+		try {
+			$datetime = new DateTime( $parser->recursiveTagParse( $input, $frame ) );
+		}
+		catch (Exception $e) {
+			return "keine gültige Datumsangabe";
+		}
+		$now = new DateTime();
+		$interval = $datetime->diff( $now );
+		if( $interval->y == 1 ) {
+			$ago = 'einem Jahr';
+		}
+		elseif( $interval->y > 0 ) {
+			$ago = $interval->y . ' Jahren';
+		}
+		elseif( $interval->m == 1 ) {
+			$ago = 'einem Monat';
+		}
+		elseif( $interval->m > 0 ) {
+			$ago = $interval->m . ' Monaten';
+		}
+		elseif( $interval->d == 1 ) {
+			$ago = 'einem Tag';
+		}
+		elseif( $interval->d > 0 ) {
+			$ago = $interval->d . ' Tagen';
+		}
+		else {
+			$ago = 'kurzem';
+		}
+		return 'vor ' . $ago;
 		}
 
 	/**
@@ -315,7 +352,7 @@ class SkrifoHooks {
 					<div class="<?php $skin->msg( 'tweeki-container-class' ); ?>">
 					<div class="row">	
 						<div class="col-md-3">
-							<button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".skrifo-navbar-collapse">
+							<button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
 								<span class="sr-only">Toggle navigation</span>
 								<span class="icon-bar"></span>
 								<span class="icon-bar"></span>
@@ -327,19 +364,19 @@ class SkrifoHooks {
 								} ?>
 					
 						</div>
-						<ul class="col-md-3 nav navbar-nav skrifo-navbar-collapse collapse skrifo-navbar-form">
+						<ul class="col-md-3 nav navbar-nav navbar-collapse collapse skrifo-navbar-form">
 							<li class="nav hinzufugen">
 								<?php echo $skin->buildItems( 'Special:FormEdit/Neue_LV|<span class="icon-hinzufugen-inv"></span>', $plusoptions, 'costum' ); ?>
 							</li>
 							<?php echo $skin->buildItems( 'SEARCH', $navbaroptions, 'custom' ); ?>
 						</ul>
-						<ul class="col-md-2 nav navbar-nav skrifo-navbar-collapse collapse">
+						<ul class="col-md-2 nav navbar-nav navbar-collapse collapse">
 							<?php echo $skin->buildItems( 'STUDIENRICHTUNGEN', $navbaroptions, 'custom' ); ?>
 						</ul>
-						<ul class="col-md-2 nav navbar-nav skrifo-navbar-collapse collapse">
+						<ul class="col-md-2 nav navbar-nav navbar-collapse collapse">
 							<?php echo $skin->buildItems( 'PERSONAL-EXT', $personaloptions, 'custom' ); ?>
 						</ul>
-						<ul class="col-md-1 nav navbar-nav skrifo-navbar-collapse collapse">
+						<ul class="col-md-1 nav navbar-nav navbar-collapse collapse">
 							<?php echo $skin->buildItems( 'Hilfe:Inhaltsverzeichnis|<div class="sk-hilfe-icon"><span class="icon-hilfe-inv"></span></div><div class="sk-hilfe-text">Hilfe</div>', $rightoptions, 'custom' ); ?>
 						</ul>
 					</div>
@@ -455,12 +492,12 @@ class SkrifoHooks {
 								<span class="sk-user-value"><?php echo $registration->format( "j.n.Y" ); ?></span>
 							</div>
 							<div class="sk-user-studienrichtung">
-								Studienrichtungen: 
+								Meine Studienrichtungen: 
 								<span class="sk-user-value">
 									<?php echo $studienrichtungen; ?>
 								</span>
 								<?php if( $homevisitor ) {
-									echo '<a href="' . Title::NewFromText( 'Spezial:FormEdit/Benutzer/Benutzer:' . $pageowner )->getFullURL() . '">ändern</a>';
+									echo '<a href="' . Title::NewFromText( 'Spezial:FormEdit/Benutzer/Benutzer:' . $pageowner )->getFullURL() . '">hinzufügen/ändern</a>';
 									} ?>
 							</div>
 							<?php if( $hasadmin ) { ?>
@@ -490,11 +527,11 @@ class SkrifoHooks {
 					<div class="container-fluid">
 						<div class="row">
 							<div class="col-md-6 sk-user-created">
-								<h3>Erstellte Lernunterlagen</h3>
+								<h3>Von mir erstellte Lernunterlagen</h3>
 								<?php echo $created; ?>
 							</div>
 							<div class="col-md-6 sk-user-authored">
-								<h3>Bearbeitete Lernunterlagen</h3>
+								<h3>Von mir bearbeitete Lernunterlagen</h3>
 								<?php echo $bearbeitet; ?>
 							</div>
 						</div>	

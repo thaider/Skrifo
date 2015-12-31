@@ -280,7 +280,7 @@ class SkrifoNavigation {
 					$newbutton['class'] = 'lernunterlage';
 				} else {
 					$newbutton['html'] = '<span data-toggle="tooltip" data-placement="right" title="' . $ns . ' erstellen"><span class="lernunterlage-icon icon-' . $icons[$ns] . '"></span> <span class="lernunterlage-text"><span class="icon-aufmachen lernunterlage-erstellen-icon"></span>' . $ns . '</span></span>';
-					$newbutton['href'] = $wgServer . str_replace( '$1', '', $wgArticlePath ) . 'Spezial:FormEdit/' . $ns . 'Neu/' . $ns . ':' . $title;
+					$newbutton['href'] = $wgServer . str_replace( '$1', '', $wgArticlePath ) . 'Spezial:LernunterlageErstellen/' . $ns . ':' . $title;
 					$newbutton['class'] = 'lernunterlage lernunterlage-erstellen';
 				}
 				$buttons[] = $newbutton;
@@ -365,7 +365,7 @@ class SkrifoNavigation {
 				<li>
 					<form action="https://skriptenforum.net/Shibboleth.sso/Login" method="get" name="userloginshib">
 						<div class="container-fluid"><div class="row"><div class="col-md-12">
-							<select onchange="if(this.value){submit();}" name="entityID" class="form-control input-sm">
+							<select onchange="if(this.value){submit();}" name="entityID" class="form-control input-sm" disabled>
 								<option value="">Universität auswählen</option>
 								<option value="https://weblogin.univie.ac.at/shibboleth">Universität Wien</option>
 							</select>

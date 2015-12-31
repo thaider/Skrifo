@@ -29,7 +29,6 @@ $wgNamespacesToBeSearchedDefault += array(
 	NS_SKRIPTUM => true,
 	NS_PFRAGEN => true,
 	NS_FRAGENA => true,
-	NS_CATEGORY => true,
 	NS_FILE => true
 	);
 
@@ -184,11 +183,13 @@ $wgULSEnable = false; // disable because of troubles with default messages in de
 require_once "$IP/extensions/VisualEditor/VisualEditor.php";
 $wgDefaultUserOptions['visualeditor-enable'] = 1;
 $wgHiddenPrefs[] = 'visualeditor-enable';
+$wgHiddenPrefs[] = 'visualeditor-betatempdisable';
 $wgVirtualRestConfig['modules']['parsoid'] = array(
 	'url' => 'http://localhost:8142',
 	'prefix' => 'skrifotest'
 );
 $wgVisualEditorSupportedSkins[] = 'tweeki';
+$wgVisualEditorDisableForAnons = true;
 
 //TODO: obsolete?
 //wfLoadExtension( 'CategoryTree' );
@@ -216,7 +217,7 @@ $sfgNamespaceIndex = 200;
 $sfgAutocompleteOnAllChars = true;
 $sfgAutoCreateUser = 'SkrifoBot';
 
-//require_once( "$IP/extensions/SemanticFormsInputs/SemanticFormsInputs.php" );
+require_once( "$IP/extensions/SemanticFormsInputs/SemanticFormsInputs.php" );
 
 # $sfgRenameEditTabs renames the edit-with-form tab to just "Edit", and
 #   the traditional-editing tab, if it is visible, to "Edit source", in
