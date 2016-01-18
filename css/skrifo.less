@@ -12,7 +12,9 @@
 @blue10:rgba(0,55,85,.1); // lernunterlagen - info1
 @blue5:rgba(0,55,85,.05); // lernunterlagen - info2
 @pink:rgba(255,55,100,1);
-@lightgrey:rgba(245,245,245,1);
+@grey:rgb(122,122,122);
+@lightgrey:rgba(245,245,245,1); // = #f5f5f5
+@middlegrey:rgba(207,207,207,1); // = #cfcfcf
 @buttons:rgba(90,100,105,1);
 @buttons-hover:rgba(65,80,85,1);
 
@@ -22,7 +24,6 @@
 
 @greyarea:#7d8893;
 
-@lightestgrey:#f5f5f5;
 @linklight:#666;
 @linkdark:#333;
 
@@ -47,6 +48,7 @@ body {
 	// TODO: Startseite sauberer programmieren
 	overflow-x:hidden; // ugly hack für die breite Darstellung auf der Startseite
 }
+
 
 
 /**
@@ -162,14 +164,15 @@ line-height:24px;
 @media (min-width: 992px) {
 	.drilldown-header-wrapper {
 		float:left;
-		border:1px #ccc solid;
+		border:1px @lightgrey solid;
 		padding:5px;
 		width:180px;
 		position:fixed;
-		border-radius:5px;
+		border-radius:3px;
 	}
 	.drilldown-filters {
 		border-bottom:0 !important;
+		padding-bottom:0 !important;
 	}
 	.drilldown-header-line {
 		
@@ -177,7 +180,7 @@ line-height:24px;
 }
 @media (max-width: 992px) {
 	.drilldown-filters {
-		border-bottom:1px #ccc dashed !important;
+		border-bottom:1px @lightgrey dashed !important;
 	}
 }
 div#drilldown-header {
@@ -194,8 +197,63 @@ div#drilldown-header {
 .drilldown-filters small {
 	font-size:80%;
 }
+.drilldown-filters .ui-button-icon-primary.ui-icon.ui-icon-triangle-1-s {
+	text-indent:0;
+	background:none;
+}
+.drilldown-filters .ui-button-icon-primary.ui-icon.ui-icon-triangle-1-s:before {
+	font-family:skrifoicons;
+	content:"\e61c";
+	font-size:7px;
+	color:@grey;
+}
+.drilldown-filters .ui-button.ui-widget.ui-state-default.ui-button-icon-only.ui-corner-right.ui-button-icon {
+	font-size:10px;
+	background:@lightgrey;
+	border:none;
+}
+.drilldown-filters .ui-autocomplete-input.ui-widget.ui-widget-content.ui-corner-left {
+	border:none;
+	box-shadow:none;
+	background:@lightgrey;
+	border-left:2px solid @middlegrey;
+	width:140px;
+}
+input[type="submit"].drilldown-filters-submit {
+	background-image:url(images/weiter_rund.png);
+	background-repeat:no-repeat;
+	background-position:50% 50%;
+	background-size:80%;
+	margin:auto;
+	border:none;
+	border-bottom:@lightgrey 1px solid;
+	border-radius:30px;
+	display:block;
+	margin-bottom:-30px;
+	margin-top:15px;
+	height:30px;
+	width:30px;
+}
+.drilldown-header-line {
+	padding-left:10px;
+	clear:both;
+}
+.drilldown-header-line a {
+	display:block;
+	float:left;
+	margin-left:-20px;
+}
 .drilldown-header-line a:hover {
 	text-decoration:none;
+}
+.drilldown-header-line a img {
+	border-left:@lightgrey solid 1px;
+	border-radius:10px;
+	background-color:white;
+	padding:3px;
+}
+span.drilldown-header-value {
+	font-weight:bold !important;
 }
 /* hack it's like it's hot - may 2015 edition */
 .drilldown-filter-values {
@@ -211,10 +269,10 @@ div#drilldown-header {
 	height:34px;
 }
 .drilldown-categories {
-display:none
+	display:none
 }
 #drilldown-categories-wrapper {
-display:none
+	display:none
 }
 .sk-drilldown .sk-drilldown-details {
 	padding:10px;
@@ -225,7 +283,7 @@ display:none
 	border:1px solid transparent;
 }
 .sk-drilldown:hover {
-	border-color:@lightestgrey;
+	border-color:@lightgrey;
 }
 .sk-drilldown .sk-drilldown-lv {
 	margin-left:15px;
@@ -295,7 +353,7 @@ div.newcourse-steps .active span {
 .infobox {
 	border-bottom-left-radius:3px;
 	border-bottom-right-radius:3px;
-	border-color:@pink @lightestgrey @lightestgrey;
+	border-color:@pink @lightgrey @lightgrey;
 	border-style:solid;
 	border-width:2px 1px 1px;
 	box-sizing:content-box;
@@ -631,13 +689,12 @@ display:none;
 		border-radius:20px;
 		width:18px;
 		height:18px;
-		margin:auto;
+		line-height:18px;
+		text-align:center;
 		font-size:12px;
 	}
 	.sk-hilfe-icon .icon-hilfe-inv {
-		padding:3px;
-		padding-top:2px;
-		display:block;
+		line-height:18px;
 	}
 	a:hover .sk-hilfe-icon {
 		backgroundcolor:@navbtngrey;
@@ -879,6 +936,11 @@ display:none;
 }
 
 /* Visual Editor */
+
+.ve-test-toolbar-format .oo-ui-labelElement-label:before {
+	content:"Format: ";
+}
+
 /* UGLY HACKING */
 .scrolled .oo-ui-toolbar-bar {
 	z-index:100;
@@ -1009,7 +1071,7 @@ label[for="wpPassword1"] {
 .lernunterlage-text {
 	font-size:12px;
 	line-height:.6em;
-	background-color:@lightestgrey;
+	background-color:@lightgrey;
 	border-radius:2px;
 	display:block;
 	font-size:13px;
@@ -1321,6 +1383,10 @@ label[for="wpPassword1"] {
 .sk-erstellen label {
 	font-size:larger;
 }
+.sk-erstellen-help {
+	opacity:.8;
+	margin-bottom:10px;
+}
 .sk-erstellen h3 {
 	margin-top:10px;
 }
@@ -1342,7 +1408,7 @@ label[for="wpPassword1"] {
 	font-size:20px;
 }
 .sk-erstellen .form-group a {
-	color:@lightestgrey;
+	color:@lightgrey;
 }
 .sk-erstellen .form-group a:hover {
 	color:white;
@@ -1419,10 +1485,11 @@ input.select2-input {
 	font-size:1.8em;
 	width:50px;
 	height:50px;
-	line-height:45px;
+	line-height:50px;
+	box-sizing:content-box;
 	text-align:center;
-	padding-left:2px;
 	display:inline-block;
+	margin-right:-15px;
 }
 #sidebar-left {
 	padding:0;
@@ -1800,17 +1867,15 @@ input.select2-input {
 	font-weight:bold;
 	margin-top:10px;
 }
+.sk-startseite-head {
+	margin-bottom:-100px;
+}
 .sk-startseite-sky {
 	background:url(images/startseite_sky.jpg) no-repeat center 55%;
 	-webkit-background-size:cover;
 	-moz-background-size:cover;
 	-o-background-size:cover;
 	background-size:cover;
-	margin-left:-9999px;
-	margin-right:-9999px;
-	padding-left:9999px;
-	padding-right:9999px;
-	margin-top:-70px;
 	padding-top:180px;
 	padding-bottom:5px;
 }
@@ -1820,7 +1885,10 @@ input.select2-input {
 	height:194px;
 	position:absolute;
 	right:-80px;
-	top:-30px;
+	top:-130px;
+}
+.sk-startseite-about {
+	margin-bottom:15px;
 }
 .sk-startseite-about a,
 .sk-startseite-about a:hover,
@@ -1834,6 +1902,9 @@ input.select2-input {
 	padding-right:22px;
 	padding-left:7px;
 	margin-bottom:15px;
+	line-height:1em;
+	display:inline-block;
+	margin-left:-15px;
 }
 .sk-startseite-info {
 	font-style:normal;
@@ -1862,7 +1933,12 @@ input.select2-input {
 .sk-startseite-mitmachen {
 	background-color:@hinzufugen-bg;
 	color:@adminblue;
-	margin-right:-10px; // TODO: ugly hack!
+	margin-bottom:5px;
+}
+@media( min-width:@breakpoint ) {
+	.sk-startseite-mitmachen {
+		margin-right:-10px; // TODO: ugly hack!
+	}
 }
 .sk-startseite-mitmachen a:hover,
 .sk-startseite-mitmachen a:focus,
@@ -1886,9 +1962,14 @@ input.select2-input {
 	background:url( 'images/maxerl_klein.png' ) no-repeat;
 	width:50px;
 	height:50px;
-	margin-top:-37px;
+	margin-top:-10px;
 	margin-right:-15px;
 	background-size:contain;
+}
+@media( min-width:@breakpoint ) {
+	.sk-startseite-users {
+		margin-top:-37px;
+	}
 }
 .sk-startseite-sub {
 	background-color:@subsky;
@@ -2072,4 +2153,20 @@ input.select2-input {
 .skin-tweeki #sfForm .select2-container {
 	width:100%;
 	border:1px solid #bbb;
+}
+
+// Beobachtungsliste aufräumen
+#mw-watchlist-form,
+td.mw-enhanced-rc,
+.mw-watchlist-toollinks,
+.mw-usertoollinks {
+	display:none;
+}
+
+// Abstände beim Footer
+#content {
+	margin-bottom:0;
+}
+#footer {
+	margin-top:50px;
 }

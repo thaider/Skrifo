@@ -97,6 +97,10 @@ $wgHiddenPrefs[] = 'numberheadings';
 $wgHiddenPrefs[] = 'diffonly';
 $wgHiddenPrefs[] = 'norollbackdiff';
 
+$wgDefaultUserOptions['watchlistdays'] = 90;
+$wgDefaultUserOptions['watchlisthideown'] = 1;
+$wgDefaultUserOptions['watchlisthidebots'] = 1;
+
 
 ###############
 # PERMISSIONS #

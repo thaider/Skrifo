@@ -286,10 +286,69 @@ class SkrifoHooks {
 	 * @param $skin
 	 */
 	static function PageRenderer( $skin ) {
-		global $wgTweekiSkinHideAll;
+		global $wgTweekiSkinHideAll, $wgParser;
+
+		$user = $skin->getSkin()->getUser();
+		if( $user->isAnon() ) {
+			$welcome = $wgParser->recursiveTagParse( '<div class="sk-startseite-counter">Stöber in der freien Sammlung von <strong>[[Spezial:Daten_durchsuchen/Lernunterlage|{{#ask:[[Kategorie:Lernunterlage]]|format=count}} Lernunterlagen & {{#ask:[[Kategorie:LV]]|format=count}} Lehr&shy;ver&shy;anstal&shy;tungen.]]</strong></div>' );
+			} 
+		else {
+			$welcome = '<div class="sk-welcome">Herzlich Willkommen, ' . $user->getName() . '!</div><div class="sk-changes-intro">Hier findest du die Updates deiner Studienrichtung(en) auf einen Blick:</div>';
+			}
+
+		$mainpage_header = '
+<div class="sk-startseite-sky">
+	<div class="sk-startseite-about">
+		<div class="container">
+			<div class="row">
+				<div class="col-md-8 col-md-offset-2">
+					<div class="sk-startseite-cloud"></div>
+					<a href="' . Title::newFromText( 'Project:Über_Skriptenforum.net' )->getFullURL() . '"><span class="sk-startseite-info">i</span>Über das Skriptenforum</a>
+				</div>
+			</div>
+		</div>
+	</div><!-- /sk-startseite-about -->
+	<div class="container">
+		<div class="row">
+			<div class="col-md-4 col-md-offset-2">
+				<a href="' . Title::newFromText( 'Spezial:Mit_Formular_bearbeiten/Neue_LV' )->getFullURL() . '">
+					<div class="sk-startseite-mitmachen" data-skrifo-target="sk-startseite-mitmachen-text">
+						<span class="sk-startseite-plus pull-right"><span class="icon-hinzufugen-inv"></span></span>Teile deine Lernunterlage!
+					</div>
+				</a>
+			</div>
+			<div class="col-md-4">
+				<div class="sk-startseite-adminwerden" data-skrifo-target="sk-startseite-adminwerden-text">
+					<span class="sk-startseite-users pull-right"><span class="icon-users"></span></span>Jetzt Admin werden!
+				</div>
+			</div>
+		</div><!-- /row -->
+	</div><!-- /container -->
+</div><!-- /sk-startseite-sky -->
+<div class="sk-startseite-sub sk-startseite-welcome">
+	<div class="sk-startseite-sub-shadow"></div>
+	<div class="container">
+		<div class="row">
+			<div class="col-md-8 col-md-offset-2">' . $welcome . '</div>
+		</div>
+	</div>
+</div><!-- /sk-startseite-sub -->
+<div class="sk-startseite-sub sk-startseite-adminwerden-text">
+	<div class="sk-startseite-sub-shadow"></div>
+	<div class="container">
+		<div class="row">
+			<div class="col-md-8 col-md-offset-2">
+				<div class="close">&times;</div>
+				<div class="sk-startseite-adminwerden-maxerl"></div>
+				' . $wgParser->recursiveTagParse( '{{Project:Admins}}' ) . '
+			</div>
+		</div>
+	</div>
+</div><!-- /sk-startseite-adminwerden-text -->';
 
 		$namespace = $skin->getSkin()->getTitle()->getNamespace();
 		$sidebar = true;
+		$mainpage = false;
 		$contentclass = "col-md-offset-5 col-md-5 sk-reintext";
 		$sidebarclass = "col-md-offset-3 col-md-2";
 		if( $namespace == -1 ) { /* Spezial */
@@ -323,6 +382,7 @@ class SkrifoHooks {
 			$sidebarclass = "col-md-offset-2 col-md-2";
 		}
 		if( $skin->getSkin()->getTitle()->equals( Title::newMainPage() ) ) { /* Startseite */
+			$mainpage = true;
 			$contentclass = "col-md-offset-2 col-md-8";
 			$sidebar = false;
 		}
@@ -393,8 +453,8 @@ class SkrifoHooks {
 		}
 	else { ?>
 	    <!-- content -->
-	  <?php if( false && $skin->getSkin()->getTitle()->equals( Title::newMainPage() ) ) { ?>
-	  <div class="sk-startseite-head"></div>
+	  <?php if( $mainpage ) { ?>
+	  <div class="sk-startseite-head"><?php echo $mainpage_header; ?></div>
 		<?php } ?>
 	    <div class="<?php $skin->msg( 'tweeki-container-class' ); ?> with-navbar-fixed <?php echo $skin->data['userstateclass']; echo ( $skin->checkVisibility( 'navbar' ) ) ? ' with-navbar' : ' without-navbar'; ?>">
 	

@@ -21,6 +21,11 @@ class SpecialLernunterlageErstellen extends SpecialPage {
 					);
 		$pages['Lernunterlage']['content'] = '{{' . $pages['Lernunterlage']['title']->getSubjectNsText() . '}}';
 
+		$pruefungsfragen = ( $pages['Lernunterlage']['title']->getSubjectNsText() === 'Prüfungsfragen' );
+		if( !$pruefungsfragen ) {
+			$pages['Lernunterlage']['content'] .= wfMessage( 'skrifo-template' );
+			}
+
 		$lehrveranstaltung = $pages['Lernunterlage' ]['title']->getText();
 		$queryparams = array( "[[" . $lehrveranstaltung . "]]", "?Studienrichtung=", "mainlabel=-", "link=none" );
 		$studienrichtung = SMWQueryProcessor::getResultFromFunctionParams( $queryparams, SMW_OUTPUT_WIKI );
@@ -48,7 +53,8 @@ class SpecialLernunterlageErstellen extends SpecialPage {
 			}
 		}
 
-		$action = ( $pages['Lernunterlage']['title']->getSubjectNsText() === 'Prüfungsfragen' ) ? 'action=formedit' : 'veaction=edit';
+		$action = $pruefungsfragen ? 'action=formedit' : 'veaction=edit';
+
 		$output->redirect( $pages['Lernunterlage']['title']->getInternalURL( $action ) );
 	}
 }

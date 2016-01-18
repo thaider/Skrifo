@@ -181,7 +181,7 @@ $( document ).ready( function() {
 
 // Startseite: Klick auf 'mitmachen' umleiten
 $( document ).ready( function() {
-	$( '.sk-startseite-mitmachen, .sk-startseite-adminwerden' ).click( function( e ) {
+	$( '.sk-startseite-adminwerden' ).click( function( e ) {
 		$( '.sk-startseite-sub' ).hide();
 		var targetclass = $( this ).data( 'skrifo-target' ); 
 		$( '.' + targetclass ).show();
