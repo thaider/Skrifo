@@ -13,6 +13,10 @@ class SpecialLernunterlageErstellen extends SpecialPage {
 		$output = $this->getOutput();
 		$this->setHeaders();
 
+		if( !$wgUser->isAllowed( 'edit' ) ) {
+			$output->addWikiText( 'Du musst angemeldet sein, um neue Lernunterlagen hinzufügen zu können!<sklogin/>' );
+			return true;
+			}
 
 		$pages = array();
 
