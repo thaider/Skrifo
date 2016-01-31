@@ -22,8 +22,8 @@ class SkrifoNavigation {
 		$localParser->clearState();
 
 		$user = $skin->getSkin()->getUser()->getName();
-		$customizedUserPage = $localParser->recursiveTagParse( "{{#ask:[[Benutzer:" . $user . "]][[UserInterest::+]]|format=count}}" );
-		if( $customizedUserPage == 1 ) {
+		$customizedUserPage = $localParser->recursiveTagParse( "{{#ask:[[Benutzer:" . $user . "]][[UserInterest::+]]|mainlabel=-|?UserInterest}}" );
+		if( $customizedUserPage !== '' ) {
 			$result = $localParser->recursiveTagParse( "{{#ask:[[Benutzer:" . $user . "]]|?UserInterest=|link=none|format=list|mainlabel=-}}" );
 			}
 		else {
@@ -48,9 +48,9 @@ class SkrifoNavigation {
 			$entry = $entryurl . "|" . $entry . "|studienrichtung-top";
 			}
 		$result = "Studienrichtungen\n*\n*" . implode( "\n*", $result );
-		if( $customizedUserPage == 0 && $skin->getSkin()->getUser()->isLoggedIn() ) {
-			$titleCustomize = Title::newFromText( 'User:' . $user );
-			$result .= "\n*".$titleCustomize->getFullURL( array( 'action' => 'formedit' ) )."|<i>Liste individualisieren</i>|studienrichtung-top";
+		if( $customizedUserPage === '' && $skin->getSkin()->getUser()->isLoggedIn() ) {
+			$titleCustomize = Title::newFromText( 'Spezial:FormEdit' );
+			$result .= "\n*".$titleCustomize->getFullURL()."/Benutzer/Benutzer:" . $user . "|<i>Liste individualisieren</i>|studienrichtung-top";
 			}
 		$result .= "\n*\n*Studienrichtungen|<span class='icon-weiter_studienrichtungen pull-right'></span>Alle Studienrichtungen|studienrichtung-toggle sk-dropdown-section";
 		$studienrichtungen = array();

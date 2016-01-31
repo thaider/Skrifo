@@ -298,6 +298,7 @@ class SkrifoHooks {
 
 		$mainpage_header = '
 <div class="sk-startseite-sky">
+	<a class="sk-startseite-feedback" href="' . Title::newFromText( 'Spezial:Kontakt' )->getFullURL() . '"></a>
 	<div class="sk-startseite-about">
 		<div class="container">
 			<div class="row">

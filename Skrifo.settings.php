@@ -326,6 +326,29 @@ wfLoadExtension( 'ConfirmEdit/QuestyCaptcha' );
 $wgCaptchaClass = 'QuestyCaptcha';
 $wgCaptchaQuestions[] = array( 'question' => "Wie lautet der Nachname des österreichischen Bundespräsidenten?", 'answer' => "Fischer" );
 
+wfLoadExtension( 'ContactPage' );
+$wgContactConfig['default'] = array(
+	'RecipientUser' => 'Thai', // Must be the name of a valid account which also has a verified e-mail-address added to it.
+	'SenderName' => 'Feedbackformular ' . $wgSitename, // "Contact Form on" needs to be translated
+	'SenderEmail' => null, // Defaults to $wgPasswordSender, may be changed as required
+	'RequireDetails' => false, // Either "true" or "false" as required
+	'IncludeIP' => false, // Either "true" or "false" as required
+	'AdditionalFields' => array(
+		'Text' => array(
+			'label-message' => 'emailmessage',
+			'type' => 'textarea',
+			'rows' => 10,
+			'cols' => 50,
+			'required' => true,  // Either "true" or "false" as required
+		),
+	),
+        // Added in MW 1.26
+        'DisplayFormat' => 'div',  // See HTMLForm documentation for available values.
+        'RLModules' => array(),  // Resource loader modules to add to the form display page.
+        'RLStyleModules' => array(),  // Resource loader CSS modules to add to the form display page.
+);
+$wgCaptchaTriggers['contactpage'] = true;
+
 
 ####################
 # SPECIAL SETTINGS #

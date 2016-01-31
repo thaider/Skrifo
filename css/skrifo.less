@@ -757,9 +757,13 @@ display:none;
 
 	.scrolled .sk-hilfe-icon {
 		font-size:18px;
-		padding-top:4px;
 		width:30px;
 		height:30px;
+		line-height:30px;
+	}
+
+	.scrolled .sk-hilfe-icon .icon-hilfe-inv {
+		line-height:30px;
 	}
 
 }
@@ -2173,4 +2177,30 @@ td.mw-enhanced-rc,
 }
 #footer {
 	margin-top:50px;
+}
+
+// Feedback-Formular
+.mw-special-Contact legend {
+	display:none;
+}
+
+// Startseite - Feedback
+.sk-startseite-feedback {
+	float:left;
+	background-image:url(images/feedback.png);
+	width:23px;
+	height:120px;
+	background-repeat:no-repeat;
+	background-size:90% 90%;
+	margin-bottom:-90px;
+	margin-top:-110px;
+	background-color:#c4d9e1;
+	background-position:center center;
+	border-radius:3px;
+	box-shadow:0 0 5px rgba(0,0,0,0.4);
+}
+@media( min-width:768px) {
+	.sk-startseite-feedback {
+		margin-top:-30px;
+	}
 }
