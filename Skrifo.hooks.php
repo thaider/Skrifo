@@ -17,10 +17,24 @@ class SkrifoHooks {
 		$parser->setHook( 'skchanges', 'SkrifoHooks::changes' );
 		$parser->setHook( 'skwelcome', 'SkrifoHooks::welcome' );
 		$parser->setHook( 'timeago', 'SkrifoHooks::timeago' );
+		$parser->setHook( 'fortschritt', 'SkrifoHooks::fortschritt' );
 		$parser->setFunctionHook( 'studienrichtungen', 'SkrifoHooks::studienrichtungen' );
 		return true;
 		}
 
+	/**
+	 * Fortschritt
+	 */
+	static function fortschritt( $input, $args, Parser $parser, PPFrame $frame ) {
+		$segments = round( $input/20 );
+		$fortschritt = '<div class="sk-fortschritt-intro"><div class="sk-fortschritt-intro-container"><div class="sk-fortschritt-intro-text">vollständig: <b>' . $segments . '|5</b></div></div></div>';
+		for( $i = 1; $i <= 5; $i++ ) {
+			$status = ( $i <= $segments ) ? 'fertig' : 'offen';
+			$fortschritt .= '<div class="sk-fortschritt-segment ' . $status . '"></div>';
+			}
+		$fortschritt = '<div class="sk-fortschritt">' . $fortschritt . '</div>';
+		return $fortschritt;
+		}
 	/**
 	 * Time-ago
 	 */

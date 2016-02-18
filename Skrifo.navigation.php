@@ -364,11 +364,13 @@ class SkrifoNavigation {
 				<li class="dropdown-header">über deine Universität</li>
 				<li>
 					<form action="https://skriptenforum.net/Shibboleth.sso/Login" method="get" name="userloginshib">
-						<div class="container-fluid"><div class="row"><div class="col-md-12">
+						<div class="container-fluid"><div class="row"><div class="col-md-12"><div class="select-container">
+							<span class="icon-dropdown"></span>
 							<select onchange="if(this.value){submit();}" name="entityID" class="form-control input-sm" disabled>
 								<option value="">Universität auswählen</option>
 								<option value="https://weblogin.univie.ac.at/shibboleth">Universität Wien</option>
 							</select>
+							</div>
 							<input type="hidden" name="target" value="' . $target . '" />
 							<input type="hidden" name="SAMLDS" value="1" />
 						</div>

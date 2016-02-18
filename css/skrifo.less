@@ -829,7 +829,7 @@ display:none;
 		background-color:transparent;
 		padding-left:5px;
     		margin-bottom: 0;
-		margin-right:-14px;
+		margin-right:-15px;
 		background-size:cover;
 		background-repeat:no-repeat;
 	}
@@ -1176,7 +1176,32 @@ label[for="wpPassword1"] {
 	display:block;
 }
 #uni-select + div {
-	margin-top:3px;
+	margin-top:8px;
+}
+.select2-container .select2-choice .select2-arrow,
+.select2-container .select2-choice .select2-arrow b {
+	background:none !important;
+	border:none !important;
+	text-align:center;
+}
+.select2-container .select2-choice .select2-arrow b:before {
+	font-family:skrifoicons;
+	content:"\e61c";
+	font-size:5px;
+	color:@grey;
+}
+#loginext .icon-dropdown {
+	font-size:6px;
+	top:6px;
+	color:@grey;
+	position:absolute;
+	right:20px;
+}
+#loginext .select-container {
+	overflow:hidden;
+}
+#loginext select {
+	width:120%;
 }
 #studienrichtung-select {
 	display:none;
@@ -2203,4 +2228,48 @@ td.mw-enhanced-rc,
 	.sk-startseite-feedback {
 		margin-top:-30px;
 	}
+}
+
+// Fortschritt
+.sk-fortschritt:after,
+.sk-fortschritt:before {
+	display:table;
+	content:' ';
+}
+.sk-fortschritt:after {
+	clear:both;
+}
+.sk-fortschritt {
+	margin-left:-2px;
+	margin-right:-2px;
+	margin-bottom:4px;
+}
+
+.sk-fortschritt > div {
+	width:16.6667%;
+	float:left;
+	height:9px;
+	border-radius:3px;
+	border:2px white solid;
+}
+.sk-fortschritt-intro {
+	text-align:center;
+	background-color:@blue5;
+}
+.sk-fortschritt-intro-container {
+	margin-top:-8px;
+}
+.sk-fortschritt-intro-text {
+	background-color:white;
+	font-size:12px;
+	display:inline-block;
+	padding-left:3px;
+	padding-right:3px;
+}
+.sk-fortschritt-segment {
+	background-color:@blue40;
+}
+
+.sk-fortschritt-segment.fertig {
+	background-color:@hinzufugen-bg;
 }
