@@ -1373,8 +1373,8 @@ label[for="wpPassword1"] {
 #mw-history-searchform label, #mw-history-searchform input, #mw-history-searchform select, .mw-tag-markers, #mw-history-search {
 	display:none;
 }
-..mw-changeslist-separator {
-	color:#999;
+.mw-changeslist-separator {
+	display:none;
 }
 .mw-changeslist-date {
 	font-weight:bold;
@@ -1384,6 +1384,24 @@ label[for="wpPassword1"] {
 	padding-top:5px;
 	padding-bottom:5px;
 	margin-bottom:0;
+}
+#pagehistory input {
+	height:auto;
+}
+.minoredit,
+.mw-plusminus-null {
+	display:none;
+}
+.mw-plusminus-neg {
+	color:@pink;
+	font-weight:normal;
+}
+.mw-plusminus-pos {
+	color:black;
+	font-weight:normal;
+}
+#pagehistory .comment {
+	font-size:smaller;
 }
 #pagehistory li {
 	list-style-type:none;
