@@ -181,14 +181,9 @@ $( document ).ready( function() {
 
 // Startseite: Klick auf 'mitmachen' umleiten
 $( document ).ready( function() {
-	$( '.sk-startseite-adminwerden' ).click( function( e ) {
-		$( '.sk-startseite-sub' ).hide();
-		var targetclass = $( this ).data( 'skrifo-target' ); 
-		$( '.' + targetclass ).show();
-	});
-	$( '.sk-startseite-sub .close' ).click( function( e ) {
-		$( '.sk-startseite-sub' ).hide();
-		$( '.sk-startseite-welcome' ).show();
+	$( '.sk-startseite-adminwerden, .sk-startseite-sub .close' ).click( function( e ) {
+		$( '.sk-startseite-welcome' ).toggle();
+		$( '.sk-startseite-adminwerden-text' ).toggle();
 	});
 });
 
