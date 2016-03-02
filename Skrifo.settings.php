@@ -350,6 +350,11 @@ $wgContactConfig['default'] = array(
 $wgCaptchaTriggers['contactpage'] = true;
 
 
+require_once "$IP/extensions/Piwik/Piwik.php";
+$wgPiwikURL = 'www.skriptenforum.net/piwik/';
+$wgPiwikIDSite = '1';
+
+
 ####################
 # SPECIAL SETTINGS #
 ####################
