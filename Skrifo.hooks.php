@@ -20,22 +20,26 @@ class SkrifoHooks {
 		$parser->setFunctionHook( 'studienrichtungen', 'SkrifoHooks::studienrichtungen' );
 		$parser->setFunctionHook( 'fortschritt', 'SkrifoHooks::fortschritt' );
 		return true;
-		}
+	}
 
 
 	/**
 	 * Fortschritt
 	 */
 	static function fortschritt( $parser, $param1 = 0 ) {
+		// nicht anzeigen auf Prüfungsfragen-Seiten
+		if( $parser->getTitle()->getNamespace() === NS_PFRAGEN ) {
+			return '';
+		}
 		$segments = round( $param1/20 );
 		$fortschritt = '<div class="sk-fortschritt-intro"><div class="sk-fortschritt-intro-container"><div class="sk-fortschritt-intro-text">vollständig: <b>' . $segments . '|5</b></div></div></div>';
 		for( $i = 1; $i <= 5; $i++ ) {
 			$status = ( $i <= $segments ) ? 'fertig' : 'offen';
 			$fortschritt .= '<div class="sk-fortschritt-segment ' . $status . '"></div>';
-			}
+		}
 		$fortschritt = '<div class="sk-fortschritt">' . $fortschritt . '</div>';
 		return array( $fortschritt, 'noparse' => true, 'isHTML' => true );
-		}
+	}
 
 
 	/**
@@ -128,6 +132,7 @@ class SkrifoHooks {
 			</div></div>';
 		}
 		
+
 	/**
 	 * Begrüßung für angemeldete NutzerInnen auf der Startseite anzeigen
 	 */
@@ -142,6 +147,7 @@ class SkrifoHooks {
 			}
 		}
 		
+
 	/** 
 	 * Überprüfen, ob aktuelle Seite eine Lernunterlage ist 
 	 *
@@ -214,6 +220,7 @@ class SkrifoHooks {
 		return true;
 		}
 
+
 	/**
 	 * Text des Links zur Benutzerseite ändern
 	 *
@@ -221,8 +228,8 @@ class SkrifoHooks {
 	static function ChangeLinkUserPage( array &$personal_urls, Title $title, SkinTemplate $skin ) {
 		if( isset( $personal_urls['userpage'] ) ) {
 			$personal_urls['userpage']['text'] = 'Meine Übersicht';
-			}
 		}
+	}
 
 
 	/**
@@ -260,9 +267,9 @@ class SkrifoHooks {
 			$namespace != 'Fragenausarbeitung' 
 		) {
 			unset( $links['views']['ve-edit'] );
-			}
-		return true;
 		}
+		return true;
+	}
 
 
 	/**
@@ -497,6 +504,7 @@ class SkrifoHooks {
 			$skin->renderFooter();
 			$skin->printTrail(); 
 		}
+
 
 	/**
 	 * Benutzerseite ausgeben 
