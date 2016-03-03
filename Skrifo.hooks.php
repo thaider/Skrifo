@@ -17,24 +17,27 @@ class SkrifoHooks {
 		$parser->setHook( 'skchanges', 'SkrifoHooks::changes' );
 		$parser->setHook( 'skwelcome', 'SkrifoHooks::welcome' );
 		$parser->setHook( 'timeago', 'SkrifoHooks::timeago' );
-		$parser->setHook( 'fortschritt', 'SkrifoHooks::fortschritt' );
 		$parser->setFunctionHook( 'studienrichtungen', 'SkrifoHooks::studienrichtungen' );
+		$parser->setFunctionHook( 'fortschritt', 'SkrifoHooks::fortschritt' );
 		return true;
 		}
+
 
 	/**
 	 * Fortschritt
 	 */
-	static function fortschritt( $input, $args, Parser $parser, PPFrame $frame ) {
-		$segments = round( $input/20 );
+	static function fortschritt( $parser, $param1 = 0 ) {
+		$segments = round( $param1/20 );
 		$fortschritt = '<div class="sk-fortschritt-intro"><div class="sk-fortschritt-intro-container"><div class="sk-fortschritt-intro-text">vollständig: <b>' . $segments . '|5</b></div></div></div>';
 		for( $i = 1; $i <= 5; $i++ ) {
 			$status = ( $i <= $segments ) ? 'fertig' : 'offen';
 			$fortschritt .= '<div class="sk-fortschritt-segment ' . $status . '"></div>';
 			}
 		$fortschritt = '<div class="sk-fortschritt">' . $fortschritt . '</div>';
-		return $fortschritt;
+		return array( $fortschritt, 'noparse' => true, 'isHTML' => true );
 		}
+
+
 	/**
 	 * Time-ago
 	 */
@@ -71,6 +74,7 @@ class SkrifoHooks {
 		return 'vor ' . $ago;
 		}
 
+
 	/**
 	 * Link zum bearbeiten der Studienrichtung
 	 */
@@ -79,6 +83,7 @@ class SkrifoHooks {
 		$output = $parser->recursiveTagParse( SkrifoHooks::studienrichtungLink( $wgUser->getName(), $param1 ) );
 		return array( $output, 'noparse' => true, 'isHTML' => true );
 		}
+
 
 	/**
 	 * Link zum bearbeiten der Studienrichtung generieren

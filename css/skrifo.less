@@ -1722,6 +1722,49 @@ input.select2-input {
 	float:left;
 	width:50%;
 }
+.sk-lu-infos > div.sk-lu-autorinnen {
+	cursor:pointer;
+	margin-bottom:12px;
+}
+.sk-lu-autorinnen > p {
+	overflow:hidden;
+	text-overflow:ellipsis;
+	white-space:nowrap;
+}
+.sk-lu-autorinnen:before {
+	font-family:skrifoicons;
+	content:"\e61c";
+	font-size:7px;
+	display:inline-block;
+	margin-top:4px;
+	padding-left:8px;
+	float:right;
+}
+.sk-lu-autorinnen.open:before {
+	display:none;
+}
+.sk-lu-autorinnen.open .sk-lu-autorinnen-short {
+	display:none;
+}
+.sk-lu-autorinnen-full:before {
+	content:"";
+	border-right:8px solid transparent;
+	border-left:8px solid transparent;
+	border-top:8px dashed @blue5;
+	width:0;
+	height:0;
+	position:absolute;
+	top:-12px;
+	left:45%;
+}
+.sk-lu-autorinnen-full {
+	position:relative;
+	background-color:@blue5;
+	border-radius:2px;
+	padding:2px 15px;
+	clear:both;
+	display:none;
+}
 .sk-lu-history {
 	border-left:4px solid white;
 }

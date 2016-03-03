@@ -187,6 +187,14 @@ $( document ).ready( function() {
 	});
 });
 
+// Lernunterlagen: AutorInnen ein-/ausklappen
+$( document ).ready( function() {
+	$( '.sk-lu-autorinnen' ).click( function( e ) {
+		$( '.sk-lu-autorinnen-full' ).toggle();
+		$( '.sk-lu-autorinnen' ).toggleClass( 'open' );
+	});
+});
+
 // Login-Dropdown ausklappen
 $( document ).ready( function() {
 	if( typeof skLogin !== 'undefined' ) {
