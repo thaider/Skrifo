@@ -949,6 +949,12 @@ display:none;
 	content:"Format: ";
 }
 
+// pink save button
+.oo-ui-buttonElement-framed.oo-ui-widget-enabled.oo-ui-flaggedElement-primary.oo-ui-flaggedElement-progressive > .oo-ui-buttonElement-button {
+	background-color:@pink !important;
+	border-color:@pink !important;
+}
+
 /* UGLY HACKING */
 .scrolled .oo-ui-toolbar-bar {
 	z-index:100;
@@ -1933,14 +1939,20 @@ input.select2-input {
 	color:#000;
 	text-decoration:none;
 }
+.sk-user-studienrichtung a {
+	color:@hinzufugen-bg;
+}
+.sk-user-studienrichtung a:hover,
+.sk-user-studienrichtung a:focus {
+	text-decoration:underline;
+}
 .user-role {
 	color:#fff;
 	float:left;
-	margin-top:25px;
+	margin-top:24px;
 	height:0;
-	text-shadow:1px 1px 10px @greyarea;
 	font-weight:bold;
-	font-size:35px;
+	font-size:38px;
 } 
 .sk-welcome {
 	font-weight:bold;

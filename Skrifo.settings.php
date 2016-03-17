@@ -190,7 +190,7 @@ $wgHiddenPrefs[] = 'visualeditor-enable';
 $wgHiddenPrefs[] = 'visualeditor-betatempdisable';
 $wgVirtualRestConfig['modules']['parsoid'] = array(
 	'url' => 'http://localhost:8142',
-	'prefix' => 'skrifotest'
+	'prefix' => 'skrifo'
 );
 $wgVisualEditorSupportedSkins[] = 'tweeki';
 $wgVisualEditorDisableForAnons = true;
