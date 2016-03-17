@@ -17,6 +17,8 @@ class SkrifoHooks {
 		$parser->setHook( 'skchanges', 'SkrifoHooks::changes' );
 		$parser->setHook( 'skwelcome', 'SkrifoHooks::welcome' );
 		$parser->setHook( 'timeago', 'SkrifoHooks::timeago' );
+		$parser->setHook( 'authorsshort', 'SkrifoHooks::authorsshort' );
+		$parser->setHook( 'authors', 'SkrifoHooks::authors' );
 		$parser->setFunctionHook( 'studienrichtungen', 'SkrifoHooks::studienrichtungen' );
 		$parser->setFunctionHook( 'fortschritt', 'SkrifoHooks::fortschritt' );
 		return true;
@@ -39,6 +41,52 @@ class SkrifoHooks {
 		}
 		$fortschritt = '<div class="sk-fortschritt">' . $fortschritt . '</div>';
 		return array( $fortschritt, 'noparse' => true, 'isHTML' => true );
+	}
+
+
+	/**
+	 * alle AutorInnen einer Seite als Array ausgeben
+	 *
+	 * @param $parser 
+	 * 
+	 * @return Array
+	 */
+	static function getAuthors( Parser $parser ) {
+		$page = WikiPage::factory( $parser->getTitle() );
+		$contributors = array( $parser->getRevisionUser() );
+		foreach( $page->getContributors() as $contributor ) {
+			$contributors[] = $contributor->getName();
+		}
+		// Thai (Tobias) und SkrifoBot nicht bei den AutorInnen anzeigen
+		$contributors = array_diff( $contributors, array( 'Thai', 'SkrifoBot' ) );
+		return $contributors;
+	}
+
+
+	/**
+	 * authorsshort
+	 */
+	static function authorsshort( $input, $args, Parser $parser, PPFrame $frame ) {
+		return implode( ', ', self::getAuthors( $parser ) );
+	}
+
+
+	/**
+	 * authors
+	 */
+	static function authors( $input, $args, Parser $parser, PPFrame $frame ) {
+		$contributors = self::getAuthors( $parser );
+		foreach( $contributors as &$contributor ) {
+			$user = User::newFromName( $contributor );
+			$usertitle = Title::newFromText( 'Benutzer:' . $contributor );
+			if( $usertitle->exists() ) {
+				$contributor = $parser->recursiveTagParse( '[[Benutzer:' . $contributor . '|<span data-toggle="tooltip" title="Benutzerseite anzeigen">' . $contributor . '</span>]]', $frame );
+			}
+			if( $user !== false && $user->isEmailConfirmed() ) {
+				$contributor .=  $parser->recursiveTagParse( '&nbsp;<span class="sk-link-noline">[[Spezial:E-Mail/{{urlencode:' . $user->getName() . ',WIKI}}|<span data-toggle="tooltip" title="E-Mail an ' . $user->getName() . ' versenden"><span class="icon-nachricht"></span></span>]]</span>', $frame );
+			}
+		}
+		return implode( ', ', $contributors );
 	}
 
 
