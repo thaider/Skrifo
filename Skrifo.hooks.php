@@ -83,7 +83,7 @@ class SkrifoHooks {
 				$contributor = $parser->recursiveTagParse( '[[Benutzer:' . $contributor . '|<span data-toggle="tooltip" title="Benutzerseite anzeigen">' . $contributor . '</span>]]', $frame );
 			}
 			if( $user !== false && $user->isEmailConfirmed() ) {
-				$contributor .=  $parser->recursiveTagParse( '&nbsp;<span class="sk-link-noline">[[Spezial:E-Mail/{{urlencode:' . $user->getName() . ',WIKI}}|<span data-toggle="tooltip" title="E-Mail an ' . $user->getName() . ' versenden"><span class="icon-nachricht"></span></span>]]</span>', $frame );
+				$contributor .=  $parser->recursiveTagParse( '&nbsp;<span class="sk-link-noline">[[Spezial:E-Mail/{{urlencode:' . $user->getName() . '|WIKI}}|<span data-toggle="tooltip" title="E-Mail an ' . $user->getName() . ' versenden"><span class="icon-nachricht"></span></span>]]</span>', $frame );
 			}
 		}
 		return implode( ', ', $contributors );
