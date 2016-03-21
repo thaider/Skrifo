@@ -79,7 +79,7 @@ class SkrifoHooks {
 		foreach( $contributors as &$contributor ) {
 			$user = User::newFromName( $contributor );
 			$usertitle = Title::newFromText( 'Benutzer:' . $contributor );
-			if( $usertitle->exists() ) {
+			if( !is_null( $usertitle ) && $usertitle->exists() ) {
 				$contributor = $parser->recursiveTagParse( '[[Benutzer:' . $contributor . '|<span data-toggle="tooltip" title="Benutzerseite anzeigen">' . $contributor . '</span>]]', $frame );
 			}
 			if( $user !== false && $user->isEmailConfirmed() ) {
