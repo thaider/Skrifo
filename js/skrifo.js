@@ -72,6 +72,7 @@ $(document).ready( function() {
 		$( this ).hide();
 		setFortschritt( 25 );
 		$( '.sk-erstellen-titel-input' ).focus();
+		$( window ).resize();
 	});
 	$( '.sk-erstellen-titel-weiter' ).click( function( e ) {
 		e.stopPropagation();
@@ -80,6 +81,7 @@ $(document).ready( function() {
 		$( this ).hide();
 		setFortschritt( 50 );
 		$( '.sk-erstellen-studienrichtung .select2-input' ).focus();
+		$( window ).resize();
 	});
 	$( '.sk-erstellen-abschliessen-weiter' ).click( function( e ) {
 		$( '.sk-erstellen-abschliessen-btn' ).click();
@@ -167,7 +169,7 @@ function checkScrolled() {
 			wrapper.css( 'position', 'fixed' ).css( 'top', ( - tocposition.top ) + 'px' );
 		}
 		else {
-			wrapper.css( 'position', 'absolute' ).css( 'top', '105px' );
+			wrapper.css( 'position', 'absolute' ).css( 'top', '115px' );
 		} 
 	}
 }
@@ -201,4 +203,48 @@ $( document ).ready( function() {
 		console.log( 'skLogin is set...' );
 		setTimeout( function() { $( '#n-login' ) .click(); }, 2000 );
 	}
+});
+
+// Login Dropdown: Focus auf Benutzernamen-Eingabefeld nach dem Ausklappen
+$( document ).ready( function() {
+	$( "#n-login" ).click( function() {
+		if( ! $( this ).parent().hasClass( "open" ) ) {
+			setTimeout( '$( "#wpName2" ).focus();', 500 );
+		}
+	});
+});
+
+// Inhaltsverzeichnis verstecken, wenn Visual Editor geladen wird
+mw.hook( 've.activationComplete' ).add( function() {
+	$( '#tweekiTOC' ).hide();
+} );
+
+// Button für das Hinzufügen neuer Prüfungsfragen am Beginn des Formulars
+// Automatisch neue Prüfungsfragen hinzufügen, falls 'neuerTermin' im QueryString
+function addPruefungstermin() {
+	$( '.multipleTemplateAdder').click();
+	var newposition = $( '.multipleTemplateInstance:last' ).offset().top - 40;
+	$( "body, html" ).animate( { scrollTop: newposition }, '3000' );
+	$( window ).resize();
+}
+$( document ).ready( function() {
+	$( '.sk-pruefungstermin-hinzufuegen' ).click( function() {
+		addPruefungstermin();
+	});
+	var querystring = window.location.search.substr(1).split('&');
+	if( querystring.indexOf( 'neuerTermin' ) !== -1 ) {
+		setTimeout( addPruefungstermin, 1000 );
+	}
+});
+
+// Implementierung von autogrowonclick für Textareas
+$( document ).ready( function() {
+	$( document ).on( 'focus', '.autogrowonclick', function() {
+		$( this ).css( 'height', 'auto' );
+		$( this ).autoGrow();
+		$( window ).resize();
+	});
+	$( document ).on( 'blur', '.autogrowonclick', function() {
+		$( this ).css( 'height', '70px' );
+	});
 });

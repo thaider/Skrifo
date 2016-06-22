@@ -21,7 +21,115 @@ class SkrifoHooks {
 		$parser->setHook( 'authors', 'SkrifoHooks::authors' );
 		$parser->setFunctionHook( 'studienrichtungen', 'SkrifoHooks::studienrichtungen' );
 		$parser->setFunctionHook( 'fortschritt', 'SkrifoHooks::fortschritt' );
+		$parser->setFunctionHook( 'gotolernunterlage', 'SkrifoHooks::gotolernunterlage' );
 		return true;
+	}
+
+
+	/**
+	 * Suchergebnis
+	 *
+	 * @param Title &$title Title to link to
+	 * @param &$text Text to use for the link
+	 * @param SearchResult $result The search result
+	 * @param array $terms The search terms entered
+	 * @param SpecialSearch $page The SpecialSearch object
+	 */
+	public static function onShowSearchHitTitle( Title &$title, &$text, SearchResult $result, $terms, SpecialSearch $page ) {
+		$options = [];
+		$output = $page->getOutput();
+		$options['semester'] = $output->parseInline( '{{#show:' . $title->getPrefixedText() . '|?Semester}}' );
+		$options['leiter'] = $output->parseInline( '{{#show:' . $title->getBaseText() . '|?Leiter}}' );
+		if( $title->getNsText() == 'Datei' ) {
+			$options['lv'] = $output->parseInline( '{{#show:' . $title->getPrefixedText() . '|?LV}}' );
+		}
+
+		$text = self::LernunterlagenLink( $title, $text, $options );
+		return true;
+	}
+
+
+	/**
+	 * formatierter Link zu einer Lernunterlage (inkl. Symbol des Lernunterlagentyps)
+	 * 
+	 * @param Title $title
+	 * @param $text Text für den Link
+	 * @param Array $options Anzeigeoptionen
+	 * @param $lastedit Timestamp des letzten Edits (falls er angezeigt werden soll)
+	 *
+	 * @return HTML des formatierten Links
+	 */
+	public static function LernunterlagenLink( Title $title, $text = '', $options = array() ) {
+		$namespace = $title->getNsText();
+		$text = str_replace( $namespace . ':', '', $text );
+		if( $text === '' || is_null( $text ) ) {
+			$text = $title->getBaseText();
+		}
+		$icon = str_replace( 'ü', 'ue', strtolower( $namespace ) );
+
+		$iconHtml = '<span class="icon-' . $icon . ' sk-lulink-icon" title="' . $namespace . '" data-toggle="tooltip" data-placement="left"></span>';
+		$titleHtml = '<span class="sk-lulink-title" title="' . $namespace . ' anzeigen" data-toggle="tooltip"><b>' . $text . '</b></span>';
+		$LVHtml = '';
+		if( $namespace == 'Datei' && isset( $options['lv'] ) && $options['lv'] !== '' ) {
+			$LVHtml = '<div class="sk-lulink-lv">zu: ' . $options['lv'] . '</div>';
+		}
+		$infoHtml = '';
+		if( isset( $options['semester'] ) && $options['semester'] !== '' ) {
+			$infoHtml .= '<span class="sk-lulink-semester">' . $options['semester'] . '</span>';
+		}
+		if( isset( $options['leiter'] ) && $options['leiter'] !== '' ) {
+			$infoHtml .= '<span class="sk-lulink-leiter">' . $options['leiter'] . '</span>';
+		}
+		if( $infoHtml != '' ) {
+			$infoHtml = '<div class="sk-lulink-info">' . $infoHtml . '</div>';
+		}
+		$detailHtml = '<div class="sk-lulink-details">' . $iconHtml . $titleHtml . $LVHtml . $infoHtml . '</div>';
+
+		$html = '<div class="sk-lulink">' . $detailHtml . '</div>';
+		return $html;
+	}
+		
+
+
+	/**
+	 * Redirect von Lehrveranstaltungsseite auf erste verfügbare Lernunterlage
+	 *
+	 * @param Parser $parser
+	 *
+	 * @return empty string – falls eine Lernunterlage existiert, wird Redirect gesetzt
+	 */
+	static function gotolernunterlage( $parser ) {
+		$name = $parser->getTitle()->getBaseText();
+		if( $parser->getTitle()->getNamespace() !== NS_MAIN ) {
+			return '';
+		}
+		$skriptum = Title::newFromText( $name, NS_SKRIPTUM );
+		$fragena = Title::newFromText( $name, NS_FRAGENA );
+		$pfragen = Title::newFromText( $name, NS_PFRAGEN );
+
+		$redirect = false;
+
+		if( $pfragen->exists() ) {
+			$redirect = $pfragen;
+		}
+		if( $fragena->exists() ) {
+			$redirect = $fragena;
+		}
+		if( $skriptum->exists() ) {
+			$redirect = $skriptum;
+		}
+		
+		if( !$redirect ) {
+			$datei = $parser->recursiveTagParse( '{{#ask:[[LV::' . $name . ']][[Kategorie:Datei]]|limit=1|link=none|searchlabel=}}' );
+			if( $datei !== '' ) {
+				$redirect = Title::newFromText( $datei );
+			}
+		}
+		
+		if( $redirect ) {
+			$GLOBALS['wgOut']->redirect( $redirect->getFullURL() );
+		}
+		return '';
 	}
 
 
@@ -355,6 +463,62 @@ class SkrifoHooks {
 
 
 	/**
+	 * Lehrveranstaltung und Lernunterlagen gleichzeitig umbennenen
+	 */
+	static function onTitleMoveComplete( Title &$title, Title &$newtitle, User &$user, $oldid, $newid, $reason ) {
+		$noredirects = false;
+		$lv = $title->getBaseText();
+		$newlv = $newtitle->getBaseText();
+		$namespaces = array( NS_MAIN, NS_SKRIPTUM, NS_FRAGENA, NS_PFRAGEN );
+		$dbw = wfGetDB( DB_MASTER );
+		foreach( $namespaces as $namespace ) {
+			$source = Title::newFromText( $lv, $namespace );
+			$dest = Title::newFromText( $newlv, $namespace );
+			if ( 
+				is_null( $source ) 
+				|| is_null( $dest ) 
+				|| !$source->exists()
+				|| $source->isRedirect()
+			) {
+				continue;
+			}
+
+			$dbw->begin();
+			$mp = new MovePage( $source, $dest );
+			$status = $mp->move( $user, $reason, !$noredirects );
+			$dbw->commit();
+
+			wfWaitForSlaves();
+		} 
+
+		// make dummy edit to rebuild page content (code taken from ApiPurge.php)
+		$page = WikiPage::factory( $newtitle );
+		$popts = $page->makeParserOptions( 'canonical' );
+
+		# Parse content; note that HTML generation is only needed if we want to cache the result.
+		$content = $page->getContent( Revision::RAW );
+		$enableParserCache = RequestContext::getMain()->getConfig()->get( 'EnableParserCache' );
+		$p_result = $content->getParserOutput(
+			$newtitle,
+			$page->getLatest(),
+			$popts,
+			$enableParserCache
+		);
+
+		# Update the links tables
+		$updates = $content->getSecondaryDataUpdates(
+			$newtitle, null, true, $p_result );
+		DataUpdate::runUpdates( $updates );
+
+		if ( $enableParserCache ) {
+			$pcache = ParserCache::singleton();
+			$pcache->save( $p_result, $page, $popts );
+		}
+		return true;
+	}
+
+
+	/**
 	 * Page Renderer
 	 *
 	 * @param $skin
@@ -453,8 +617,8 @@ class SkrifoHooks {
 			$contentclass = "col-md-offset-3 col-md-7 sk-reintext sk-hilfe";
 		}
 		if( $namespace >= 100 || $namespace == 6 ) { /* Lernunterlagen, Dateien */
-			$contentclass = "col-md-offset-4 col-md-6";
-			$sidebarclass = "col-md-offset-2 col-md-2";
+			$contentclass = "col-md-offset-3 col-md-7";
+			$sidebarclass = "col-md-offset-1 col-md-2";
 		}
 		if( $skin->getSkin()->getTitle()->equals( Title::newMainPage() ) ) { /* Startseite */
 			$mainpage = true;
@@ -487,7 +651,7 @@ class SkrifoHooks {
 					<div class="<?php $skin->msg( 'tweeki-container-class' ); ?>">
 					<div class="row">	
 						<div class="col-md-3">
-							<button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+							<button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-mobile">
 								<span class="sr-only">Toggle navigation</span>
 								<span class="icon-bar"></span>
 								<span class="icon-bar"></span>
@@ -499,6 +663,11 @@ class SkrifoHooks {
 								} ?>
 					
 						</div>
+						<ul class="nav navbar-nav navbar-mobile collapse skrifo-navbar-form">
+							<?php echo $skin->buildItems( 'Special:FormEdit/Neue_LV|Lernunterlage erstellen', $navbaroptions, 'costum' ); ?>
+							<?php echo $skin->buildItems( 'SEARCH', $navbaroptions, 'custom' ); ?>
+							<?php echo $skin->buildItems( 'Studienrichtungen', $navbaroptions, 'custom' ); ?>
+						</ul>
 						<ul class="col-md-3 nav navbar-nav navbar-collapse collapse skrifo-navbar-form">
 							<li class="nav hinzufugen">
 								<?php echo $skin->buildItems( 'Special:FormEdit/Neue_LV|<span class="icon-hinzufugen-inv"></span>', $plusoptions, 'costum' ); ?>

@@ -104,10 +104,15 @@ class SkrifoNavigation {
 					<span class="caret"></span>
 				</a>
 				<ul class="dropdown-menu dropdown-menu-right">
+<!--
+					<li style="text-align:center"><i>derzeit nicht möglich</i></li>
+-->
 					<li><a href="<?php $titleDownload=Title::newFromText('Special:Book'); echo $titleDownload->getLocalURL( array( 'bookcmd' => 'render_article', 'arttitle' => $skin->data['title'], 'writer' => 'rl' ) ); ?>" title="als PDF herunterladen">als PDF-Datei</a></li>
+<!--
 					<li><a href="<?php echo $titleDownload->getLocalURL( array( 'bookcmd' => 'render_article', 'arttitle' => $skin->data['title'], 'writer' => 'odf' ) ); ?>" title="als Open Document herunterladen (bearbeitbar)">als Textdatei (ODT)</a></li>
 					<li class="divider" />
 					<li><a href="<?php $titleDownloadHelp=Title::newFromText('Hilfe:Download'); echo $titleDownloadHelp->getLinkURL(); ?>"><em>was ist der Unterschied?</em></a></li>
+-->
 				</ul>
 			</div>
 		<?php endif;
@@ -158,6 +163,16 @@ class SkrifoNavigation {
 
 
 	/**
+	 * EditHint
+	 *
+	 * @param $skin
+	 */
+	static function EditHint( $skin ) {
+		echo $skin->getSkin()->getTitle()->getText();
+	}
+
+
+	/**
 	 * ToTop
 	 *
 	 * @param $skin
@@ -188,7 +203,7 @@ class SkrifoNavigation {
 			if( count( $views ) > 2 ) {
 				unset( $views['view'] );
 				foreach( $views as $key => $item )
-					if( ( $key != 've-edit' && $key != 'edit' ) && !( $skin->data['namespace'] == "Prüfungsfragen" && $key == 'form_edit' ) ) {
+					if( ( $key != 've-edit' && $key != 'edit' ) && !( $skin->data['namespace'] == "Prüfungsfragen" && $key == 'formedit' ) ) {
 						unset( $views[$key] );
 					}
 				if( count( $views ) > 0 ) {
@@ -283,7 +298,11 @@ class SkrifoNavigation {
 					$newbutton['href'] = $wgServer . str_replace( '$1', '', $wgArticlePath ) . 'Spezial:LernunterlageErstellen/' . $ns . ':' . $title;
 					$newbutton['class'] = 'lernunterlage lernunterlage-erstellen';
 				}
-				$buttons[] = $newbutton;
+				if( isset( $newbutton['active'] ) && $newbutton['active'] === true ) {
+					array_unshift( $buttons, $newbutton );
+				} else {
+					$buttons[] = $newbutton;
+				}
 			}
 			return $buttons;	
 		} else {
@@ -442,13 +461,6 @@ class SkrifoNavigation {
 			</ul>
 			</li>';
 		echo '<script>
-				$( document ).ready( function() {
-					$( "#n-login" ).click( function() {
-						if( ! $( this ).parent().hasClass( "open" ) ) {
-							setTimeout( \'$( "#wpName2" ).focus();\', 500 );
-							}
-					});
-				});
 				</script>';
 	}
 	

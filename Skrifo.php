@@ -94,6 +94,12 @@ $wgHooks['PersonalUrls'][] = 'SkrifoHooks::ChangeLinkUserpage';
 // Login-Dropdown, Studienrichtungen
 $wgHooks['ParserFirstCallInit'][] = 'SkrifoHooks::onParserSetup';
 
+// Styling der Suchergebnisse anpassen
+$wgHooks['ShowSearchHitTitle'][] = 'SkrifoHooks::onShowSearchHitTitle';
+
+// Lehrveranstaltung und Lernunterlagen gleichzeitig umbenennen
+$wgHooks['TitleMoveComplete'][] = 'SkrifoHooks::onTitleMoveComplete';
+
 
 // GLOBALE VARIABLEN
 $wgSkrifoLernunterlagenNS = array( 
@@ -128,3 +134,4 @@ $wgTweekiSkinNavigationalElements['SKRIFO-EDIT'] = 'SkrifoNavigation::Edit';
 $wgTweekiSkinNavigationalElements['SKRIFO-LERNUNTERLAGEN'] = 'SkrifoNavigation::Lernunterlagen';
 $wgTweekiSkinSpecialElements['SKRIFO-DATEIEN'] = 'SkrifoNavigation::Dateien';
 $wgTweekiSkinSpecialElements['LOGIN-EXT'] = 'SkrifoNavigation::Login';
+$wgTweekiSkinSpecialElements['SKRIFO-EDITHINT'] = 'SkrifoNavigation::EditHint';

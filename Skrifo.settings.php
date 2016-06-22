@@ -163,7 +163,7 @@ $wgAutoPromote = array();
 
 require_once( "$IP/skins/Tweeki/Tweeki.php" );
 //wfLoadSkin( 'Tweeki' );
-$wgTweekiSkinHideable = array( 'firstHeading', 'subnav', 'sidebar' ); 
+$wgTweekiSkinHideable = array( 'firstHeading', 'subnav', 'sidebar', 'sidebar-left', 'sidebar-right' ); 
 $wgTweekiSkinHideAnon = array();
 $wgTweekiSkinHideAll = array_merge( $wgTweekiSkinHideAll, array( 'footer-icons', 'footer-info-viewcount' ) );
 $wgTweekiSkinFooterIcons = false;
@@ -255,16 +255,16 @@ $wgGroupPermissions['sysop']['lookupuser'] = false;
 $wgGroupPermissions['bureaucrat']['lookupuser'] = true;
 
 ## collection
-//require_once("$IP/extensions/Collection/Collection.php");
+require_once("$IP/extensions/Collection/Collection.php");
+$wgCollectionFormats = array(
+	'rdf2latex' => 'PDF',
+	'rdf2text' => 'Plain text'
+);
 /*
 $wgCollectionFormatToServeURL['rdf2latex'] = 
 $wgCollectionFormatToServeURL['rdf2text'] = 'http://localhost:17080';
 $wgCommunityCollectionNamespace = NS_PROJECT;
 $wgEnableSidebarCache = false;
-$wgCollectionFormats = array(
-	'rdf2latex' => 'PDF',
-	'rdf2text' => 'Plain text'
-);
 $wgLicenseURL = "http://creativecommons.org/licenses/by-sa/3.0/";
 $wgCollectionPortletFormats = array( 'rdf2latex', 'rdf2text' );
 */
@@ -326,7 +326,7 @@ wfLoadExtension( 'ConfirmEdit/QuestyCaptcha' );
 $wgCaptchaClass = 'QuestyCaptcha';
 $wgCaptchaQuestions[] = array( 'question' => "Wie lautet der Nachname des österreichischen Bundespräsidenten?", 'answer' => "Fischer" );
 
-wfLoadExtension( 'ContactPage' );
+require_once( "$IP/extensions/ContactPage/ContactPage.php" );
 $wgContactConfig['default'] = array(
 	'RecipientUser' => 'Thai', // Must be the name of a valid account which also has a verified e-mail-address added to it.
 	'SenderName' => 'Feedbackformular ' . $wgSitename, // "Contact Form on" needs to be translated
@@ -343,7 +343,7 @@ $wgContactConfig['default'] = array(
 		),
 	),
         // Added in MW 1.26
-        'DisplayFormat' => 'div',  // See HTMLForm documentation for available values.
+        'DisplayFormat' => 'table',  // See HTMLForm documentation for available values.
         'RLModules' => array(),  // Resource loader modules to add to the form display page.
         'RLStyleModules' => array(),  // Resource loader CSS modules to add to the form display page.
 );
@@ -353,6 +353,11 @@ $wgCaptchaTriggers['contactpage'] = true;
 require_once "$IP/extensions/Piwik/Piwik.php";
 $wgPiwikURL = 'www.skriptenforum.net/piwik/';
 $wgPiwikIDSite = '1';
+
+require_once( "$IP/extensions/Elastica/Elastica.php" );
+require_once( "$IP/extensions/CirrusSearch/CirrusSearch.php" );
+$wgSearchType = "CirrusSearch";
+$wgCirrusSearchNamespaceWeights[ NS_FILE ] = 0.005;
 
 
 ####################

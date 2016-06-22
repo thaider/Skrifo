@@ -1,0 +1,56 @@
+/* Styles für Lernunterlagen-Links in Suchergebnissen, Drilldown etc. */
+
+.sk-lulink {
+	color:@navbar-bg;
+	border-radius:5px;
+	border:1px solid transparent;
+	padding-left:15px;
+}
+
+.sk-lulink:hover {
+	border-color:@lightgrey;
+}
+
+.sk-lulink-title {
+	padding-left:3px;
+}
+	
+.sk-lulink-title,
+.sk-lulink-title a {
+	color:@navbar-bg;
+	font-size:larger;
+}
+
+.sk-lulink .sk-lulink-lv {
+	color:#666;
+}
+
+.sk-lulink:hover .sk-lulink-lv {
+	color:#333;
+}
+
+.sk-lulink .sk-lulink-details {
+	padding:10px;
+}
+
+.sk-lulink .sk-lulink-info {
+	font-weight:bold;
+}
+
+.sk-lulink-info span+span::before {
+	content:"|";
+	padding-left:5px;
+	padding-right:5px;
+	font-weight:normal;
+}
+
+.sk-lulink-lastedit,
+.sk-lulink-semester {
+	white-space:nowrap;
+}
+
+.sk-lulink-icon {
+	font-size:25px;
+	display:inline-block;
+	margin-left:-15px;
+}

@@ -1,3 +1,8 @@
+/* components */
+
+@import "components/search.less";
+@import "components/lulink.less";
+
 /* colors */
 
 @navbar-bg:rgba(0,15,35,1); // darkestblue
@@ -82,9 +87,8 @@ blockquote emph {
 }
 .sk-lernunterlage .mw-content-ltr h1,
 .sk-lernunterlage .mw-content-ltr h2 {
-	background-color:@blue5;
-	border-radius:2px;
-	padding:5px 15px;
+	border-bottom:5px solid @blue5;
+	padding:5px 15px 0;
 	margin-left:-15px;
 	margin-right:-15px;
 }
@@ -432,6 +436,10 @@ div.filename a:hover {
 #file-dropdown-menu li:focus {
 	background-color:#f5f5f5;
 }
+// Hack: SMW::off/on wird sonst ausgegeben
+#file-dropdown-menu a.new {
+	display:none;
+}
 .infobox-content ul.dropdown-menu li > a {
 	display:inline;
 	padding: 0 5px;
@@ -481,17 +489,6 @@ Dateiverwendungen,
 }
 
 /* USABILITY 2014 */
-/* SEARCH */
-/* Namespace-Auswahl verstecken */
-.mw-search-profile-tabs {
-	display:none;
-}
-.mw-search-result-data {
-	display:none;
-}
-.searchResultImage td:first-child {
-	display:none;
-}
 
 /* FORMS */
 /* schoener formatieren */
@@ -949,10 +946,31 @@ display:none;
 	content:"Format: ";
 }
 
-// pink save button
+// visual editor save button
+.oo-ui-buttonElement-framed.oo-ui-widget-enabled.oo-ui-flaggedElement-primary.oo-ui-flaggedElement-constructive > .oo-ui-buttonElement-button,
 .oo-ui-buttonElement-framed.oo-ui-widget-enabled.oo-ui-flaggedElement-primary.oo-ui-flaggedElement-progressive > .oo-ui-buttonElement-button {
-	background-color:@pink !important;
-	border-color:@pink !important;
+	background-color:@hinzufugen-bg !important;
+	border-color:@hinzufugen-bg !important;
+}
+
+
+// wrapping toolbar
+.oo-ui-toolbar-tools {
+	white-space:normal !important;
+}
+
+.ve-ui-surface {
+	background-color:#f5f5f5;
+	border:1px solid #ccc;
+	margin:-1px;
+	padding:2px;
+}
+
+// save dialog 
+.ve-ui-mwSaveDialog-options,
+.ve-ui-mwSaveDialog-summaryLabel,
+.ve-ui-mwSaveDialog-summary {
+	display:none;
 }
 
 /* UGLY HACKING */
@@ -978,6 +996,13 @@ display:none;
 	.scrolled .mw-body > .oo-ui-toolbar {
 		width:555px;
 	}
+}
+.ve-init-mw-desktopArticleTarget-loading-overlay {
+	position:fixed !important;
+}
+.ve-init-mw-desktopArticleTarget-progress {
+	margin:auto !important;
+	width:400px !important;
 }
 /* TODO: add values for the other breakpoints */
 
@@ -1049,8 +1074,8 @@ label[for="wpPassword1"] {
 	border-left:2px solid transparent;
 	padding-left:2px;
 	clear:both;
-	height:21px;
-	margin-top:5px;
+	height:29px;
+	margin-bottom:5px;
 }
 .sk-sidebar-lernunterlage a.lernunterlage {
 	color:@navbar-bg;
@@ -1069,11 +1094,11 @@ label[for="wpPassword1"] {
 .lernunterlage-icon {
 	display:block;
 	float:left;
-	font-size:20px;
+	font-size:28px;
 }	
 .lernunterlage-text .lernunterlage-erstellen-icon {
 	float:right;
-	line-height:20px;
+	line-height:28px;
 	color:#141423;
 	font-size:15px;
 }
@@ -1089,19 +1114,26 @@ label[for="wpPassword1"] {
 	border-radius:2px;
 	display:block;
 	font-size:13px;
-	line-height:21px;
-	margin-left:23px;
+	line-height:29px;
+	margin-left:31px;
 	padding:0 5px;
 }
 
-#sidebar-left .active.sk-sidebar-lernunterlage {
-	border-left-color:red;
+#sidebar-left .sk-sidebar-lernunterlage.active {
+	margin-bottom:15px;
 }
 .sk-sidebar-lernunterlage.active .lernunterlage-text {
 	font-weight:bold;
 }
+.sk-sidebar-lernunterlage.active .lernunterlage-icon {
+	color:@pink;
+}
 
 /* sidebar-right */
+// Fix für manuellen Sidebar im Prüfungsfragen-Formular
+.sidebar-right-wrapper {
+	left:0;
+}
 .sidebar-right-wrapper .sk-totop {
 	display:none;
 	margin-top:9999px;
@@ -1130,6 +1162,18 @@ label[for="wpPassword1"] {
 	opacity:1;
 }
 
+#sidebar-right a:hover .icon-download,
+#sidebar-right a:focus .icon-download,
+#sidebar-right a:active .icon-download {
+	color:@hinzufugen-bg;
+}
+
+//TODO: how to access this property?
+#sidebar-right a:hover::before,
+#sidebar-right a:before:focus,
+#sidebar-right a:before:active {
+	color:@pink;
+}
 
 /* WATCH */
 #ca-unwatch a:before,
@@ -1593,6 +1637,9 @@ input.select2-input {
 #toc .nav li.toclevel-1 {
 	display:list-item;
 }
+#toc ul > li a {
+	color:black;
+}
 #toc a {
 	color:black;
 	font-size:13px;
@@ -1608,8 +1655,9 @@ input.select2-input {
 	background-color:transparent;
 	color:red;
 }
-#toc li.active > a {
-	border-right:none;
+#toc li.active > a,
+#toc li.toclevel-1.active > a {
+	border:none;
 	font-style:normal;
 	font-weight:bold;
 }
@@ -1668,7 +1716,7 @@ input.select2-input {
 	margin-left:-15px;
 }
 .sk-lu-infos-fixed .sk-lu-infos {
-	width:50%;
+	width:60%;
 	padding-top:50px;
 	margin-left:-15px;
 	padding-right:15px;
@@ -1871,7 +1919,7 @@ input.select2-input {
 	padding-top:102px;
 }
 .sidebar-wrapper {
-	top:105px;
+	top:115px;
 }
 #siteNotice {
 	display:none;
@@ -2346,3 +2394,49 @@ td.mw-enhanced-rc,
 .sk-fortschritt-segment.fertig {
 	background-color:@hinzufugen-bg;
 }
+
+/* Prüfungsfragen */
+// Multiple Instance templates - Buttons zum Hinzufügen und Entfernen von Prüfungsterminen oben anordnen
+td.instanceRemove {
+	vertical-align:top;
+}
+// Button zum Hinzufügen ausblenden {
+td.instanceAddAbove {
+	display:none;
+}
+// unteren Hinzufügen-Button verstecken 
+.sk-form-pruefungsfragen .multipleTemplateAdder {
+	visibility:hidden;
+}
+
+// autogrowonclick
+.autogrowonclick {
+	height:70px;
+}
+
+// Formatierungshinweise beim Prüfungsfragen-Formular
+.sk-bearbeitungshinweis {
+	text-align:left;
+	border:#ccc 1px solid;
+	border-radius:3px;
+	padding:5px;
+}
+
+// Dirty Hack: auf Drilldown-Seite werden Links für SMW::off und SMW::on angezeigt
+.drilldown-results .new {
+	display:none;
+}
+
+.mw-createacct-benefits-container {
+	display:none;
+}
+
+.mw-ui-button.mw-ui-constructive,
+.mw-ui-button.mw-ui-constructive:hover,
+.mw-ui-button.mw-ui-constructive:focus,
+.mw-ui-button.mw-ui-constructive:active {
+	background:@hinzufugen-bg;
+	border-color:@hinzufugen-bg;
+	box-shadow:none;
+}
+	
