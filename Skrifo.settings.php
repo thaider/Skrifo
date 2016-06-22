@@ -324,7 +324,7 @@ require_once( "$IP/extensions/ReplaceText/ReplaceText.php" );
 require_once( "$IP/extensions/ConfirmEdit/ConfirmEdit.php" );
 wfLoadExtension( 'ConfirmEdit/QuestyCaptcha' );
 $wgCaptchaClass = 'QuestyCaptcha';
-$wgCaptchaQuestions[] = array( 'question' => "Wie lautet der Nachname des österreichischen Bundespräsidenten?", 'answer' => "Fischer" );
+$wgCaptchaQuestions[] = array( 'question' => "Wie heißt die Hauptstadt der Bundesrepublik Deutschland?", 'answer' => "Berlin" );
 
 require_once( "$IP/extensions/ContactPage/ContactPage.php" );
 $wgContactConfig['default'] = array(
