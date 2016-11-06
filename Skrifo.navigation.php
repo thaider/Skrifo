@@ -379,7 +379,7 @@ class SkrifoNavigation {
 	    	<span class="caret"></span>
 			</a>
 			<ul class="dropdown-menu dropdown-menu-right skrifo-loginext" role="menu" aria-labelledby="' . $skin->getMsg( 'userlogin' )->text() . '" id="loginext">
-				<li class="divider sk-dropdown-top"></li>
+				<!--<li class="divider sk-dropdown-top"></li>
 				<li class="dropdown-header">über deine Universität</li>
 				<li>
 					<form action="https://skriptenforum.net/Shibboleth.sso/Login" method="get" name="userloginshib">
@@ -393,14 +393,14 @@ class SkrifoNavigation {
 							<input type="hidden" name="target" value="' . $target . '" />
 							<input type="hidden" name="SAMLDS" value="1" />
 						</div>
-						<!--<div class="col-md-2">
+						<div class="col-md-2">
 							<button class="btn btn-default btn-block btn-sm" type="submit">
 								<span class="fa fa-chevron-right"></span>
 							</button>
-						</div>--></div></div>
+						</div></div></div>
 					</form>
 				</li>
-				<li class="divider sk-dropdown-bottom"></li>
+				<li class="divider sk-dropdown-bottom"></li>-->
 				<li class="divider sk-dropdown-top"></li>
 				<li class="dropdown-header">mit Benutzername und Passwort</li>
 				<li>

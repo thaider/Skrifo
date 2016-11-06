@@ -572,6 +572,12 @@ Dateiverwendungen,
 	background-size:60%;
 }
 
+@media (max-width: @breakpoint) {
+	#mw-searchButton {
+		display:none !important;
+		}
+	}
+
 #p-search h5 {
 	display: none;
 }
@@ -604,6 +610,7 @@ display:none;
 	box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
 	background-color: @navbar-bg;
 	border:none;
+	transition:.3s ease-out;
 }
 
 // make it, so that links are over the whole width
@@ -1594,14 +1601,14 @@ input.select2-input {
 }
 #sidebar-left {
 	padding:0;
-	width:16.6667%;
 	position:inherit;
 	top:auto;
 	left:auto;
 	overflow:visible;
 }
-@media (min-width: 992px) {
+@media (min-width: @breakpoint) {
 	#sidebar-left {
+		width:16.6667%;
 		top:80px;
 	}
 	.sidebar-wrapper {
@@ -1716,12 +1723,26 @@ input.select2-input {
 	margin-left:-15px;
 }
 .sk-lu-infos-fixed .sk-lu-infos {
-	width:60%;
-	padding-top:50px;
+	padding-top:70px;
+	padding-right:30px;
 	margin-left:-15px;
-	padding-right:15px;
 	margin-bottom:0;
 	box-shadow:-7.5px 20px 10px white;
+}
+@media( min-width: @breakpoint ) {
+	.sk-lu-infos-fixed {
+	}
+	.sk-lu-infos-fixed .sk-lu-infos {
+		width:60%;
+		padding-top:50px;
+		padding-left:0;
+		padding-right:30px;
+	}
+}
+@media( max-width: @breakpoint ) {
+	.sk-lu-infos-fixed {
+		width:100%;
+	}
 }
 .scrolled .sk-lu-infos-fixed {
 	display:block;
@@ -2247,20 +2268,22 @@ input.select2-input {
 	position:absolute;
 	background-image:url( images/logo_klein.png );
 	width:220px;
-	height:150px;
+	height:76px;
 }	
 .sk-logo { // mobile
 	top:-12px;
-	left:0;
+	left:-15px;
 }
 @media( min-width:768px ) {
 	.sk-logo {
 		background-image:url( images/logo_gross.png );
 		width:250px;
+		height:98px;
 		top:-12px;
 		left:-20px;
 	}
 	.scrolled .sk-logo {
+		height:76px;
 		top:-20px;
 		left:0;
 	}
@@ -2440,3 +2463,11 @@ td.instanceAddAbove {
 	box-shadow:none;
 }
 	
+
+
+.mw-special-Emailuser legend {
+	display:none;
+}
+
+
+@import "components/mobile.less";

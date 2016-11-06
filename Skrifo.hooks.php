@@ -142,7 +142,7 @@ class SkrifoHooks {
 			return '';
 		}
 		$segments = round( $param1/20 );
-		$fortschritt = '<div class="sk-fortschritt-intro"><div class="sk-fortschritt-intro-container"><div class="sk-fortschritt-intro-text">vollständig: <b>' . $segments . '|5</b></div></div></div>';
+		$fortschritt = '<div class="sk-fortschritt-intro"><div class="sk-fortschritt-intro-container"><div class="sk-fortschritt-intro-text"><span class="hidden-xs hidden-sm">vollständig: </span><b>' . $segments . '|5</b></div></div></div>';
 		for( $i = 1; $i <= 5; $i++ ) {
 			$status = ( $i <= $segments ) ? 'fertig' : 'offen';
 			$fortschritt .= '<div class="sk-fortschritt-segment ' . $status . '"></div>';
@@ -667,6 +667,7 @@ class SkrifoHooks {
 							<?php echo $skin->buildItems( 'Special:FormEdit/Neue_LV|Lernunterlage erstellen', $navbaroptions, 'costum' ); ?>
 							<?php echo $skin->buildItems( 'SEARCH', $navbaroptions, 'custom' ); ?>
 							<?php echo $skin->buildItems( 'Studienrichtungen', $navbaroptions, 'custom' ); ?>
+							<?php echo $skin->buildItems( 'PERSONAL', $navbaroptions, 'custom' ); ?>
 						</ul>
 						<ul class="col-md-3 nav navbar-nav navbar-collapse collapse skrifo-navbar-form">
 							<li class="nav hinzufugen">
@@ -738,6 +739,13 @@ class SkrifoHooks {
 		if( $visitor->equals( $pageowner ) ) { 
 			$homevisitor = true; 
 			}
+		$usercontact = '';
+		if( $pageowner->isEmailConfirmed() && !$homevisitor ) {
+			$usercontact = 'Kontaktiere mich<br>
+				<a href="' . Title::NewFromText( 'Special:E-Mail/' . $pageowner )->getFullURL() . '">
+					<span class="icon-nachricht"></span>
+				</a>';
+			}
 		$registration = DateTime::createFromFormat( "YmdHis", $pageowner->getRegistration() );
 		$contentclass = "col-md-offset-3 col-md-7 sk-reintext sk-hilfe";
 		$studienrichtungen = $output->parseinline( '{{#ask:[[Benutzer:' . $pageowner . ']]|mainlabel=-|?UserInterest=|link=none}}' );
@@ -797,7 +805,7 @@ class SkrifoHooks {
 								<span class="sk-user-value"><?php echo $registration->format( "j.n.Y" ); ?></span>
 							</div>
 							<div class="sk-user-studienrichtung">
-								Meine Studienrichtungen: 
+								<?php echo $homevisitor ? 'Meine ' : ''; ?>Studienrichtungen: 
 								<span class="sk-user-value">
 									<?php echo $studienrichtungen; ?>
 								</span>
@@ -816,10 +824,7 @@ class SkrifoHooks {
 							<?php echo $pageownerrole; ?>
 						</div>
 						<div class="user-contact">
-							Kontaktiere mich<br>
-							<a href="<?php echo Title::NewFromText( 'Special:E-Mail/' . $pageowner )->getFullURL(); ?>">
-								<span class="icon-nachricht"></span>
-							</a>
+							<?php echo $usercontact; ?>
 						</div>
 					</div>
 				</div>
@@ -832,11 +837,11 @@ class SkrifoHooks {
 					<div class="container-fluid">
 						<div class="row">
 							<div class="col-md-6 sk-user-created">
-								<h3>Von mir erstellte Lernunterlagen</h3>
+								<h3>Von <?php echo $homevisitor ? 'mir' : $pageownername; ?> erstellte Lernunterlagen</h3>
 								<?php echo $created; ?>
 							</div>
 							<div class="col-md-6 sk-user-authored">
-								<h3>Von mir bearbeitete Lernunterlagen</h3>
+								<h3>Von <?php echo $homevisitor ? 'mir' : $pageownername; ?> bearbeitete Lernunterlagen</h3>
 								<?php echo $bearbeitet; ?>
 							</div>
 						</div>	
