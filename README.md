@@ -10,12 +10,11 @@ that has also been developed for Skriptenforum.
 
 If you're cloning this repository and including the extension in your MediaWiki installation
 please be aware that some files will be missing:
-* our customized version of Bootstrap created with [Bootstrap's customization tool](http://getbootstrap.com/customize/)
 * the proprietary font files we're using on skriptenforum.net
 
 ## Licensing, Copying, Usage
 
-Skrifo extension is open source and licensed under GPLv2.
+Skrifo extension is open source and licensed under GPLv2. Bootstrap is licensed under MIT license.
 
 Please check out the [LICENSE file](https://github.com/thaider/Skrifo/blob/master/LICENSE) 
 for details.
