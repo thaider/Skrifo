@@ -163,8 +163,7 @@ $wgAutoPromote = array();
 
 wfLoadSkin( 'Tweeki' );
 $wgDefaultSkin = 'tweeki';
-$wgTweekiSkinHideable = array( 'firstHeading', 'subnav', 'sidebar', 'sidebar-left', 'sidebar-right' ); 
-$wgTweekiSkinHideAnon = array();
+$wgTweekiSkinHideable = array( 'firstHeading', 'sidebar-left', 'sidebar-right' ); 
 $wgTweekiSkinUseTooltips = true;
 $wgTweekiSkinUseBootstrapTheme = false;
 
@@ -180,7 +179,7 @@ $wgTweekiSkinPageRenderer = 'SkrifoHooks::PageRenderer';
 // Custom CSS
 $wgTweekiSkinCustomCSS[] = 'x.skrifo.styles';
 
-// Navigational Elements für Skrifo
+// Navigational Elements for Skrifo
 $wgTweekiSkinSpecialElements['STUDIENRICHTUNGEN'] = 'SkrifoNavigation::Studienrichtungen';
 $wgTweekiSkinSpecialElements['FOOTER'] = 'SkrifoNavigation::Footer';
 $wgTweekiSkinSpecialElements['SKRIFO-DOWNLOAD'] = 'SkrifoNavigation::Download';

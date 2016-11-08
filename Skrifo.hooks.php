@@ -693,7 +693,6 @@ class SkrifoHooks {
 			<div id="mw-head-base"></div>
 			<a id="top"></a>
 <?php	if( $namespace == 2 ) { 
-		$wgTweekiSkinHideAll[] = 'subnav';
 		self::UserPage( $skin ); 
 		}
 	else { ?>
@@ -713,7 +712,6 @@ class SkrifoHooks {
 	<?php } ?>
 	
 			<div class="<?php $skin->msg( 'tweeki-container-class' ); ?>">
-				<?php // $skin->renderSubnav( $subnavclass ); ?>
 			</div>
 			<?php if( $sidebar ) {
 				$skin->renderSidebar( 'left', $sidebarclass );
