@@ -111,7 +111,7 @@ $wgGroupPermissions['user']['move'] = false; # no right to move pages for regist
 
 ## stewards
 $wgGroupPermissions['Steward']['delete']           = true;
-$wgGroupPermissions['Steward']['deletedhistory']   = true; // can view deleted history entries, but not see or restore the text
+$wgGroupPermissions['Steward']['deletedhistory']   = true; # can view deleted history entries, but not see or restore the text
 $wgGroupPermissions['Steward']['undelete']         = true;
 $wgGroupPermissions['Steward']['editusercssjs']    = true;
 $wgGroupPermissions['Steward']['import']           = true;
@@ -143,7 +143,7 @@ $wgGroupPermissions['bureaucrat']['hideuser'] = true;
 $wgGroupPermissions['bureaucrat']['suppressrevision'] = true;
 $wgGroupPermissions['bureaucrat']['suppressionlog'] = true;
 
-## all rights for parsoid
+## all rights for parsoid (via localhost)
 if ( isset( $_SERVER['REMOTE_ADDR'] ) && $_SERVER['REMOTE_ADDR'] == '127.0.0.1' ) {
 	$wgGroupPermissions['*']['read'] = true;
 	$wgGroupPermissions['*']['edit'] = true;
@@ -161,16 +161,37 @@ $wgAutoPromote = array();
 # SKIN # 
 ########
 
-require_once( "$IP/skins/Tweeki/Tweeki.php" );
-//wfLoadSkin( 'Tweeki' );
+wfLoadSkin( 'Tweeki' );
+$wgDefaultSkin = 'tweeki';
 $wgTweekiSkinHideable = array( 'firstHeading', 'subnav', 'sidebar', 'sidebar-left', 'sidebar-right' ); 
 $wgTweekiSkinHideAnon = array();
-$wgTweekiSkinHideAll = array_merge( $wgTweekiSkinHideAll, array( 'footer-icons', 'footer-info-viewcount' ) );
-$wgTweekiSkinFooterIcons = false;
 $wgTweekiSkinUseTooltips = true;
 $wgTweekiSkinUseBootstrapTheme = false;
 
-$wgDefaultSkin = 'tweeki';
+// Custom Bootstrap Styles
+$wgTweekiSkinCustomizedBootstrap = array(
+	'localBasePath' => __DIR__,
+	'remoteExtPath' => 'Skrifo'
+	);
+
+// Custom Page Renderer
+$wgTweekiSkinPageRenderer = 'SkrifoHooks::PageRenderer';
+
+// Custom CSS
+$wgTweekiSkinCustomCSS[] = 'x.skrifo.styles';
+
+// Navigational Elements für Skrifo
+$wgTweekiSkinSpecialElements['STUDIENRICHTUNGEN'] = 'SkrifoNavigation::Studienrichtungen';
+$wgTweekiSkinSpecialElements['FOOTER'] = 'SkrifoNavigation::Footer';
+$wgTweekiSkinSpecialElements['SKRIFO-DOWNLOAD'] = 'SkrifoNavigation::Download';
+$wgTweekiSkinSpecialElements['SKRIFO-WATCH'] = 'SkrifoNavigation::Watch';
+$wgTweekiSkinSpecialElements['SKRIFO-TOTOP'] = 'SkrifoNavigation::ToTop';
+$wgTweekiSkinNavigationalElements['SKRIFO-EDIT'] = 'SkrifoNavigation::Edit';
+$wgTweekiSkinNavigationalElements['SKRIFO-LERNUNTERLAGEN'] = 'SkrifoNavigation::Lernunterlagen';
+$wgTweekiSkinSpecialElements['SKRIFO-DATEIEN'] = 'SkrifoNavigation::Dateien';
+$wgTweekiSkinSpecialElements['LOGIN-EXT'] = 'SkrifoNavigation::Login';
+$wgTweekiSkinSpecialElements['SKRIFO-EDITHINT'] = 'SkrifoNavigation::EditHint';
+
 
 ##############
 # EXTENSIONS #
@@ -179,10 +200,6 @@ $wgDefaultSkin = 'tweeki';
 wfLoadExtension( 'TemplateData' );
 // Set this to true to enable the TemplateData GUI editor
 $wgTemplateDataUseGUI = true;
-
-//require_once "$IP/extensions/UniversalLanguageSelector/UniversalLanguageSelector.php";
-$wgULSEnable = false; // disable because of troubles with default messages in de-at if automatically detected
-//TODO: is enabled USL a precondition for VE? if yes, find workaround (e.g. not using default messages like 'sidebar' in any place)
 
 require_once "$IP/extensions/VisualEditor/VisualEditor.php";
 $wgDefaultUserOptions['visualeditor-enable'] = 1;
@@ -194,10 +211,6 @@ $wgVirtualRestConfig['modules']['parsoid'] = array(
 );
 $wgVisualEditorSupportedSkins[] = 'tweeki';
 $wgVisualEditorDisableForAnons = true;
-
-//TODO: obsolete?
-//wfLoadExtension( 'CategoryTree' );
-$wgCategoryTreeCategoryPageOptions['mode'] = 'all';
 
 wfLoadExtension( 'SyntaxHighlight_GeSHi' );
 
@@ -244,10 +257,6 @@ include_once("$IP/extensions/SemanticInternalObjects/SemanticInternalObjects.php
 ## semantic result formats - enabling additional formats
 $srfgFormats[] = 'valuerank';
 
-//TODO: obsolete?
-## inputbox
-//require_once( "$IP/extensions/InputBox/InputBox.php" );
-
 ## lookupuser
 require_once( "$IP/extensions/LookupUser/LookupUser.php" );
 $wgGroupPermissions['*']['lookupuser'] = false;
@@ -256,20 +265,20 @@ $wgGroupPermissions['bureaucrat']['lookupuser'] = true;
 
 ## collection
 require_once("$IP/extensions/Collection/Collection.php");
+/* settings for using using own render server
 $wgCollectionFormats = array(
 	'rdf2latex' => 'PDF',
 	'rdf2text' => 'Plain text'
 );
-/*
 $wgCollectionFormatToServeURL['rdf2latex'] = 
 $wgCollectionFormatToServeURL['rdf2text'] = 'http://localhost:17080';
 $wgCommunityCollectionNamespace = NS_PROJECT;
 $wgEnableSidebarCache = false;
 $wgLicenseURL = "http://creativecommons.org/licenses/by-sa/3.0/";
 $wgCollectionPortletFormats = array( 'rdf2latex', 'rdf2text' );
+$wgCollectionMWServeURL = "http://localhost:8080";
+$wgCollectionMWServeCert = "";
 */
-#$wgCollectionMWServeURL = "http://localhost:8080";
-#$wgCollectionMWServeCert = "";
 $wgCollectionFormats = array(
            'rl' => 'PDF',
            'odf' => 'ODT',
@@ -279,16 +288,6 @@ $wgCollectionLicenseURL = 'https://skriptenforum.net/w/index.php?title=Skriptenf
 ## search log
 //require_once( "$IP/extensions/SearchLog/SearchLog.php" );
 //there was a problem with update.php and search log's sql
-
-## newuser message
-//include_once( "$IP/extensions/NewUserMessage/NewUserMessage.php" );
-
-## skrifoDocuments: Dokumente hochladen
-//require_once( "$IP/extensions/SkrifoDocuments/SkrifoDocuments.php" ); 
-
-## archivator
-//require_once( "$IP/extensions/SkrifoArchivator/SkrifoArchivator.php" ); 
-$wgSkrifoArchivatorRevisionLimit = 500;
 
 ## scribunto (lua)
 require_once "$IP/extensions/Scribunto/Scribunto.php";
@@ -302,6 +301,7 @@ $wgScribuntoUseGeSHi = true;
 $wgScribuntoUseCodeEditor = true;
 
 ## shibboleth
+//temporary disabled
 //require_once("$IP/extensions/ShibAuthPlugin/ShibAuthPluginConf.php");
 
 ## flagged revision
@@ -312,10 +312,6 @@ $wgScribuntoUseCodeEditor = true;
 # Groups (eduPersonScopedAffiliation: "faculty@...")
 $wgGroupPermissions['Lehrende']['review']    = true;
 $wgGroupPermissions['Lehrende']['validate']    = true;
-
-## UserMerge
-//require_once( "$IP/extensions/UserMerge/UserMerge.php" );
-$wgGroupPermissions['bureaucrat']['usermerge'] = true;
 
 ## ReplaceText
 require_once( "$IP/extensions/ReplaceText/ReplaceText.php" );
@@ -349,7 +345,6 @@ $wgContactConfig['default'] = array(
 );
 $wgCaptchaTriggers['contactpage'] = true;
 
-
 require_once "$IP/extensions/Piwik/Piwik.php";
 $wgPiwikURL = 'www.skriptenforum.net/piwik/';
 $wgPiwikIDSite = '1';
@@ -366,8 +361,3 @@ $wgCirrusSearchNamespaceWeights[ NS_FILE ] = 0.005;
 
 // SemanticExtraSpecialProperties
 $GLOBALS['sespSpecialProperties'] = array( '_EUSER' );
-
-// jQuery Migrate (required by Semantic Result Formats et al.)
-$wgIncludejQueryMigrate = true;
-
-

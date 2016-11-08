@@ -7,13 +7,13 @@
  * 
  * @author Tobias Haider <tobias@skriptenforum.net>
  * @license GPL v2 or later
- * @version 0.1.0
+ * @version 2.0
  */
 
-// SETTINGS LADEN
-// Damit eine Veröffentlichung auf github unproblematisch ist, enthält
-// Skrifo.settings.php einige der Konfigurationen, die normalerweise in
-// LocalSettings.php gesetzt würden
+// LOAD SETTINGS
+// To enable their publication on github without compromising our database
+// credentials some of the configuration settings that you would normally
+// find in LocalSettings.php have been moved to Skrifo.settings.php
 require_once( "Skrifo.settings.php" );
 
 
@@ -22,7 +22,7 @@ $wgExtensionCredits['other'][] = array(
 	'path' => __FILE__,
 	'name' => 'Skrifo',
 	'author' => array( 'Tobias Haider' ),
-	'version' => '0.1.0',
+	'version' => '2.0',
 	'url' => 'https://github.com/thaider/Skrifo',
 	'descriptionmsg' => 'skrifo-desc',
 );
@@ -30,16 +30,12 @@ $wgExtensionCredits['other'][] = array(
 $wgAutoloadClasses['SkrifoHooks'] = __DIR__ . '/Skrifo.hooks.php';
 $wgAutoloadClasses['SkrifoNavigation'] = __DIR__ . '/Skrifo.navigation.php';
 $wgAutoloadClasses['SpecialLernunterlageErstellen'] = __DIR__ . '/Skrifo.special.erstellen.php';
-$wgAutoloadClasses['SpecialVortragende'] = __DIR__ . '/Skrifo.special.vortragende.php'; // TODO: temp
-$wgAutoloadClasses['SpecialStudienrichtungen'] = __DIR__ . '/Skrifo.special.studienrichtungen.php'; // TODO: temp
 $wgMessagesDirs['Skrifo'] = __DIR__ . '/i18n';
 $wgExtensionMessagesFiles['SkrifoAlias'] = __DIR__ . '/Skrifo.alias.php';
 $wgExtensionMessagesFiles['SkrifoMagic'] = __DIR__ . '/Skrifo.i18n.magic.php';
 
 // SPECIAL PAGES
 $wgSpecialPages['LernunterlageErstellen'] = 'SpecialLernunterlageErstellen';
-$wgSpecialPages['Vortragende'] = 'SpecialVortragende';
-$wgSpecialPages['Studienrichtungen'] = 'SpecialStudienrichtungen';
 
 // RESOURCE MODULES
 $wgResourceModules['x.skrifo.styles'] = array(
@@ -58,80 +54,42 @@ $wgResourceModules['ext.skrifo.scripts'] = array(
 	'dependencies' => array( 'ext.semanticforms.select2' )
 );
 
-// Ressourcen für SHIBBOLETH
-// TODO: funktioniert noch nicht
-//$wgHooks['BeforePageDisplay'][] = 'SkrifoHooks::ShibbolethResources';
-$wgResourceModules['ext.Shibboleth.scripts'] = array(
-	'scripts' => array('idpselect_config.js','idpselect.js'),
-	'localBasePath' => '/usr/local/share/shibboleth-ds'
-);
-$wgResourceModules['ext.Shibboleth.styles'] = array(
-	'styles' => array('idpselect.css'),
-	'localBasePath' => '/usr/local/share/shibboleth-ds'
-);
 
+#########
+# HOOKS #
+#########
 
-// HOOKS
-
-// Resource Modules laden
+// Load Resource Modules
 $wgHooks['BeforePageDisplay'][] = 'SkrifoHooks::LoadScripts';
 
-// Link zum VisualEditor nur bei Skripten und Fragenausarbeitungen
+// Link to VisualEditor only for "Skripten" and "Fragenausarbeitungen"
 $wgHooks['SkinTemplateNavigation::Universal'][] = 'SkrifoHooks::HideVisualEditorInNavigation';
 
-// Link zur Administration hinzufügen
+// Add Link to Administration
 $wgHooks['PersonalUrls'][] = 'SkrifoHooks::AdminLink';
 
-// Bearbeiten-Link nur bei Skripten, Fragenausarbeitungen, Prüfungsfragen und für Poweruser
+// Edit Button Only For 'Lernunterlagen' and Powerusers
 $wgHooks['TweekiSkinHidden'][] = 'SkrifoHooks::HideEditButton';
 
-// BodyClass für Lernunterlagen hinzufügen
+// Add BodyClass For 'Lernunterlagen'
 $wgHooks['SkinTweekiAdditionalBodyClasses'][] = 'SkrifoHooks::AdditionalBodyClasses';
 
-//
+// Rename Link To User Page
 $wgHooks['PersonalUrls'][] = 'SkrifoHooks::ChangeLinkUserpage';
 
-// Login-Dropdown, Studienrichtungen
+// Add Dropdowns for Login and Fields of Study
 $wgHooks['ParserFirstCallInit'][] = 'SkrifoHooks::onParserSetup';
 
-// Styling der Suchergebnisse anpassen
+// Styling For Search Results
 $wgHooks['ShowSearchHitTitle'][] = 'SkrifoHooks::onShowSearchHitTitle';
 
-// Lehrveranstaltung und Lernunterlagen gleichzeitig umbenennen
+// Rename course and "Lernunterlagen" simultaneously
 $wgHooks['TitleMoveComplete'][] = 'SkrifoHooks::onTitleMoveComplete';
 
 
-// GLOBALE VARIABLEN
+// Global Variables
 $wgSkrifoLernunterlagenNS = array( 
 	'skriptum' => 'Skriptum',
 	'fragenausarbeitung' => 'Fragenausarbeitung',
 	'pruefungsfragen' => 'Prüfungsfragen'
 	);
-
-
-// Anpassungen der TWEEKI skin 
-// siehe http://tweeki.thai-land.at/
-
-// TWEEKI Custom Bootstrap-Dateien
-$wgTweekiSkinCustomizedBootstrap = array(
-	'localBasePath' => __DIR__,
-	'remoteExtPath' => 'Skrifo'
-	);
-
-// TWEEKI Custom Page Renderer
-$wgTweekiSkinPageRenderer = 'SkrifoHooks::PageRenderer';
-
-// TWEEKI Custom CSS
-$wgTweekiSkinCustomCSS[] = 'x.skrifo.styles';
-
-// TWEEKI Navigational Elements für Skrifo
-$wgTweekiSkinSpecialElements['STUDIENRICHTUNGEN'] = 'SkrifoNavigation::Studienrichtungen';
-$wgTweekiSkinSpecialElements['FOOTER'] = 'SkrifoNavigation::Footer';
-$wgTweekiSkinSpecialElements['SKRIFO-DOWNLOAD'] = 'SkrifoNavigation::Download';
-$wgTweekiSkinSpecialElements['SKRIFO-WATCH'] = 'SkrifoNavigation::Watch';
-$wgTweekiSkinSpecialElements['SKRIFO-TOTOP'] = 'SkrifoNavigation::ToTop';
-$wgTweekiSkinNavigationalElements['SKRIFO-EDIT'] = 'SkrifoNavigation::Edit';
-$wgTweekiSkinNavigationalElements['SKRIFO-LERNUNTERLAGEN'] = 'SkrifoNavigation::Lernunterlagen';
-$wgTweekiSkinSpecialElements['SKRIFO-DATEIEN'] = 'SkrifoNavigation::Dateien';
-$wgTweekiSkinSpecialElements['LOGIN-EXT'] = 'SkrifoNavigation::Login';
-$wgTweekiSkinSpecialElements['SKRIFO-EDITHINT'] = 'SkrifoNavigation::EditHint';
