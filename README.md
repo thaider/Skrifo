@@ -14,13 +14,13 @@ please be aware that some files will be missing:
 
 ## Documentation
 
-Some hints on how to use this extension as a starting point for your own project can be found at the [documentation page for Tweeki](http://tweeki.thai-land.at/wiki/Setup_for_skriptenforum.net).
+Some hints on how to use this extension as a starting point for your own project can be found at the 
+[documentation page for Tweeki](http://tweeki.thai-land.at/wiki/Setup_for_skriptenforum.net).
 
 ## Licensing, Copying, Usage
 
 Skrifo extension is open source and licensed under GPLv2. Bootstrap is licensed under MIT license.
 
-Please check out the [LICENSE file](https://github.com/thaider/Skrifo/blob/master/LICENSE) 
-for details.
-
-If you reuse significant parts of Skriptenforum's design—which you're encouraged to do—it would be appreciated to acknowledge the designer, Tim Jahn (http://www.timjahn.at).
+All artwork and graphical design (except the duck logo) is licensed unter 
+[Creative Commons BY-SA 4.0](https://creativecommons.org/licenses/by-sa/4.0/) by 
+[Tim Jahn](http://timjahn.at/).
