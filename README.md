@@ -18,3 +18,5 @@ Skrifo extension is open source and licensed under GPLv2. Bootstrap is licensed 
 
 Please check out the [LICENSE file](https://github.com/thaider/Skrifo/blob/master/LICENSE) 
 for details.
+
+If you reuse significant parts of Skriptenforum's design—which you're encouraged to do—it would be appreciated if you acknowledge it's creator, Tim Jahn (http://www.timjahn.at).
